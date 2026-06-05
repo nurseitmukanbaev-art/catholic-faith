@@ -881,6 +881,13 @@ html[data-theme="dark"] .guide-btn.primary {
   line-height: 1.8;
 }
 
+/* Each invocation reads as its own block with a soft left rail,
+   so the call-and-response rhythm is easy to follow at a glance. */
+.litany-text p {
+  border-left: 3px solid var(--border);
+  padding-left: 16px;
+}
+
 .litany-text p + p {
   margin-top: 12px;
 }
