@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>The Mass — Catholic Faith</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION BAR  (identical to the other pages)
+       ============================================================ -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">✝ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
+    <div class="nav-links">
+      <a href="index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
+      <a href="saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Prayer</span><span class="lang lang-fr">Prière</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
+          <a href="rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
+          <a href="stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Faith</span><span class="lang lang-fr">La Foi</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
+          <a href="sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
+        </div>
+      </div>
+
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+      </div>
+
+      <div class="palette-picker">
+        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet"></button>
+        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red"></button>
+        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue"></button>
+        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green"></button>
+      </div>
+
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton">🌙</button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       THE MASS CONTENT
+       The four parts of the Mass, each as a card. To edit a part,
+       change the name and the description inside its <article>.
+       ============================================================ -->
+  <main class="saints-main">
+    <h1 class="page-title">
+      <span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span>
+    </h1>
+    <p class="page-subtitle">
+      <span class="lang lang-en">The source and summit of the Christian life, unfolding in four movements.</span>
+      <span class="lang lang-fr">La source et le sommet de la vie chrétienne, qui se déploie en quatre temps.</span>
+    </p>
+
+    <div class="saints-grid">
+
+      <article class="saint-card">
+        <div class="saint-avatar">🕊️</div>
+        <h2 class="saint-name"><span class="lang lang-en">Introductory Rites</span><span class="lang lang-fr">Rites d'ouverture</span></h2>
+        <p class="saint-feast">📖 <span class="lang lang-en">The Gathering</span><span class="lang lang-fr">Le rassemblement</span></p>
+        <p class="saint-bio"><span class="lang lang-en">The faithful gather and are made one. The priest enters, we make the Sign of the Cross, and in the Penitential Act we ask God's mercy. On Sundays and feasts the Gloria is sung in praise, and the Collect gathers our prayers into one.</span><span class="lang lang-fr">Les fidèles se rassemblent et ne font plus qu'un. Le prêtre entre, nous faisons le signe de la croix, et dans la préparation pénitentielle nous demandons la miséricorde de Dieu. Les dimanches et les fêtes, le Gloria est chanté en louange, et la prière d'ouverture rassemble nos intentions en une seule.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">📖</div>
+        <h2 class="saint-name"><span class="lang lang-en">Liturgy of the Word</span><span class="lang lang-fr">Liturgie de la Parole</span></h2>
+        <p class="saint-feast">📖 <span class="lang lang-en">God Speaks</span><span class="lang lang-fr">Dieu nous parle</span></p>
+        <p class="saint-bio"><span class="lang lang-en">God speaks to his people through Sacred Scripture. We hear a First Reading, a Psalm, often a Second Reading, and then the Gospel. The priest or deacon preaches the homily, we profess the Creed, and we offer the Prayer of the Faithful.</span><span class="lang lang-fr">Dieu parle à son peuple à travers les Saintes Écritures. Nous écoutons une première lecture, un psaume, souvent une deuxième lecture, puis l'Évangile. Le prêtre ou le diacre prononce l'homélie, nous professons le Credo, et nous présentons la prière universelle.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🍷</div>
+        <h2 class="saint-name"><span class="lang lang-en">Liturgy of the Eucharist</span><span class="lang lang-fr">Liturgie de l'Eucharistie</span></h2>
+        <p class="saint-feast">📖 <span class="lang lang-en">The Sacrifice</span><span class="lang lang-fr">Le sacrifice</span></p>
+        <p class="saint-bio"><span class="lang lang-en">Bread and wine are brought to the altar. In the Eucharistic Prayer, through the words of Christ, they become his Body and Blood. We pray the Our Father, share a sign of peace, and receive Holy Communion — the Lord himself, truly present.</span><span class="lang lang-fr">Le pain et le vin sont apportés à l'autel. Dans la prière eucharistique, par les paroles du Christ, ils deviennent son Corps et son Sang. Nous prions le Notre Père, échangeons un geste de paix, et recevons la sainte communion — le Seigneur lui-même, vraiment présent.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">✝</div>
+        <h2 class="saint-name"><span class="lang lang-en">Concluding Rites</span><span class="lang lang-fr">Rites de conclusion</span></h2>
+        <p class="saint-feast">📖 <span class="lang lang-en">The Sending</span><span class="lang lang-fr">L'envoi</span></p>
+        <p class="saint-bio"><span class="lang lang-en">Strengthened by Christ, we are sent out. The priest blesses the people in the name of the Father, the Son, and the Holy Spirit, and dismisses us to "go in peace, glorifying the Lord by your life" — to carry what we have received into the world.</span><span class="lang lang-fr">Fortifiés par le Christ, nous sommes envoyés. Le prêtre bénit le peuple au nom du Père, du Fils et du Saint-Esprit, et nous renvoie pour « aller dans la paix du Christ » — afin de porter dans le monde ce que nous avons reçu.</span></p>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p class="footer-credit">
+      <span class="lang lang-en">English Scripture quotations are from the New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. French Scripture: Bible Louis Segond (1910), public domain. Traditional prayers are in the public domain.</span>
+      <span class="lang lang-fr">Citations bibliques anglaises : New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. Citations bibliques françaises : Bible Louis Segond (1910), domaine public. Les prières traditionnelles sont dans le domaine public.</span>
+    </p>
+    <p>© 2026 Nurseit Mukanbaev (Catholic Faith). All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+Copyright © 2026 Nurseit Mukanbaev (Catholic Faith).
+All rights reserved.
+
+This website — including its design, layout, original written text, and
+source code (the HTML, CSS, and JavaScript files) — is the property of
+Nurseit Mukanbaev.
+
+You are welcome to view the site and use it for personal prayer and
+devotion. You may NOT copy, reproduce, republish, distribute, sell, or
+create derivative works from any part of this website without the prior
+written permission of the owner.
+
+----------------------------------------------------------------------
+Third-party material (NOT owned by the above, with its own terms)
+----------------------------------------------------------------------
+
+- English Scripture quotations are from the New Revised Standard Version
+  Bible, copyright © 1989 the National Council of the Churches of Christ
+  in the United States of America. Used by permission. All rights reserved.
+
+- French Scripture quotations are from the Bible Louis Segond (1910),
+  which is in the public domain.
+
+- The traditional Catholic prayers quoted on this site (e.g. the Memorare,
+  Anima Christi, the Angelus) are in the public domain.
+
+These third-party texts remain under their own respective terms and are not
+claimed as the owner's property.
+
+----------------------------------------------------------------------
+
+For permission requests or inquiries, please contact the site owner.

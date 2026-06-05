@@ -1,0 +1,883 @@
+/* ============================================================
+   SHARED STYLES for the whole site.
+   Every page links to this one file, so editing it here
+   updates EVERY page at once. That's the goal you wanted:
+   edit in one place.
+   ============================================================ */
+
+/* -----------------------------------------------------------
+   THEME COLORS  --  EDIT THESE to restyle the whole site.
+   These are "CSS variables": define a color once, reuse it
+   everywhere by name (e.g. var(--gold)).
+   ----------------------------------------------------------- */
+:root {
+  --bg:        #faf7f0;  /* page background — soft ivory/parchment */
+  --surface:   #ffffff;  /* cards background — white */
+  --text:      #2b2622;  /* main text — warm near-black */
+  --muted:     #6b6358;  /* secondary text — soft brown-grey */
+  --gold:      #b8893b;  /* accent — liturgical gold (constant) */
+  --primary:   #4a2c6f;  /* MAIN accent — set by the palette picker */
+  --border:    #e7e0d3;  /* subtle card borders */
+  --radius:    16px;     /* how rounded the corners are */
+  --hero-top:  #f3ede0;  /* top of the hero's gentle gradient */
+}
+
+/* -----------------------------------------------------------
+   DARK MODE COLORS
+   Only applies when <html> has data-theme="dark".
+   Same variable names, dark values.
+   ----------------------------------------------------------- */
+html[data-theme="dark"] {
+  --bg:        #0a0a0a;  /* deep neutral near-black */
+  --surface:   #1a1a18;  /* slightly lighter for cards */
+  --text:      #e9e6df;  /* soft cream text */
+  --muted:     #8f8a80;  /* gentle muted grey */
+  --gold:      #c2a36b;  /* soft antique gold (desaturated) */
+  --primary:   #c9a9e6;  /* default dark accent — palette overrides it */
+  --border:    #2a2a26;  /* subtle dark border */
+  --hero-top:  #0a0a0a;  /* same as --bg -> flat, no bright shine */
+}
+
+/* -----------------------------------------------------------
+   COLOR PALETTES (the visitor chooses one)
+   Each palette only swaps --primary, the main accent. Gold
+   stays constant so every palette keeps a liturgical thread.
+   JS sets data-palette on <html>, just like data-theme.
+   ----------------------------------------------------------- */
+/* Light mode versions */
+html[data-palette="violet"]   { --primary: #4a2c6f; }  /* deep violet */
+html[data-palette="cardinal"] { --primary: #6e1423; }  /* cardinal red */
+html[data-palette="blue"]     { --primary: #1f3a6e; }  /* Marian blue */
+html[data-palette="green"]    { --primary: #1f5c3a; }  /* Ordinary Time green */
+
+/* Dark mode versions (lighter, so they stay readable on black).
+   These have higher specificity, so in dark mode they win. */
+html[data-theme="dark"][data-palette="violet"]   { --primary: #c9a9e6; }
+html[data-theme="dark"][data-palette="cardinal"] { --primary: #e3a6b1; }
+html[data-theme="dark"][data-palette="blue"]     { --primary: #9fb8e6; }
+html[data-theme="dark"][data-palette="green"]    { --primary: #8fc2a6; }
+
+/* Make color changes fade smoothly when toggling themes. */
+body, .navbar, .card, .footer, .day-btn, .mystery {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* '*' = every element. Resets spacing, predictable sizing. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ---------------- TOP NAVIGATION BAR ---------------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--surface);
+}
+
+.navbar .logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+/* ============================================================
+   DROPDOWN MENUS in the nav ("Prayer ▾" and "Faith ▾")
+   No JavaScript needed: the menu opens when you hover over it
+   (desktop) or tap/focus it (mobile & keyboard). The toggle is
+   a <button> styled to look exactly like the other nav links.
+   ============================================================ */
+.dropdown {
+  position: relative;
+}
+
+/* The "Prayer ▾" / "Faith ▾" button — matches the nav links. */
+.dropdown-toggle {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.dropdown:hover .dropdown-toggle,
+.dropdown:focus-within .dropdown-toggle {
+  color: var(--gold);
+}
+
+/* The little panel that drops down. Hidden until hover/focus. */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;                 /* directly below the button */
+  left: 0;
+  min-width: 210px;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background-color: var(--surface);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+}
+
+/* A transparent bridge so the menu doesn't close in the gap
+   between the button and the panel while moving the mouse. */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu a {
+  white-space: nowrap;
+}
+
+/* The dark/light toggle button. */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--gold);
+  transform: rotate(20deg);
+}
+
+/* The palette picker: three little color dots in the nav. */
+.palette-picker {
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;             /* round dots */
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s;
+}
+
+.swatch:hover {
+  transform: scale(1.15);
+}
+
+/* The currently-chosen palette gets a ring around it. */
+.swatch.active {
+  border-color: var(--text);
+}
+
+/* ============================================================
+   LANGUAGES  (EN / FR site-wide, + Latin titles on the rosary)
+   Same data-attribute trick: data-lang on <html>.
+   Text wrapped in <span class="lang lang-en"> shows only for
+   English; lang-fr only for French. Text WITHOUT a .lang class
+   has no language, so it always shows (no blanks).
+   ============================================================ */
+.lang { display: none; }                 /* hide every language span... */
+html[data-lang="en"] .lang-en,
+html[data-lang="fr"] .lang-fr {
+  display: inline;                        /* ...then reveal the active one */
+}
+
+/* Latin titles on the rosary, toggled by the Latin button.
+   When data-latin="on", the EN/FR title spans hide and the
+   Latin one shows — but only inside titles, so the readings
+   and meanings keep your chosen EN/FR. */
+.latin-name { display: none; }
+html[data-latin="on"] .name .lang,
+html[data-latin="on"] .mystery-set-name .lang { display: none; }
+html[data-latin="on"] .name .latin-name,
+html[data-latin="on"] .mystery-set-name .latin-name { display: inline; }
+
+/* On the Prayers page the Latin toggle covers BOTH the prayer
+   title (.saint-name) and the full prayer text (.saint-bio),
+   so a whole prayer can be read in Latin. */
+html[data-latin="on"] .saint-name .lang,
+html[data-latin="on"] .saint-bio .lang { display: none; }
+html[data-latin="on"] .saint-name .latin-name,
+html[data-latin="on"] .saint-bio .latin-name { display: inline; }
+
+/* The EN / FR buttons in the nav. */
+.lang-switch {
+  display: flex;
+  gap: 4px;
+}
+
+.lang-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn:hover { border-color: var(--gold); }
+
+.lang-btn.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* The "Latin" toggle on the rosary page. */
+.latin-toggle {
+  display: block;
+  margin: 0 auto 30px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.latin-toggle:hover { border-color: var(--gold); }
+
+.latin-toggle.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* In dark mode the accent is light, so use dark text on active
+   buttons to keep them readable. */
+html[data-theme="dark"] .day-btn.active,
+html[data-theme="dark"] .lang-btn.active,
+html[data-theme="dark"] .latin-toggle.active {
+  color: #14120f;
+}
+
+/* ============================================================
+   SAINTS PAGE
+   ============================================================ */
+.saints-main {
+  padding: 50px 24px 80px;
+}
+
+.saints-grid {
+  display: grid;
+  /* fit as many cards as will fit; each at least 280px wide. */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.saint-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px 26px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.saint-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* The round avatar at the top of each card (an emoji for now). */
+.saint-avatar {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+}
+
+/* Ready for when you add real photos — a drop-in replacement
+   for .saint-avatar (see the comment in saints.html). */
+.saint-photo {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  object-fit: cover;            /* crop the photo neatly into the circle */
+  border: 2px solid var(--gold);
+  display: block;
+}
+
+.saint-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.saint-feast {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.saint-bio {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  text-align: left;
+}
+
+/* ----- Patronage tags (little chips on each saint card) ----- */
+.saint-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.saint-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+/* ============================================================
+   SAINTS PAGE — SEARCH, FILTER, SORT & A–Z CONTROLS
+   ============================================================ */
+.saints-controls {
+  max-width: 1000px;
+  margin: 0 auto 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* The search box. */
+.saints-search {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+.saints-search:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* A row of buttons — used for both category and sort. */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover { border-color: var(--gold); }
+
+.filter-btn.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Small label before the sort buttons ("Sort:"). */
+.filter-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-right: 2px;
+}
+
+/* The A–Z jump bar. */
+.az-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+.az-letter {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.az-letter:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* A letter or month heading that splits the grid into sections. */
+.saints-divider {
+  grid-column: 1 / -1;          /* span the whole grid width */
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin: 12px 0 4px;
+  scroll-margin-top: 90px;      /* so jumps don't hide under the navbar */
+}
+
+/* Shown when a search/filter matches no saints. */
+.saints-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
+}
+
+/* ---------------- HERO (the big welcome area) ---------------- */
+.hero {
+  text-align: center;
+  padding: 90px 20px 70px;
+  background: linear-gradient(180deg, var(--hero-top) 0%, var(--bg) 100%);
+}
+
+.hero .cross {
+  font-size: 40px;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: 56px;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 19px;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ---------------- THE THREE CARDS (home page) ---------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 70px 40px;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 30px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(94, 31, 45, 0.12);
+}
+
+.card .icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  font-size: 26px;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.footer .verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* The small attribution / copyright credit line. */
+.footer-credit {
+  max-width: 640px;
+  margin: 0 auto 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------------- PRAYER OF THE DAY (home page) ----------------
+   A single featured card that sits between the hero and the three
+   nav cards. script.js fills in the name + text. */
+.daily-prayer {
+  max-width: 720px;
+  margin: 10px auto 0;
+  padding: 44px 40px;
+  text-align: center;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);   /* a thin liturgical-gold accent */
+  border-radius: var(--radius);
+}
+
+.daily-prayer-label {
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.daily-prayer-name {
+  font-size: 30px;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.daily-prayer-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--text);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ---------------- HOME PAGE: WELCOME & DAILY ELEMENTS ----------------
+   The home page reads like a small daily devotional: a welcome,
+   today's date & season, the Prayer of the Day, a Verse of the Day,
+   and a shortcut to today's Rosary. */
+
+/* The warm welcome line under the hero subtitle. */
+.hero-welcome {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 21px !important;       /* override the generic .hero p size */
+  color: var(--text) !important;
+  max-width: 620px;
+  margin: 22px auto 0;
+  line-height: 1.6;
+}
+
+/* "Thursday, 5 June · Ordinary Time" with a small season-color dot. */
+.today-line {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 26px auto 4px;
+}
+
+.season-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: baseline;
+  /* the actual color is set by script.js to the liturgical color */
+}
+
+/* Verse of the Day — a plain centered block (no box), so it feels
+   lighter than the boxed Prayer of the Day above it. */
+.daily-verse {
+  max-width: 600px;
+  margin: 48px auto 0;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.daily-verse-label {
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.daily-verse-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Today's Rosary — a gentle call-to-action link. */
+.today-rosary {
+  text-align: center;
+  margin: 44px auto 80px;
+}
+
+.today-rosary-link {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--primary);
+  padding: 12px 26px;
+  border: 1px solid var(--primary);
+  border-radius: 999px;
+  transition: all 0.2s;
+}
+
+.today-rosary-link:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* ============================================================
+   ROSARY PAGE
+   Styles used only on rosaries.html.
+   ============================================================ */
+
+/* A centered container so content isn't too wide on big screens. */
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 50px 24px 80px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 44px;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+.page-subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+
+/* The row of day buttons. flex-wrap lets them wrap on phones. */
+.day-selector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+/* Each day is a "pill" button. */
+.day-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 999px;          /* fully rounded pill */
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day-btn:hover {
+  border-color: var(--gold);
+}
+
+/* The currently-selected day. JS adds the "active" class. */
+.day-btn.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* A mystery panel is HIDDEN by default... */
+.mystery-panel {
+  display: none;
+}
+
+/* ...and SHOWN only when it has the "active" class (added by JS). */
+.mystery-panel.active {
+  display: block;
+}
+
+.mystery-set-name {
+  text-align: center;
+  font-size: 32px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.mystery-set-days {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+/* One mystery = a number on the left, and its story on the right. */
+.mystery {
+  display: flex;
+  align-items: flex-start;              /* line things up at the top */
+  gap: 18px;
+  padding: 22px;
+  margin-bottom: 14px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);   /* gold accent bar on the left */
+  border-radius: var(--radius);
+}
+
+.mystery .num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 26px;
+  line-height: 1.3;
+}
+
+/* The name of the mystery. */
+.mystery .name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+/* The short Scripture reading (shown in italics). */
+.mystery .reading {
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* The meaning / purpose ("fruit") of the mystery. */
+.mystery .meaning {
+  font-size: 15px;
+  color: var(--muted);
+}

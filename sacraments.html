@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>The Sacraments — Catholic Faith</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION BAR  (identical to the other pages)
+       ============================================================ -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">✝ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
+    <div class="nav-links">
+      <a href="index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
+      <a href="saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Prayer</span><span class="lang lang-fr">Prière</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
+          <a href="rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
+          <a href="stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Faith</span><span class="lang lang-fr">La Foi</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
+          <a href="sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
+        </div>
+      </div>
+
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+      </div>
+
+      <div class="palette-picker">
+        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet"></button>
+        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red"></button>
+        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue"></button>
+        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green"></button>
+      </div>
+
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton">🌙</button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       THE SACRAMENTS CONTENT
+       The seven sacraments, each as a card. To edit one, change
+       the name, the category line, and the description.
+       ============================================================ -->
+  <main class="saints-main">
+    <h1 class="page-title">
+      <span class="lang lang-en">The Seven Sacraments</span><span class="lang lang-fr">Les Sept Sacrements</span>
+    </h1>
+    <p class="page-subtitle">
+      <span class="lang lang-en">Sacred signs instituted by Christ to give us grace at every stage of life.</span>
+      <span class="lang lang-fr">Des signes sacrés institués par le Christ pour nous donner la grâce à chaque étape de la vie.</span>
+    </p>
+
+    <div class="saints-grid">
+
+      <article class="saint-card">
+        <div class="saint-avatar">💧</div>
+        <h2 class="saint-name"><span class="lang lang-en">Baptism</span><span class="lang lang-fr">Le Baptême</span></h2>
+        <p class="saint-feast">✨ <span class="lang lang-en">Sacrament of Initiation</span><span class="lang lang-fr">Sacrement de l'initiation</span></p>
+        <p class="saint-bio"><span class="lang lang-en">The first sacrament and the doorway to all the others. Through water and the Holy Spirit, original sin is washed away, we are reborn as children of God, and made members of the Church.</span><span class="lang lang-fr">Le premier sacrement et la porte de tous les autres. Par l'eau et l'Esprit-Saint, le péché originel est effacé, nous renaissons comme enfants de Dieu et devenons membres de l'Église.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🔥</div>
+        <h2 class="saint-name"><span class="lang lang-en">Confirmation</span><span class="lang lang-fr">La Confirmation</span></h2>
+        <p class="saint-feast">✨ <span class="lang lang-en">Sacrament of Initiation</span><span class="lang lang-fr">Sacrement de l'initiation</span></p>
+        <p class="saint-bio"><span class="lang lang-en">The gift of the Holy Spirit, sealing and strengthening the grace of Baptism. Anointed with sacred chrism, the believer is equipped to live and defend the faith as a soldier of Christ.</span><span class="lang lang-fr">Le don de l'Esprit-Saint, qui scelle et fortifie la grâce du Baptême. Oint du saint chrême, le croyant est équipé pour vivre et défendre la foi comme un soldat du Christ.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🍞</div>
+        <h2 class="saint-name"><span class="lang lang-en">The Eucharist</span><span class="lang lang-fr">L'Eucharistie</span></h2>
+        <p class="saint-feast">✨ <span class="lang lang-en">Sacrament of Initiation</span><span class="lang lang-fr">Sacrement de l'initiation</span></p>
+        <p class="saint-bio"><span class="lang lang-en">The source and summit of the Christian life. Under the appearances of bread and wine, we receive the true Body and Blood, Soul and Divinity of Jesus Christ himself.</span><span class="lang lang-fr">La source et le sommet de la vie chrétienne. Sous les apparences du pain et du vin, nous recevons le vrai Corps et le Sang, l'Âme et la Divinité de Jésus-Christ lui-même.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🕊️</div>
+        <h2 class="saint-name"><span class="lang lang-en">Penance</span><span class="lang lang-fr">La Pénitence</span></h2>
+        <p class="saint-feast">💗 <span class="lang lang-en">Sacrament of Healing</span><span class="lang lang-fr">Sacrement de guérison</span></p>
+        <p class="saint-bio"><span class="lang lang-en">Also called Confession or Reconciliation. Through sincere sorrow and the priest's absolution, God forgives the sins committed after Baptism and restores us to his friendship.</span><span class="lang lang-fr">Appelé aussi Confession ou Réconciliation. Par un repentir sincère et l'absolution du prêtre, Dieu pardonne les péchés commis après le Baptême et nous rend son amitié.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🙏</div>
+        <h2 class="saint-name"><span class="lang lang-en">Anointing of the Sick</span><span class="lang lang-fr">L'Onction des malades</span></h2>
+        <p class="saint-feast">💗 <span class="lang lang-en">Sacrament of Healing</span><span class="lang lang-fr">Sacrement de guérison</span></p>
+        <p class="saint-bio"><span class="lang lang-en">A grace of comfort, peace, and courage for those who are seriously ill or near death. Anointed with holy oil, the sick are united to the suffering of Christ and may receive healing of body and soul.</span><span class="lang lang-fr">Une grâce de réconfort, de paix et de courage pour les personnes gravement malades ou proches de la mort. Oints de l'huile sainte, les malades sont unis à la souffrance du Christ et peuvent recevoir la guérison du corps et de l'âme.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">⛪</div>
+        <h2 class="saint-name"><span class="lang lang-en">Holy Orders</span><span class="lang lang-fr">L'Ordre</span></h2>
+        <p class="saint-feast">🤝 <span class="lang lang-en">Sacrament of Service</span><span class="lang lang-fr">Sacrement du service</span></p>
+        <p class="saint-bio"><span class="lang lang-en">By which bishops, priests, and deacons are consecrated to serve the Church in the person of Christ. Through the laying on of hands, they are given the grace to teach, sanctify, and shepherd God's people.</span><span class="lang lang-fr">Par lequel les évêques, les prêtres et les diacres sont consacrés pour servir l'Église en la personne du Christ. Par l'imposition des mains, ils reçoivent la grâce d'enseigner, de sanctifier et de guider le peuple de Dieu.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">💍</div>
+        <h2 class="saint-name"><span class="lang lang-en">Matrimony</span><span class="lang lang-fr">Le Mariage</span></h2>
+        <p class="saint-feast">🤝 <span class="lang lang-en">Sacrament of Service</span><span class="lang lang-fr">Sacrement du service</span></p>
+        <p class="saint-bio"><span class="lang lang-en">The lifelong covenant of love between a man and a woman, raised by Christ to a sacrament. It signifies the union of Christ and his Church and is ordered toward the good of the spouses and their children.</span><span class="lang lang-fr">L'alliance d'amour, pour toute la vie, entre un homme et une femme, élevée par le Christ au rang de sacrement. Elle signifie l'union du Christ et de son Église et est ordonnée au bien des époux et de leurs enfants.</span></p>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p class="footer-credit">
+      <span class="lang lang-en">English Scripture quotations are from the New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. French Scripture: Bible Louis Segond (1910), public domain. Traditional prayers are in the public domain.</span>
+      <span class="lang lang-fr">Citations bibliques anglaises : New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. Citations bibliques françaises : Bible Louis Segond (1910), domaine public. Les prières traditionnelles sont dans le domaine public.</span>
+    </p>
+    <p>© 2026 Nurseit Mukanbaev (Catholic Faith). All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

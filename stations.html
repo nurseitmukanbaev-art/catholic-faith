@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Stations of the Cross — Catholic Faith</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION BAR  (identical to the other pages)
+       ============================================================ -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">✝ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
+    <div class="nav-links">
+      <a href="index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
+      <a href="saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Prayer</span><span class="lang lang-fr">Prière</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
+          <a href="rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
+          <a href="stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Faith</span><span class="lang lang-fr">La Foi</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
+          <a href="sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
+        </div>
+      </div>
+
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+      </div>
+
+      <div class="palette-picker">
+        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet"></button>
+        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red"></button>
+        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue"></button>
+        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green"></button>
+      </div>
+
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton">🌙</button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       STATIONS OF THE CROSS CONTENT
+       The traditional fourteen stations, each as a card with a
+       short reflection. To edit one, change its name and text.
+       ============================================================ -->
+  <main class="saints-main">
+    <h1 class="page-title">
+      <span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span>
+    </h1>
+    <p class="page-subtitle">
+      <span class="lang lang-en">Walk with Jesus along the way to Calvary, pausing at each step of his Passion.</span>
+      <span class="lang lang-fr">Marchez avec Jésus sur le chemin du Calvaire, en vous arrêtant à chaque étape de sa Passion.</span>
+    </p>
+
+    <div class="saints-grid">
+
+      <article class="saint-card">
+        <div class="saint-avatar">1</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus is condemned to death</span><span class="lang lang-fr">Jésus est condamné à mort</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Pilate, fearing the crowd, hands the innocent Lord over to be crucified. Jesus accepts the unjust sentence in silence, out of love for us.</span><span class="lang lang-fr">Pilate, craignant la foule, livre le Seigneur innocent pour être crucifié. Jésus accepte la sentence injuste en silence, par amour pour nous.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">2</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus takes up his Cross</span><span class="lang lang-fr">Jésus est chargé de sa croix</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">The heavy wood is laid upon his shoulders. He embraces it willingly, making it the instrument of our salvation.</span><span class="lang lang-fr">Le bois lourd est posé sur ses épaules. Il l'embrasse volontiers, en faisant l'instrument de notre salut.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">3</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus falls the first time</span><span class="lang lang-fr">Jésus tombe pour la première fois</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Weakened and exhausted, Jesus falls beneath the weight of the Cross — and the weight of our sins. Yet he rises again to continue.</span><span class="lang lang-fr">Affaibli et épuisé, Jésus tombe sous le poids de la croix — et sous le poids de nos péchés. Pourtant il se relève pour continuer.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">4</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus meets his Mother</span><span class="lang lang-fr">Jésus rencontre sa Mère</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">On the road of sorrow, the eyes of Jesus meet those of Mary. No words are needed; her loving heart is pierced with his.</span><span class="lang lang-fr">Sur le chemin de la douleur, les yeux de Jésus rencontrent ceux de Marie. Aucune parole n'est nécessaire ; son cœur aimant est transpercé avec le sien.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">5</div>
+        <h2 class="saint-name"><span class="lang lang-en">Simon helps to carry the Cross</span><span class="lang lang-fr">Simon aide Jésus à porter sa croix</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Simon of Cyrene is compelled to help carry the Cross. What begins as a burden becomes a share in the Lord's redeeming work.</span><span class="lang lang-fr">Simon de Cyrène est contraint d'aider à porter la croix. Ce qui commence comme un fardeau devient une part dans l'œuvre rédemptrice du Seigneur.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">6</div>
+        <h2 class="saint-name"><span class="lang lang-en">Veronica wipes the face of Jesus</span><span class="lang lang-fr">Véronique essuie le visage de Jésus</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">A compassionate woman steps forward to wipe his blood-stained face. In return, his image is left upon her veil.</span><span class="lang lang-fr">Une femme pleine de compassion s'avance pour essuyer son visage ensanglanté. En retour, son image reste imprimée sur son voile.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">7</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus falls the second time</span><span class="lang lang-fr">Jésus tombe pour la deuxième fois</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Again he stumbles and falls to the ground. Though weary beyond measure, his love for us gives him strength to go on.</span><span class="lang lang-fr">De nouveau il trébuche et tombe à terre. Bien qu'épuisé au-delà de toute mesure, son amour pour nous lui donne la force de continuer.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">8</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus meets the women of Jerusalem</span><span class="lang lang-fr">Jésus console les femmes de Jérusalem</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Seeing the women weep, Jesus turns to comfort them: "Do not weep for me, but for yourselves and for your children."</span><span class="lang lang-fr">Voyant les femmes pleurer, Jésus se tourne pour les consoler : « Ne pleurez pas sur moi, mais sur vous-mêmes et sur vos enfants. »</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">9</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus falls the third time</span><span class="lang lang-fr">Jésus tombe pour la troisième fois</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Near the summit, utterly spent, Jesus falls once more. Still he refuses to give up, for the work of love is not yet finished.</span><span class="lang lang-fr">Près du sommet, totalement épuisé, Jésus tombe encore une fois. Pourtant il refuse d'abandonner, car l'œuvre de l'amour n'est pas encore achevée.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">10</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus is stripped of his garments</span><span class="lang lang-fr">Jésus est dépouillé de ses vêtements</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Stripped of his clothing, the Lord is exposed and humbled before the crowd, bearing this indignity for our sake.</span><span class="lang lang-fr">Dépouillé de ses vêtements, le Seigneur est exposé et humilié devant la foule, supportant cette indignité pour nous.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">11</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus is nailed to the Cross</span><span class="lang lang-fr">Jésus est cloué sur la croix</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">His hands and feet are pierced with nails. Even now he prays: "Father, forgive them, for they know not what they do."</span><span class="lang lang-fr">Ses mains et ses pieds sont percés de clous. Même alors il prie : « Père, pardonne-leur, car ils ne savent pas ce qu'ils font. »</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">12</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus dies on the Cross</span><span class="lang lang-fr">Jésus meurt sur la croix</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">After three hours of agony, Jesus cries out and gives up his spirit. By his death the gates of heaven are opened to us.</span><span class="lang lang-fr">Après trois heures d'agonie, Jésus pousse un grand cri et rend l'esprit. Par sa mort, les portes du ciel nous sont ouvertes.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">13</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus is taken down from the Cross</span><span class="lang lang-fr">Jésus est descendu de la croix</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">His lifeless body is gently lowered and placed in the arms of his sorrowful Mother, who holds him once more.</span><span class="lang lang-fr">Son corps sans vie est doucement descendu et déposé dans les bras de sa Mère affligée, qui le tient une fois encore.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">14</div>
+        <h2 class="saint-name"><span class="lang lang-en">Jesus is laid in the tomb</span><span class="lang lang-fr">Jésus est mis au tombeau</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">The body of the Lord is wrapped in linen and laid in the tomb. In silence we wait in hope, for on the third day he will rise.</span><span class="lang lang-fr">Le corps du Seigneur est enveloppé dans un linceul et déposé dans le tombeau. Dans le silence, nous attendons dans l'espérance, car le troisième jour il ressuscitera.</span></p>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p class="footer-credit">
+      <span class="lang lang-en">English Scripture quotations are from the New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. French Scripture: Bible Louis Segond (1910), public domain. Traditional prayers are in the public domain.</span>
+      <span class="lang lang-fr">Citations bibliques anglaises : New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. Citations bibliques françaises : Bible Louis Segond (1910), domaine public. Les prières traditionnelles sont dans le domaine public.</span>
+    </p>
+    <p>© 2026 Nurseit Mukanbaev (Catholic Faith). All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
