@@ -78,6 +78,35 @@ html.setAttribute("data-lang", savedLang);
 updateLangButtons(savedLang);
 
 // ============================================================
+// MOBILE MENU + TEXT SIZE
+// The hamburger only shows on phones. Text size is remembered
+// between visits with the same storage pattern as theme/language.
+// ============================================================
+function toggleMenu() {
+  const nav = document.getElementById("navLinks");
+  const menuButton = document.getElementById("menuButton");
+  if (!nav || !menuButton) return;
+
+  const isOpen = nav.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+}
+
+let textSizeLevel = Number(localStorage.getItem("textSize") || "0");
+
+function applyTextSize() {
+  textSizeLevel = Math.max(-1, Math.min(2, textSizeLevel));
+  html.setAttribute("data-text-size", String(textSizeLevel));
+  localStorage.setItem("textSize", String(textSizeLevel));
+}
+
+function changeTextSize(step) {
+  textSizeLevel += step;
+  applyTextSize();
+}
+
+applyTextSize();
+
+// ============================================================
 // LATIN TITLES (rosary page only)
 // A simple on/off toggle. The button only exists on the rosary
 // page, so we guard against it being missing elsewhere.
@@ -468,6 +497,31 @@ function feastText(s, lang) {
   return monthNamesEn[s.month - 1] + " " + s.day;
 }
 
+function firstSentence(text) {
+  const parts = text.split(". ");
+  return parts[0] + (parts.length > 1 ? "." : "");
+}
+
+// Fills the home-page Saint of the Day card from the saints array.
+function showSaintOfDay() {
+  const avatarEl = document.getElementById("dailySaintAvatar");
+  const nameEl = document.getElementById("dailySaintName");
+  const feastEl = document.getElementById("dailySaintFeast");
+  const bioEl = document.getElementById("dailySaintBio");
+  if (!avatarEl || !nameEl || !feastEl || !bioEl) return;
+
+  const now = new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((now - startOfYear) / 86400000);
+  const saint = saints[dayOfYear % saints.length];
+
+  avatarEl.textContent = saint.emoji;
+  nameEl.innerHTML = langHtml(saint.name_en, saint.name_fr);
+  feastEl.innerHTML =
+    "📅 " + langHtml(feastText(saint, "en"), feastText(saint, "fr"));
+  bioEl.innerHTML = langHtml(firstSentence(saint.bio_en), firstSentence(saint.bio_fr));
+}
+
 // Builds one saint card's HTML.
 function saintCardHtml(s) {
   let tags = "";
@@ -632,6 +686,7 @@ function jumpToLetter(letter) {
 buildCategoryButtons();
 buildAzBar();
 renderSaints();
+showSaintOfDay();
 
 // ============================================================
 // HOME PAGE DAILY ELEMENTS
@@ -975,4 +1030,332 @@ function openStationsGuide() {
   });
 
   openPrayerGuide(steps);
+}
+
+// ============================================================
+// NIGHT PRAYER / EXAMEN (prayers.html)
+// Reuses the same guided prayer engine as the Rosary and Stations.
+// ============================================================
+function openNightPrayerGuide() {
+  openPrayerGuide([
+    {
+      progress: langHtml("Step 1 of 5", "Étape 1 sur 5"),
+      title: langHtml("Thanksgiving", "Action de grâce"),
+      content: '<p class="guide-body-text">' +
+        langHtml(
+          "Begin by thanking God for the gifts of this day: the people you met, the work you did, and the quiet mercies you may have missed.",
+          "Commencez par remercier Dieu pour les dons de cette journée : les personnes rencontrées, le travail accompli et les discrètes miséricordes que vous avez peut-être manquées."
+        ) +
+      "</p>",
+    },
+    {
+      progress: langHtml("Step 2 of 5", "Étape 2 sur 5"),
+      title: langHtml("Ask for Light", "Demander la lumière"),
+      content: '<p class="guide-body-text">' +
+        langHtml(
+          "Ask the Holy Spirit to help you see the day truthfully, without fear and without excuses.",
+          "Demandez à l'Esprit Saint de vous aider à voir la journée avec vérité, sans peur et sans excuses."
+        ) +
+      "</p>",
+    },
+    {
+      progress: langHtml("Step 3 of 5", "Étape 3 sur 5"),
+      title: langHtml("Review the Day", "Relire la journée"),
+      content: '<p class="guide-body-text">' +
+        langHtml(
+          "Walk slowly through the day from morning to evening. Notice where you loved well, where you resisted grace, and where God seemed near.",
+          "Repassez lentement la journée du matin au soir. Remarquez où vous avez bien aimé, où vous avez résisté à la grâce et où Dieu semblait proche."
+        ) +
+      "</p>",
+    },
+    {
+      progress: langHtml("Step 4 of 5", "Étape 4 sur 5"),
+      title: langHtml("Sorrow and Mercy", "Contrition et miséricorde"),
+      content: '<p class="guide-body-text">' +
+        langHtml(
+          "Tell the Lord where you failed, and receive his mercy. Pray simply: Lord Jesus Christ, Son of God, have mercy on me, a sinner.",
+          "Dites au Seigneur où vous avez manqué, et recevez sa miséricorde. Priez simplement : Seigneur Jésus-Christ, Fils de Dieu, ayez pitié de moi, pécheur."
+        ) +
+      "</p>",
+    },
+    {
+      progress: langHtml("Step 5 of 5", "Étape 5 sur 5"),
+      title: langHtml("Resolution", "Résolution"),
+      content: '<p class="guide-body-text">' +
+        langHtml(
+          "Choose one small act of love for tomorrow. Entrust the night to God and rest in peace.",
+          "Choisissez un petit acte d'amour pour demain. Confiez la nuit à Dieu et reposez en paix."
+        ) +
+      "</p>",
+    },
+  ]);
+}
+
+// ============================================================
+// FAVORITE PRAYERS (prayers.html)
+// Adds a heart to each prayer card and remembers favorites on
+// this device with localStorage.
+// ============================================================
+let showFavoritesOnly = false;
+
+function savedPrayerFavorites() {
+  try {
+    return JSON.parse(localStorage.getItem("favoritePrayers") || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+
+function savePrayerFavorites(ids) {
+  localStorage.setItem("favoritePrayers", JSON.stringify(ids));
+}
+
+function prayerSlug(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function setupPrayerFavorites() {
+  const grid = document.getElementById("prayersGrid");
+  if (!grid) return;
+
+  grid.querySelectorAll(".saint-card").forEach(function (card) {
+    if (card.querySelector(".favorite-btn")) return;
+    const name = card.querySelector(".saint-name .lang-en");
+    const id = prayerSlug(name ? name.textContent : "prayer");
+    card.dataset.prayerId = id;
+
+    const btn = document.createElement("button");
+    btn.className = "favorite-btn";
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Toggle favorite prayer");
+    btn.innerHTML = '<span aria-hidden="true">♥</span>';
+    btn.addEventListener("click", function () {
+      togglePrayerFavorite(id);
+    });
+    card.insertBefore(btn, card.firstChild);
+  });
+
+  updatePrayerFavoriteView();
+}
+
+function togglePrayerFavorite(id) {
+  const favorites = savedPrayerFavorites();
+  const index = favorites.indexOf(id);
+  if (index === -1) favorites.push(id);
+  else favorites.splice(index, 1);
+  savePrayerFavorites(favorites);
+  updatePrayerFavoriteView();
+}
+
+function toggleFavoriteFilter() {
+  showFavoritesOnly = !showFavoritesOnly;
+  updatePrayerFavoriteView();
+}
+
+function updatePrayerFavoriteView() {
+  const grid = document.getElementById("prayersGrid");
+  if (!grid) return;
+  const favorites = savedPrayerFavorites();
+
+  grid.querySelectorAll(".saint-card").forEach(function (card) {
+    const id = card.dataset.prayerId;
+    const isFavorite = favorites.indexOf(id) !== -1;
+    const btn = card.querySelector(".favorite-btn");
+    if (btn) btn.classList.toggle("active", isFavorite);
+    card.hidden = showFavoritesOnly && !isFavorite;
+  });
+
+  const filterBtn = document.getElementById("favoriteFilterButton");
+  if (filterBtn) {
+    filterBtn.classList.toggle("active", showFavoritesOnly);
+    filterBtn.innerHTML = showFavoritesOnly
+      ? langHtml("Showing favorites", "Favoris affichés")
+      : langHtml("Show favorites only", "Favoris seulement");
+  }
+}
+
+setupPrayerFavorites();
+
+// ============================================================
+// NOVENA TRACKER (novenas.html)
+// The start date is remembered, and the current day advances by
+// calendar day until day 9.
+// ============================================================
+const novenas = [
+  {
+    id: "divine-mercy",
+    emoji: "💧",
+    name_en: "Divine Mercy Novena",
+    name_fr: "Neuvaine à la Miséricorde divine",
+    desc_en: "Nine days asking Jesus for mercy, trust, and compassion for the whole world.",
+    desc_fr: "Neuf jours pour demander à Jésus la miséricorde, la confiance et la compassion pour le monde entier.",
+    prayers: [
+      { en: "Merciful Jesus, I trust in you. Draw my heart close to your mercy today. Amen.", fr: "Jésus miséricordieux, j'ai confiance en vous. Attirez aujourd'hui mon cœur près de votre miséricorde. Amen." },
+      { en: "Lord Jesus, have mercy on families, friends, and all who need your peace. Amen.", fr: "Seigneur Jésus, ayez pitié des familles, des amis et de tous ceux qui ont besoin de votre paix. Amen." },
+      { en: "Jesus, fountain of mercy, comfort the sick, the lonely, and the forgotten. Amen.", fr: "Jésus, fontaine de miséricorde, consolez les malades, les personnes seules et les oubliés. Amen." },
+      { en: "Merciful Lord, forgive my sins and teach me to forgive others freely. Amen.", fr: "Seigneur miséricordieux, pardonnez mes péchés et apprenez-moi à pardonner librement aux autres. Amen." },
+      { en: "Jesus, gentle Savior, gather all who are far from you into your love. Amen.", fr: "Jésus, doux Sauveur, rassemblez dans votre amour tous ceux qui sont loin de vous. Amen." },
+      { en: "Lord, strengthen priests, religious, and all who serve your Church. Amen.", fr: "Seigneur, fortifiez les prêtres, les religieux et tous ceux qui servent votre Église. Amen." },
+      { en: "Jesus, protect children and all who are vulnerable. Let them know your tenderness. Amen.", fr: "Jésus, protégez les enfants et tous les plus vulnérables. Faites-leur connaître votre tendresse. Amen." },
+      { en: "Merciful Jesus, receive the souls of the departed into your light and peace. Amen.", fr: "Jésus miséricordieux, recevez les âmes des défunts dans votre lumière et votre paix. Amen." },
+      { en: "Lord Jesus, make my heart a witness of mercy in ordinary life. Amen.", fr: "Seigneur Jésus, faites de mon cœur un témoin de miséricorde dans la vie ordinaire. Amen." },
+    ],
+  },
+  {
+    id: "st-jude",
+    emoji: "🧭",
+    name_en: "St. Jude Novena",
+    name_fr: "Neuvaine à saint Jude",
+    desc_en: "Nine days asking St. Jude to pray with us in difficult and discouraging needs.",
+    desc_fr: "Neuf jours pour demander à saint Jude de prier avec nous dans les besoins difficiles et décourageants.",
+    prayers: [
+      { en: "St. Jude, faithful apostle, pray for me and bring my need before Christ. Amen.", fr: "Saint Jude, apôtre fidèle, priez pour moi et présentez mon besoin au Christ. Amen." },
+      { en: "St. Jude, friend of those who hope, help me trust God's timing. Amen.", fr: "Saint Jude, ami de ceux qui espèrent, aidez-moi à faire confiance au temps de Dieu. Amen." },
+      { en: "St. Jude, pray that discouragement may give way to courage and peace. Amen.", fr: "Saint Jude, priez pour que le découragement fasse place au courage et à la paix. Amen." },
+      { en: "St. Jude, intercede for my family and all who carry hidden burdens. Amen.", fr: "Saint Jude, intercédez pour ma famille et pour tous ceux qui portent des fardeaux cachés. Amen." },
+      { en: "St. Jude, teach me to remain faithful when the road is unclear. Amen.", fr: "Saint Jude, apprenez-moi à rester fidèle lorsque le chemin n'est pas clair. Amen." },
+      { en: "St. Jude, pray that I may receive help with gratitude and patience. Amen.", fr: "Saint Jude, priez pour que je reçoive l'aide avec gratitude et patience. Amen." },
+      { en: "St. Jude, ask Christ to heal what is wounded and guide what is confused. Amen.", fr: "Saint Jude, demandez au Christ de guérir ce qui est blessé et de guider ce qui est confus. Amen." },
+      { en: "St. Jude, companion in hard causes, strengthen my hope today. Amen.", fr: "Saint Jude, compagnon des causes difficiles, fortifiez mon espérance aujourd'hui. Amen." },
+      { en: "St. Jude, pray that this novena may lead me closer to Jesus. Amen.", fr: "Saint Jude, priez pour que cette neuvaine me rapproche de Jésus. Amen." },
+    ],
+  },
+  {
+    id: "sacred-heart",
+    emoji: "❤️",
+    name_en: "Sacred Heart Novena",
+    name_fr: "Neuvaine au Sacré-Cœur",
+    desc_en: "Nine days turning toward the Heart of Jesus, full of love and mercy.",
+    desc_fr: "Neuf jours pour se tourner vers le Cœur de Jésus, plein d'amour et de miséricorde.",
+    prayers: [
+      { en: "Most Sacred Heart of Jesus, have mercy on us and make us gentle in love. Amen.", fr: "Très Sacré-Cœur de Jésus, ayez pitié de nous et rendez-nous doux dans l'amour. Amen." },
+      { en: "Heart of Jesus, burning with charity, warm every cold place in my heart. Amen.", fr: "Cœur de Jésus, brûlant de charité, réchauffez tout lieu froid dans mon cœur. Amen." },
+      { en: "Heart of Jesus, source of consolation, comfort all who suffer today. Amen.", fr: "Cœur de Jésus, source de consolation, consolez aujourd'hui tous ceux qui souffrent. Amen." },
+      { en: "Heart of Jesus, patient and merciful, teach me patience with others. Amen.", fr: "Cœur de Jésus, patient et miséricordieux, apprenez-moi la patience envers les autres. Amen." },
+      { en: "Heart of Jesus, pierced for love, help me give myself generously. Amen.", fr: "Cœur de Jésus, transpercé par amour, aidez-moi à me donner généreusement. Amen." },
+      { en: "Heart of Jesus, our peace, quiet my fears and steady my mind. Amen.", fr: "Cœur de Jésus, notre paix, apaisez mes craintes et affermissez mon esprit. Amen." },
+      { en: "Heart of Jesus, refuge of sinners, receive me with mercy and truth. Amen.", fr: "Cœur de Jésus, refuge des pécheurs, recevez-moi avec miséricorde et vérité. Amen." },
+      { en: "Heart of Jesus, hope of the dying, be near to those in their final hour. Amen.", fr: "Cœur de Jésus, espérance des mourants, soyez proche de ceux qui vivent leur dernière heure. Amen." },
+      { en: "Most Sacred Heart of Jesus, make my life an offering of love. Amen.", fr: "Très Sacré-Cœur de Jésus, faites de ma vie une offrande d'amour. Amen." },
+    ],
+  },
+];
+
+function todayKey() {
+  const now = new Date();
+  return now.getFullYear() + "-" +
+    String(now.getMonth() + 1).padStart(2, "0") + "-" +
+    String(now.getDate()).padStart(2, "0");
+}
+
+function dateFromKey(key) {
+  const parts = key.split("-").map(Number);
+  return new Date(parts[0], parts[1] - 1, parts[2]);
+}
+
+function savedNovenaState() {
+  try {
+    return JSON.parse(localStorage.getItem("novenaState") || "null");
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveNovenaState(state) {
+  localStorage.setItem("novenaState", JSON.stringify(state));
+}
+
+function startNovena(id) {
+  saveNovenaState({ id: id, startDate: todayKey(), completedDays: [] });
+  renderNovenas();
+}
+
+function markNovenaDayComplete() {
+  const state = savedNovenaState();
+  if (!state) return;
+  const day = currentNovenaDay(state);
+  if (state.completedDays.indexOf(day) === -1) state.completedDays.push(day);
+  saveNovenaState(state);
+  renderNovenas();
+}
+
+function resetNovena() {
+  localStorage.removeItem("novenaState");
+  renderNovenas();
+}
+
+function currentNovenaDay(state) {
+  const start = dateFromKey(state.startDate);
+  const today = dateFromKey(todayKey());
+  const day = Math.floor((today - start) / 86400000) + 1;
+  return Math.max(1, Math.min(9, day));
+}
+
+function renderNovenaProgress(state, novena) {
+  const day = currentNovenaDay(state);
+  const completed = state.completedDays.indexOf(day) !== -1;
+  const prayer = novena.prayers[day - 1];
+  return (
+    '<article class="daily-prayer novena-active-card">' +
+      '<p class="daily-prayer-label">' +
+        langHtml("Current Novena", "Neuvaine en cours") +
+      "</p>" +
+      '<h2 class="daily-prayer-name">' + langHtml(novena.name_en, novena.name_fr) + "</h2>" +
+      '<p class="saint-feast">' +
+        langHtml("Day " + day + " of 9", "Jour " + day + " sur 9") +
+      "</p>" +
+      '<p class="daily-prayer-text">' + langHtml(prayer.en, prayer.fr) + "</p>" +
+      '<div class="novena-buttons">' +
+        '<button class="filter-btn active" onclick="markNovenaDayComplete()">' +
+          (completed ? langHtml("Completed today", "Terminé aujourd'hui") : langHtml("Mark today complete", "Marquer ce jour terminé")) +
+        "</button>" +
+        '<button class="filter-btn" onclick="resetNovena()">' +
+          langHtml("Choose another", "Choisir une autre") +
+        "</button>" +
+      "</div>" +
+    "</article>"
+  );
+}
+
+function renderNovenas() {
+  const list = document.getElementById("novenaList");
+  const progress = document.getElementById("novenaProgress");
+  if (!list || !progress) return;
+
+  const state = savedNovenaState();
+  const active = state ? novenas.find(function (n) { return n.id === state.id; }) : null;
+  progress.innerHTML = active ? renderNovenaProgress(state, active) : "";
+
+  list.innerHTML = novenas.map(function (novena) {
+    return (
+      '<article class="saint-card">' +
+        '<div class="saint-avatar">' + novena.emoji + "</div>" +
+        '<h2 class="saint-name">' + langHtml(novena.name_en, novena.name_fr) + "</h2>" +
+        '<p class="saint-bio">' + langHtml(novena.desc_en, novena.desc_fr) + "</p>" +
+        '<button class="filter-btn novena-start-btn" onclick="startNovena(\'' + novena.id + '\')">' +
+          langHtml(active && active.id === novena.id ? "Restart" : "Start", active && active.id === novena.id ? "Recommencer" : "Commencer") +
+        "</button>" +
+      "</article>"
+    );
+  }).join("");
+}
+
+renderNovenas();
+
+// ============================================================
+// CLEANUP — remove any leftover service worker and its caches.
+// An earlier version briefly registered a service worker, which can
+// keep serving an OUTDATED copy of the site (making content look
+// missing or broken). This clears it so everyone gets the live site.
+// Safe to keep; it does nothing once there's nothing to clean up.
+// ============================================================
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations().then(function (registrations) {
+    registrations.forEach(function (registration) { registration.unregister(); });
+  });
+  if (window.caches && caches.keys) {
+    caches.keys().then(function (keys) {
+      keys.forEach(function (key) { caches.delete(key); });
+    });
+  }
 }

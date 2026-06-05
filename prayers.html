@@ -3,8 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Traditional Catholic prayers, litanies, favorites, and a guided evening Examen in English and French." />
+  <meta name="theme-color" content="#4a2c6f" />
+
+  <meta property="og:site_name" content="Catholic Faith" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Prayers — Catholic Faith" />
+  <meta property="og:description" content="Traditional Catholic prayers, litanies, favorites, and a guided evening Examen in English and French." />
+  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/prayers.html" />
+  <meta property="og:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.svg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Prayers — Catholic Faith" />
+  <meta name="twitter:description" content="Traditional Catholic prayers, litanies, favorites, and a guided evening Examen in English and French." />
+  <meta name="twitter:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.svg" />
 
   <title>Prayers — Catholic Faith</title>
+
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +31,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="./style.css?v=4" />
 </head>
 
 <body>
@@ -22,25 +40,31 @@
        NAVIGATION BAR  (identical to the other pages)
        ============================================================ -->
   <nav class="navbar">
-    <a href="index.html" class="logo">✝ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
-    <div class="nav-links">
-      <a href="index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
-      <a href="saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
+    <a href="./index.html" class="logo">✝ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
+
+    <button class="mobile-menu-toggle" id="menuButton" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="./index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
+      <a href="./saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
 
       <div class="dropdown">
         <button class="dropdown-toggle"><span class="lang lang-en">Prayer</span><span class="lang lang-fr">Prière</span> ▾</button>
         <div class="dropdown-menu">
-          <a href="prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
-          <a href="rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
-          <a href="stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
+          <a href="./prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
+          <a href="./rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
+          <a href="./novenas.html"><span class="lang lang-en">Novenas</span><span class="lang lang-fr">Neuvaines</span></a>
+          <a href="./stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
         </div>
       </div>
 
       <div class="dropdown">
         <button class="dropdown-toggle"><span class="lang lang-en">Faith</span><span class="lang lang-fr">La Foi</span> ▾</button>
         <div class="dropdown-menu">
-          <a href="mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
-          <a href="sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
+          <a href="./mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
+          <a href="./sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
         </div>
       </div>
 
@@ -49,14 +73,20 @@
         <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
       </div>
 
-      <div class="palette-picker">
-        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet"></button>
-        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red"></button>
-        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue"></button>
-        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green"></button>
+      <div class="text-size-control" role="group" aria-label="Text size">
+        <span class="text-size-label"><span class="lang lang-en">Text size</span><span class="lang lang-fr">Taille du texte</span></span>
+        <button class="text-size-btn" onclick="changeTextSize(-1)" aria-label="Decrease text size">A−</button>
+        <button class="text-size-btn" onclick="changeTextSize(1)" aria-label="Increase text size">A+</button>
       </div>
 
-      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton">🌙</button>
+      <div class="palette-picker">
+        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet" aria-label="Violet palette"></button>
+        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red" aria-label="Cardinal red palette"></button>
+        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue" aria-label="Marian blue palette"></button>
+        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green" aria-label="Ordinary Time green palette"></button>
+      </div>
+
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton" aria-label="Toggle dark mode">🌙</button>
     </div>
   </nav>
 
@@ -84,7 +114,17 @@
       <span class="lang lang-en">Show prayers in Latin ✝</span><span class="lang lang-fr">Afficher les prières en latin ✝</span>
     </button>
 
-    <div class="saints-grid">
+    <div class="prayer-action-row">
+      <button class="filter-btn" id="favoriteFilterButton" onclick="toggleFavoriteFilter()">
+        <span class="lang lang-en">Show favorites only</span><span class="lang lang-fr">Favoris seulement</span>
+      </button>
+
+      <button class="guide-start" onclick="openNightPrayerGuide()">
+        <span class="lang lang-en">Begin Night Prayer</span><span class="lang lang-fr">Commencer la prière du soir</span>
+      </button>
+    </div>
+
+    <div class="saints-grid" id="prayersGrid">
 
       <article class="saint-card">
         <div class="saint-avatar">✝</div>
@@ -159,6 +199,78 @@
       </article>
 
     </div>
+
+    <!-- ============================================================
+         LITANIES
+         Public-domain devotional litanies, kept in their own section
+         so the Latin toggle for the prayer cards does not hide them.
+         ============================================================ -->
+    <section class="litany-section">
+      <h2 class="page-title litany-heading">
+        <span class="lang lang-en">Litanies</span><span class="lang lang-fr">Litanies</span>
+      </h2>
+      <p class="page-subtitle">
+        <span class="lang lang-en">Slow, repeating prayers for intercession and trust.</span>
+        <span class="lang lang-fr">Des prières lentes et répétées pour l'intercession et la confiance.</span>
+      </p>
+
+      <div class="litany-grid">
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">🌹</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">Litany of the Blessed Virgin Mary</span><span class="lang lang-fr">Litanies de la Bienheureuse Vierge Marie</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Lord, have mercy. Christ, have mercy. Lord, have mercy.</span><span class="lang lang-fr">Seigneur, ayez pitié. Christ, ayez pitié. Seigneur, ayez pitié.</span></p>
+            <p><span class="lang lang-en">Holy Mary, pray for us. Holy Mother of God, pray for us. Holy Virgin of virgins, pray for us.</span><span class="lang lang-fr">Sainte Marie, priez pour nous. Sainte Mère de Dieu, priez pour nous. Sainte Vierge des vierges, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Mother of Christ, Mother of the Church, Mother of mercy, pray for us.</span><span class="lang lang-fr">Mère du Christ, Mère de l'Église, Mère de miséricorde, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Virgin most prudent, Virgin most faithful, Mirror of justice, Seat of wisdom, pray for us.</span><span class="lang lang-fr">Vierge très prudente, Vierge très fidèle, Miroir de justice, Trône de la sagesse, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Cause of our joy, Spiritual vessel, Mystical rose, Tower of David, pray for us.</span><span class="lang lang-fr">Cause de notre joie, Vase spirituel, Rose mystique, Tour de David, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Ark of the covenant, Gate of heaven, Morning star, Health of the sick, pray for us.</span><span class="lang lang-fr">Arche d'alliance, Porte du ciel, Étoile du matin, Salut des malades, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Refuge of sinners, Comfort of migrants, Comforter of the afflicted, Help of Christians, pray for us.</span><span class="lang lang-fr">Refuge des pécheurs, Réconfort des migrants, Consolatrice des affligés, Secours des chrétiens, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Queen of Angels, Queen of Apostles, Queen of Martyrs, Queen of all Saints, pray for us.</span><span class="lang lang-fr">Reine des Anges, Reine des Apôtres, Reine des Martyrs, Reine de tous les Saints, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Queen of the Rosary, Queen of families, Queen of peace, pray for us.</span><span class="lang lang-fr">Reine du Rosaire, Reine des familles, Reine de la paix, priez pour nous.</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">❤️</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">Litany of the Sacred Heart</span><span class="lang lang-fr">Litanies du Sacré-Cœur</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Lord, have mercy. Christ, have mercy. Lord, have mercy.</span><span class="lang lang-fr">Seigneur, ayez pitié. Christ, ayez pitié. Seigneur, ayez pitié.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, Son of the eternal Father, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, Fils du Père éternel, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, formed by the Holy Spirit, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, formé par le Saint-Esprit, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, burning furnace of charity, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, fournaise ardente de charité, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, vessel of justice and love, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, sanctuaire de la justice et de l'amour, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, full of goodness and love, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, plein de bonté et d'amour, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, pierced with a lance, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, transpercé par la lance, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, source of all consolation, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, source de toute consolation, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Heart of Jesus, our peace and reconciliation, have mercy on us.</span><span class="lang lang-fr">Cœur de Jésus, notre paix et notre réconciliation, ayez pitié de nous.</span></p>
+            <p><span class="lang lang-en">Jesus, meek and humble of heart, make our hearts like unto thine.</span><span class="lang lang-fr">Jésus, doux et humble de cœur, rendez nos cœurs semblables au vôtre.</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">⭐</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">Litany of the Saints</span><span class="lang lang-fr">Litanies des Saints</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Lord, have mercy. Christ, have mercy. Lord, have mercy.</span><span class="lang lang-fr">Seigneur, ayez pitié. Christ, ayez pitié. Seigneur, ayez pitié.</span></p>
+            <p><span class="lang lang-en">Holy Mary, Mother of God, pray for us. Saint Michael, pray for us. Holy Angels of God, pray for us.</span><span class="lang lang-fr">Sainte Marie, Mère de Dieu, priez pour nous. Saint Michel, priez pour nous. Saints Anges de Dieu, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Saint John the Baptist, Saint Joseph, Saints Peter and Paul, pray for us.</span><span class="lang lang-fr">Saint Jean-Baptiste, Saint Joseph, Saints Pierre et Paul, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Saint Mary Magdalene, Saint Stephen, Saint Ignatius of Antioch, Saint Lawrence, pray for us.</span><span class="lang lang-fr">Sainte Marie-Madeleine, Saint Étienne, Saint Ignace d'Antioche, Saint Laurent, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Saint Augustine, Saint Benedict, Saint Francis, Saint Dominic, pray for us.</span><span class="lang lang-fr">Saint Augustin, Saint Benoît, Saint François, Saint Dominique, priez pour nous.</span></p>
+            <p><span class="lang lang-en">Saint Catherine of Siena, Saint Teresa of Ávila, Saint Thérèse of Lisieux, pray for us.</span><span class="lang lang-fr">Sainte Catherine de Sienne, Sainte Thérèse d'Avila, Sainte Thérèse de Lisieux, priez pour nous.</span></p>
+            <p><span class="lang lang-en">All holy men and women, saints of God, pray for us.</span><span class="lang lang-fr">Vous tous, saints et saintes de Dieu, priez pour nous.</span></p>
+            <p><span class="lang lang-en">From all evil, deliver us, O Lord. From sin, deliver us, O Lord. By your Cross and Resurrection, deliver us, O Lord.</span><span class="lang lang-fr">De tout mal, délivrez-nous, Seigneur. Du péché, délivrez-nous, Seigneur. Par votre Croix et votre Résurrection, délivrez-nous, Seigneur.</span></p>
+            <p><span class="lang lang-en">Lamb of God, who takes away the sins of the world, spare us, O Lord.</span><span class="lang lang-fr">Agneau de Dieu, qui enlevez les péchés du monde, pardonnez-nous, Seigneur.</span></p>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
   <!-- ============================================================

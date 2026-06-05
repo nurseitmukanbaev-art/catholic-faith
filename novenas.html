@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Explore beloved Catholic saints with feast days, patronages, biographies, and bilingual search tools." />
+  <meta name="description" content="Start a nine-day Catholic novena and keep your progress across visits in English and French." />
   <meta name="theme-color" content="#4a2c6f" />
 
   <meta property="og:site_name" content="Catholic Faith" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Saints — Catholic Faith" />
-  <meta property="og:description" content="Explore beloved Catholic saints with feast days, patronages, biographies, and bilingual search tools." />
-  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/saints.html" />
+  <meta property="og:title" content="Novenas — Catholic Faith" />
+  <meta property="og:description" content="Start a nine-day Catholic novena and keep your progress across visits in English and French." />
+  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/novenas.html" />
   <meta property="og:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.svg" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Saints — Catholic Faith" />
-  <meta name="twitter:description" content="Explore beloved Catholic saints with feast days, patronages, biographies, and bilingual search tools." />
+  <meta name="twitter:title" content="Novenas — Catholic Faith" />
+  <meta name="twitter:description" content="Start a nine-day Catholic novena and keep your progress across visits in English and French." />
   <meta name="twitter:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.svg" />
 
-  <title>Saints — Catholic Faith</title>
+  <title>Novenas — Catholic Faith</title>
 
   <link rel="icon" href="./icon.svg" type="image/svg+xml" />
   <link rel="shortcut icon" href="./icon.svg" />
@@ -91,51 +91,21 @@
   </nav>
 
   <!-- ============================================================
-       SAINTS CONTENT
-       The cards are now built by script.js from the "saints" list.
-       To ADD a saint, add one { ... } object to that list — you do
-       NOT touch this page. Search, filters, sort, and the A–Z bar
-       all work automatically.
+       NOVENAS CONTENT
+       script.js fills the novena cards and remembers progress.
        ============================================================ -->
   <main class="saints-main">
     <h1 class="page-title">
-      <span class="lang lang-en">The Saints</span><span class="lang lang-fr">Les Saints</span>
+      <span class="lang lang-en">Novenas</span><span class="lang lang-fr">Neuvaines</span>
     </h1>
     <p class="page-subtitle">
-      <span class="lang lang-en">Heroes of the faith who now pray for us in heaven.</span>
-      <span class="lang lang-fr">Des héros de la foi qui prient maintenant pour nous au ciel.</span>
+      <span class="lang lang-en">Choose a nine-day prayer and return each day to continue.</span>
+      <span class="lang lang-fr">Choisissez une prière de neuf jours et revenez chaque jour pour continuer.</span>
     </p>
 
-    <!-- ----- CONTROLS: search, category filter, sort, A–Z jump ----- -->
-    <div class="saints-controls">
-      <input
-        type="text"
-        id="saintSearch"
-        class="saints-search"
-        oninput="renderSaints()"
-        placeholder="Search a saint…  ·  Rechercher un saint…"
-      />
+    <section class="novena-progress" id="novenaProgress"></section>
 
-      <!-- Category buttons are built by script.js from the saints' categories. -->
-      <div class="filter-bar" id="categoryBar"></div>
-
-      <!-- Sort toggle: alphabetical or by feast month. -->
-      <div class="filter-bar">
-        <span class="filter-label"><span class="lang lang-en">Sort:</span><span class="lang lang-fr">Trier :</span></span>
-        <button class="filter-btn active" id="sortName" onclick="setSaintSort('name')">
-          <span class="lang lang-en">A–Z</span><span class="lang lang-fr">A–Z</span>
-        </button>
-        <button class="filter-btn" id="sortMonth" onclick="setSaintSort('month')">
-          <span class="lang lang-en">By Feast Month</span><span class="lang lang-fr">Par mois</span>
-        </button>
-      </div>
-
-      <!-- A–Z jump bar is built by script.js (only the letters in use). -->
-      <div class="az-bar" id="azBar"></div>
-    </div>
-
-    <!-- script.js fills this grid with saint cards and section dividers. -->
-    <div class="saints-grid" id="saintsGrid"></div>
+    <div class="saints-grid" id="novenaList"></div>
   </main>
 
   <!-- ============================================================

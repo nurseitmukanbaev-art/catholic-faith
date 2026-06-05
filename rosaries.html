@@ -3,8 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pray the Joyful, Sorrowful, Glorious, and Luminous Mysteries with bilingual guided Rosary meditations." />
+  <meta name="theme-color" content="#4a2c6f" />
+
+  <meta property="og:site_name" content="Catholic Faith" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rosaries — Catholic Faith" />
+  <meta property="og:description" content="Pray the Joyful, Sorrowful, Glorious, and Luminous Mysteries with bilingual guided Rosary meditations." />
+  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/rosaries.html" />
+  <meta property="og:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.svg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rosaries — Catholic Faith" />
+  <meta name="twitter:description" content="Pray the Joyful, Sorrowful, Glorious, and Luminous Mysteries with bilingual guided Rosary meditations." />
+  <meta name="twitter:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.svg" />
 
   <title>Rosaries — Catholic Faith</title>
+
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +31,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="./style.css?v=4" />
 </head>
 
 <body>
@@ -22,25 +40,31 @@
        NAVIGATION BAR  (identical to the home page)
        ============================================================ -->
   <nav class="navbar">
-    <a href="index.html" class="logo">✝ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
-    <div class="nav-links">
-      <a href="index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
-      <a href="saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
+    <a href="./index.html" class="logo">✝ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
+
+    <button class="mobile-menu-toggle" id="menuButton" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="./index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
+      <a href="./saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
 
       <div class="dropdown">
         <button class="dropdown-toggle"><span class="lang lang-en">Prayer</span><span class="lang lang-fr">Prière</span> ▾</button>
         <div class="dropdown-menu">
-          <a href="prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
-          <a href="rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
-          <a href="stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
+          <a href="./prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
+          <a href="./rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
+          <a href="./novenas.html"><span class="lang lang-en">Novenas</span><span class="lang lang-fr">Neuvaines</span></a>
+          <a href="./stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
         </div>
       </div>
 
       <div class="dropdown">
         <button class="dropdown-toggle"><span class="lang lang-en">Faith</span><span class="lang lang-fr">La Foi</span> ▾</button>
         <div class="dropdown-menu">
-          <a href="mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
-          <a href="sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
+          <a href="./mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
+          <a href="./sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
         </div>
       </div>
 
@@ -49,14 +73,20 @@
         <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
       </div>
 
-      <div class="palette-picker">
-        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet"></button>
-        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red"></button>
-        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue"></button>
-        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green"></button>
+      <div class="text-size-control" role="group" aria-label="Text size">
+        <span class="text-size-label"><span class="lang lang-en">Text size</span><span class="lang lang-fr">Taille du texte</span></span>
+        <button class="text-size-btn" onclick="changeTextSize(-1)" aria-label="Decrease text size">A−</button>
+        <button class="text-size-btn" onclick="changeTextSize(1)" aria-label="Increase text size">A+</button>
       </div>
 
-      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton">🌙</button>
+      <div class="palette-picker">
+        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet" aria-label="Violet palette"></button>
+        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red" aria-label="Cardinal red palette"></button>
+        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue" aria-label="Marian blue palette"></button>
+        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green" aria-label="Ordinary Time green palette"></button>
+      </div>
+
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton" aria-label="Toggle dark mode">🌙</button>
     </div>
   </nav>
 
@@ -111,7 +141,7 @@
         <span class="num">1</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Annunciation</span><span class="lang lang-fr">L'Annonciation</span><span class="latin-name">Annuntiatio</span></h3>
-          <p class="reading"><span class="lang lang-en">"Behold, you will conceive in your womb and bear a son." — Luke 1:26–38</span><span class="lang lang-fr">« Voici que tu concevras et enfanteras un fils. » — Luc 1, 26-38</span></p>
+          <p class="reading"><span class="lang lang-en">"You will conceive in your womb and bear a son." — Luke 1:26–38</span><span class="lang lang-fr">« Tu deviendras enceinte, et tu enfanteras un fils. » — Luc 1, 26-38</span></p>
           <p class="meaning"><span class="lang lang-en">The angel Gabriel comes to a young woman of Nazareth and announces that she will bear the Son of God. Though troubled and full of questions, Mary trusts completely and answers, "Let it be done to me according to your word." In her quiet "yes" the Word becomes flesh, and salvation enters the world through her humble consent. Fruit of the mystery: humility.</span><span class="lang lang-fr">L'ange Gabriel vient vers une jeune femme de Nazareth et lui annonce qu'elle portera le Fils de Dieu. Bien que troublée et pleine de questions, Marie fait entièrement confiance et répond : « Qu'il me soit fait selon ta parole. » Dans son humble « oui », le Verbe se fait chair, et le salut entre dans le monde par son consentement. Fruit du mystère : l'humilité.</span></p>
         </div>
       </div>
@@ -120,7 +150,7 @@
         <span class="num">2</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Visitation</span><span class="lang lang-fr">La Visitation</span><span class="latin-name">Visitatio</span></h3>
-          <p class="reading"><span class="lang lang-en">"Blessed are you among women." — Luke 1:39–56</span><span class="lang lang-fr">« Tu es bénie entre toutes les femmes. » — Luc 1, 39-56</span></p>
+          <p class="reading"><span class="lang lang-en">"Blessed are you among women." — Luke 1:39–56</span><span class="lang lang-fr">« Tu es bénie entre les femmes. » — Luc 1, 39-56</span></p>
           <p class="meaning"><span class="lang lang-en">Carrying Jesus within her, Mary travels in haste to the hill country to help her cousin Elizabeth, who is also with child. At Mary's greeting, the infant John leaps for joy in Elizabeth's womb, and Mary responds with the Magnificat, praising God's mercy. Her first act after receiving Christ is to bring him to others in loving service. Fruit of the mystery: love of neighbour.</span><span class="lang lang-fr">Portant Jésus en elle, Marie se rend en hâte dans la montagne pour aider sa cousine Élisabeth, elle aussi enceinte. À la salutation de Marie, l'enfant Jean tressaille de joie dans le sein d'Élisabeth, et Marie répond par le Magnificat, louant la miséricorde de Dieu. Son premier geste après avoir reçu le Christ est de le porter aux autres dans un service aimant. Fruit du mystère : l'amour du prochain.</span></p>
         </div>
       </div>
@@ -129,7 +159,7 @@
         <span class="num">3</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Nativity</span><span class="lang lang-fr">La Nativité</span><span class="latin-name">Nativitas</span></h3>
-          <p class="reading"><span class="lang lang-en">"She gave birth to her firstborn son and laid him in a manger." — Luke 2:1–20</span><span class="lang lang-fr">« Elle enfanta son fils premier-né et le coucha dans une mangeoire. » — Luc 2, 1-20</span></p>
+          <p class="reading"><span class="lang lang-en">"She gave birth to her firstborn son." — Luke 2:1–20</span><span class="lang lang-fr">« Elle enfanta son fils premier-né. » — Luc 2, 1-20</span></p>
           <p class="meaning"><span class="lang lang-en">In the poverty of a stable at Bethlehem, the King of heaven is born and laid in a manger. Angels announce his birth to lowly shepherds, who come to adore him before kings ever hear his name. God chooses simplicity and littleness to draw near to us. Fruit of the mystery: poverty of spirit and detachment.</span><span class="lang lang-fr">Dans la pauvreté d'une étable à Bethléem, le Roi du ciel naît et est couché dans une mangeoire. Les anges annoncent sa naissance à d'humbles bergers, qui viennent l'adorer avant même que les rois n'entendent son nom. Dieu choisit la simplicité et la petitesse pour se faire proche de nous. Fruit du mystère : la pauvreté de cœur et le détachement.</span></p>
         </div>
       </div>
@@ -147,7 +177,7 @@
         <span class="num">5</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Finding of Jesus in the Temple</span><span class="lang lang-fr">Le Recouvrement de Jésus au Temple</span><span class="latin-name">Inventio in Templo</span></h3>
-          <p class="reading"><span class="lang lang-en">"Did you not know I must be in my Father's house?" — Luke 2:41–52</span><span class="lang lang-fr">« Ne saviez-vous pas qu'il me faut être chez mon Père ? » — Luc 2, 41-52</span></p>
+          <p class="reading"><span class="lang lang-en">"I must be in my Father's house." — Luke 2:41–52</span><span class="lang lang-fr">« Il faut que je m'occupe des affaires de mon Père. » — Luc 2, 41-52</span></p>
           <p class="meaning"><span class="lang lang-en">After the feast in Jerusalem, the boy Jesus remains behind, and Mary and Joseph search for him sorrowfully for three days. They find him in the Temple, seated among the teachers, astonishing them with his understanding. "Did you not know that I must be in my Father's house?" he asks — a first sign of his mission. Fruit of the mystery: joy in seeking Jesus.</span><span class="lang lang-fr">Après la fête à Jérusalem, l'enfant Jésus reste en arrière, et Marie et Joseph le cherchent avec angoisse pendant trois jours. Ils le retrouvent dans le Temple, assis parmi les docteurs, qu'il étonne par son intelligence. « Ne saviez-vous pas qu'il me faut être chez mon Père ? » demande-t-il — premier signe de sa mission. Fruit du mystère : la joie de chercher Jésus.</span></p>
         </div>
       </div>
@@ -166,7 +196,7 @@
         <span class="num">1</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Agony in the Garden</span><span class="lang lang-fr">L'Agonie au Jardin</span><span class="latin-name">Agonia in Horto</span></h3>
-          <p class="reading"><span class="lang lang-en">"Not my will, but yours, be done." — Matthew 26:36–46</span><span class="lang lang-fr">« Non pas ma volonté, mais la tienne. » — Matthieu 26, 36-46</span></p>
+          <p class="reading"><span class="lang lang-en">"Not what I want but what you want." — Matthew 26:36–46</span><span class="lang lang-fr">« Non pas ce que je veux, mais ce que tu veux. » — Matthieu 26, 36-46</span></p>
           <p class="meaning"><span class="lang lang-en">In the Garden of Gethsemane, on the night before he dies, Jesus is overwhelmed with sorrow at the weight of the world's sin. He prays so earnestly that his sweat becomes like drops of blood, yet he surrenders fully: "Not my will, but yours, be done." He embraces the Father's plan out of love for us. Fruit of the mystery: sorrow for sin.</span><span class="lang lang-fr">Au jardin de Gethsémani, la nuit avant sa mort, Jésus est accablé de tristesse devant le poids du péché du monde. Il prie avec une telle ardeur que sa sueur devient comme des gouttes de sang, mais il s'abandonne pleinement : « Non pas ma volonté, mais la tienne. » Il embrasse le dessein du Père par amour pour nous. Fruit du mystère : la contrition.</span></p>
         </div>
       </div>
@@ -175,7 +205,7 @@
         <span class="num">2</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Scourging at the Pillar</span><span class="lang lang-fr">La Flagellation</span><span class="latin-name">Flagellatio</span></h3>
-          <p class="reading"><span class="lang lang-en">"He had Jesus scourged." — Matthew 27:26</span><span class="lang lang-fr">« Il fit flageller Jésus. » — Matthieu 27, 26</span></p>
+          <p class="reading"><span class="lang lang-en">"After flogging Jesus, he handed him over." — Matthew 27:26</span><span class="lang lang-fr">« Après avoir fait battre de verges Jésus, il le livra. » — Matthieu 27, 26</span></p>
           <p class="meaning"><span class="lang lang-en">Though innocent, Jesus is bound to a pillar and cruelly scourged at Pilate's command. He bears this brutal suffering in silence, his body torn for our sake. In his wounds we see both the cost of sin and the depth of his love. Fruit of the mystery: purity and self-mastery.</span><span class="lang lang-fr">Bien qu'innocent, Jésus est attaché à une colonne et cruellement flagellé sur l'ordre de Pilate. Il porte cette souffrance brutale dans le silence, son corps déchiré pour nous. Dans ses plaies, nous voyons à la fois le prix du péché et la profondeur de son amour. Fruit du mystère : la pureté et la maîtrise de soi.</span></p>
         </div>
       </div>
@@ -184,7 +214,7 @@
         <span class="num">3</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Crowning with Thorns</span><span class="lang lang-fr">Le Couronnement d'épines</span><span class="latin-name">Coronatio Spinis</span></h3>
-          <p class="reading"><span class="lang lang-en">"They wove a crown of thorns and placed it on his head." — Matthew 27:27–31</span><span class="lang lang-fr">« Ils tressèrent une couronne d'épines et la posèrent sur sa tête. » — Matthieu 27, 27-31</span></p>
+          <p class="reading"><span class="lang lang-en">"They put it on his head." — Matthew 27:27–31</span><span class="lang lang-fr">« Ils tressèrent une couronne d'épines. » — Matthieu 27, 27-31</span></p>
           <p class="meaning"><span class="lang lang-en">The soldiers press a crown of thorns upon Jesus' head, drape him in a scarlet cloak, and mock him as a false king. They strike him and spit upon him, yet he endures their cruelty with majestic patience. The King of kings is crowned in suffering, reigning from humility. Fruit of the mystery: moral courage.</span><span class="lang lang-fr">Les soldats enfoncent une couronne d'épines sur la tête de Jésus, le revêtent d'un manteau écarlate et se moquent de lui comme d'un faux roi. Ils le frappent et crachent sur lui, mais il supporte leur cruauté avec une patience majestueuse. Le Roi des rois est couronné dans la souffrance, régnant par l'humilité. Fruit du mystère : le courage moral.</span></p>
         </div>
       </div>
@@ -193,7 +223,7 @@
         <span class="num">4</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Carrying of the Cross</span><span class="lang lang-fr">Le Portement de la Croix</span><span class="latin-name">Baiulatio Crucis</span></h3>
-          <p class="reading"><span class="lang lang-en">"Carrying the cross himself, he went out." — John 19:17</span><span class="lang lang-fr">« Portant lui-même sa croix, il sortit. » — Jean 19, 17</span></p>
+          <p class="reading"><span class="lang lang-en">"Carrying the cross by himself, he went out." — John 19:17</span><span class="lang lang-fr">« Portant lui-même sa croix, Jésus sortit. » — Jean 19, 17</span></p>
           <p class="meaning"><span class="lang lang-en">Bearing the heavy cross upon his wounded shoulders, Jesus makes his way to Calvary, falling beneath its weight. Simon of Cyrene is made to help him, and along the way he consoles the weeping women of Jerusalem. He carries our burdens with patient, unwavering love. Fruit of the mystery: patience.</span><span class="lang lang-fr">Portant la lourde croix sur ses épaules blessées, Jésus chemine vers le Calvaire, tombant sous son poids. Simon de Cyrène est contraint de l'aider, et en chemin il console les femmes de Jérusalem qui pleurent. Il porte nos fardeaux avec un amour patient et indéfectible. Fruit du mystère : la patience.</span></p>
         </div>
       </div>
@@ -202,7 +232,7 @@
         <span class="num">5</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Crucifixion</span><span class="lang lang-fr">La Crucifixion</span><span class="latin-name">Crucifixio</span></h3>
-          <p class="reading"><span class="lang lang-en">"Father, into your hands I commend my spirit." — Luke 23:44–46</span><span class="lang lang-fr">« Père, entre tes mains je remets mon esprit. » — Luc 23, 44-46</span></p>
+          <p class="reading"><span class="lang lang-en">"Father, into your hands I commend my spirit." — Luke 23:44–46</span><span class="lang lang-fr">« Père, je remets mon esprit entre tes mains. » — Luc 23, 44-46</span></p>
           <p class="meaning"><span class="lang lang-en">Nailed to the cross, Jesus hangs for three hours between heaven and earth, offering his life for the salvation of the world. He forgives his executioners, entrusts his mother to John, and promises paradise to the repentant thief. With the words "It is finished," he commends his spirit to the Father and dies for love of us. Fruit of the mystery: perseverance and love.</span><span class="lang lang-fr">Cloué sur la croix, Jésus demeure trois heures entre ciel et terre, offrant sa vie pour le salut du monde. Il pardonne à ses bourreaux, confie sa mère à Jean et promet le paradis au bon larron. Avec les mots « Tout est accompli », il remet son esprit au Père et meurt par amour pour nous. Fruit du mystère : la persévérance et l'amour.</span></p>
         </div>
       </div>
@@ -221,7 +251,7 @@
         <span class="num">1</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Resurrection</span><span class="lang lang-fr">La Résurrection</span><span class="latin-name">Resurrectio</span></h3>
-          <p class="reading"><span class="lang lang-en">"He is not here, for he has been raised." — Matthew 28:1–10</span><span class="lang lang-fr">« Il n'est pas ici, car il est ressuscité. » — Matthieu 28, 1-10</span></p>
+          <p class="reading"><span class="lang lang-en">"He is not here; for he has been raised." — Matthew 28:1–10</span><span class="lang lang-fr">« Il n'est point ici; il est ressuscité. » — Matthieu 28, 1-10</span></p>
           <p class="meaning"><span class="lang lang-en">On the third day, Jesus rises gloriously from the tomb, conquering sin and death forever. The women who come at dawn find the stone rolled away and an angel proclaiming, "He is not here, for he has been raised." His victory is the foundation of our hope and the promise of our own resurrection. Fruit of the mystery: faith.</span><span class="lang lang-fr">Le troisième jour, Jésus ressuscite glorieusement du tombeau, vainquant à jamais le péché et la mort. Les femmes venues à l'aube trouvent la pierre roulée et un ange qui proclame : « Il n'est pas ici, car il est ressuscité. » Sa victoire est le fondement de notre espérance et la promesse de notre propre résurrection. Fruit du mystère : la foi.</span></p>
         </div>
       </div>
@@ -230,7 +260,7 @@
         <span class="num">2</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Ascension</span><span class="lang lang-fr">L'Ascension</span><span class="latin-name">Ascensio</span></h3>
-          <p class="reading"><span class="lang lang-en">"He was lifted up, and a cloud took him from their sight." — Acts 1:6–11</span><span class="lang lang-fr">« Il s'éleva, et une nuée le déroba à leurs yeux. » — Actes 1, 6-11</span></p>
+          <p class="reading"><span class="lang lang-en">"He was lifted up." — Acts 1:6–11</span><span class="lang lang-fr">« Il fut élevé. » — Actes 1, 6-11</span></p>
           <p class="meaning"><span class="lang lang-en">Forty days after rising, Jesus leads his disciples to the Mount of Olives and is taken up into heaven before their eyes. A cloud receives him from their sight as he returns to the Father's glory. He goes to prepare a place for us, lifting our hearts toward our true homeland. Fruit of the mystery: hope.</span><span class="lang lang-fr">Quarante jours après sa résurrection, Jésus conduit ses disciples au mont des Oliviers et est élevé au ciel sous leurs yeux. Une nuée le dérobe à leur regard tandis qu'il retourne dans la gloire du Père. Il va nous préparer une place, élevant nos cœurs vers notre véritable patrie. Fruit du mystère : l'espérance.</span></p>
         </div>
       </div>
@@ -239,7 +269,7 @@
         <span class="num">3</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Descent of the Holy Spirit</span><span class="lang lang-fr">La Descente du Saint-Esprit</span><span class="latin-name">Descensus Spiritus Sancti</span></h3>
-          <p class="reading"><span class="lang lang-en">"They were all filled with the Holy Spirit." — Acts 2:1–13</span><span class="lang lang-fr">« Ils furent tous remplis de l'Esprit Saint. » — Actes 2, 1-13</span></p>
+          <p class="reading"><span class="lang lang-en">"All of them were filled with the Holy Spirit." — Acts 2:1–13</span><span class="lang lang-fr">« Ils furent tous remplis du Saint Esprit. » — Actes 2, 1-13</span></p>
           <p class="meaning"><span class="lang lang-en">Gathered with Mary in the upper room, the Apostles are filled with the Holy Spirit, who comes upon them like tongues of fire. Strengthened and emboldened, they go out to proclaim the Gospel to every nation. The Church is born, alive with the gifts of the Spirit. Fruit of the mystery: love of God.</span><span class="lang lang-fr">Réunis avec Marie au Cénacle, les Apôtres sont remplis de l'Esprit Saint, qui descend sur eux comme des langues de feu. Fortifiés et enhardis, ils partent annoncer l'Évangile à toutes les nations. L'Église naît, vivante des dons de l'Esprit. Fruit du mystère : l'amour de Dieu.</span></p>
         </div>
       </div>
@@ -248,7 +278,7 @@
         <span class="num">4</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Assumption of Mary</span><span class="lang lang-fr">L'Assomption de Marie</span><span class="latin-name">Assumptio</span></h3>
-          <p class="reading"><span class="lang lang-en">"The Almighty has done great things for me." — cf. Luke 1:49</span><span class="lang lang-fr">« Le Puissant a fait pour moi de grandes choses. » — cf. Luc 1, 49</span></p>
+          <p class="reading"><span class="lang lang-en">"The Mighty One has done great things for me." — cf. Luke 1:49</span><span class="lang lang-fr">« Le Tout Puissant a fait pour moi de grandes choses. » — cf. Luc 1, 49</span></p>
           <p class="meaning"><span class="lang lang-en">At the end of her earthly life, Mary is taken up, body and soul, into the glory of heaven. She who bore the Lord and remained faithful at the cross is not left to corruption but raised by her Son. In her we glimpse the destiny promised to all the faithful. Fruit of the mystery: the grace of a holy death.</span><span class="lang lang-fr">Au terme de sa vie terrestre, Marie est élevée, corps et âme, dans la gloire du ciel. Celle qui a porté le Seigneur et est demeurée fidèle au pied de la croix n'est pas livrée à la corruption, mais relevée par son Fils. En elle, nous entrevoyons la destinée promise à tous les fidèles. Fruit du mystère : la grâce d'une sainte mort.</span></p>
         </div>
       </div>
@@ -257,7 +287,7 @@
         <span class="num">5</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Coronation of Mary</span><span class="lang lang-fr">Le Couronnement de Marie</span><span class="latin-name">Coronatio Mariae</span></h3>
-          <p class="reading"><span class="lang lang-en">"A woman clothed with the sun, with a crown of twelve stars." — Revelation 12:1</span><span class="lang lang-fr">« Une femme enveloppée du soleil, avec une couronne de douze étoiles. » — Apocalypse 12, 1</span></p>
+          <p class="reading"><span class="lang lang-en">"A woman clothed with the sun." — Revelation 12:1</span><span class="lang lang-fr">« Une femme enveloppée du soleil. » — Apocalypse 12, 1</span></p>
           <p class="meaning"><span class="lang lang-en">Mary is crowned by her Son as Queen of Heaven and earth, exalted above the angels and saints. Clothed with the sun and crowned with stars, she reigns as our loving Mother, interceding for us without ceasing. From her place of glory she watches over the Church and brings our prayers to her Son. Fruit of the mystery: trust in Mary's intercession.</span><span class="lang lang-fr">Marie est couronnée par son Fils Reine du Ciel et de la terre, élevée au-dessus des anges et des saints. Enveloppée du soleil et couronnée d'étoiles, elle règne comme notre Mère aimante, intercédant sans cesse pour nous. De sa place de gloire, elle veille sur l'Église et présente nos prières à son Fils. Fruit du mystère : la confiance en l'intercession de Marie.</span></p>
         </div>
       </div>
@@ -276,7 +306,7 @@
         <span class="num">1</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Baptism of Jesus in the Jordan</span><span class="lang lang-fr">Le Baptême de Jésus</span><span class="latin-name">Baptismus Domini</span></h3>
-          <p class="reading"><span class="lang lang-en">"This is my beloved Son, with whom I am well pleased." — Matthew 3:13–17</span><span class="lang lang-fr">« Celui-ci est mon Fils bien-aimé, en qui je trouve ma joie. » — Matthieu 3, 13-17</span></p>
+          <p class="reading"><span class="lang lang-en">"This is my Son, the Beloved." — Matthew 3:13–17</span><span class="lang lang-fr">« Celui-ci est mon Fils bien-aimé. » — Matthieu 3, 13-17</span></p>
           <p class="meaning"><span class="lang lang-en">Jesus comes to the Jordan and is baptized by John, though he himself is without sin. As he rises from the water, the heavens open, the Spirit descends like a dove, and the Father's voice declares, "This is my beloved Son." His public mission begins, revealing the mystery of the Holy Trinity. Fruit of the mystery: openness to the Holy Spirit.</span><span class="lang lang-fr">Jésus vient au Jourdain et se fait baptiser par Jean, bien qu'il soit lui-même sans péché. Comme il remonte de l'eau, les cieux s'ouvrent, l'Esprit descend comme une colombe, et la voix du Père déclare : « Celui-ci est mon Fils bien-aimé. » Sa mission publique commence, révélant le mystère de la Sainte Trinité. Fruit du mystère : l'ouverture à l'Esprit Saint.</span></p>
         </div>
       </div>
@@ -285,7 +315,7 @@
         <span class="num">2</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Wedding at Cana</span><span class="lang lang-fr">Les Noces de Cana</span><span class="latin-name">Nuptiae Canae</span></h3>
-          <p class="reading"><span class="lang lang-en">"Do whatever he tells you." — John 2:1–11</span><span class="lang lang-fr">« Faites tout ce qu'il vous dira. » — Jean 2, 1-11</span></p>
+          <p class="reading"><span class="lang lang-en">"Do whatever he tells you." — John 2:1–11</span><span class="lang lang-fr">« Faites ce qu'il vous dira. » — Jean 2, 1-11</span></p>
           <p class="meaning"><span class="lang lang-en">At a wedding feast in Cana, the wine runs out, and Mary turns to her Son in quiet confidence. Though his hour has not yet come, at her request Jesus changes water into wine — his first miracle — and his disciples come to believe in him. Mary's counsel still echoes: "Do whatever he tells you." Fruit of the mystery: to Jesus through Mary.</span><span class="lang lang-fr">Lors d'un festin de noces à Cana, le vin vient à manquer, et Marie se tourne vers son Fils avec une confiance paisible. Bien que son heure ne soit pas encore venue, à sa demande Jésus change l'eau en vin — son premier miracle — et ses disciples croient en lui. Le conseil de Marie résonne encore : « Faites tout ce qu'il vous dira. » Fruit du mystère : aller à Jésus par Marie.</span></p>
         </div>
       </div>
@@ -294,7 +324,7 @@
         <span class="num">3</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Proclamation of the Kingdom</span><span class="lang lang-fr">L'Annonce du Royaume</span><span class="latin-name">Proclamatio Regni</span></h3>
-          <p class="reading"><span class="lang lang-en">"Repent, and believe in the gospel." — Mark 1:14–15</span><span class="lang lang-fr">« Convertissez-vous et croyez à l'Évangile. » — Marc 1, 14-15</span></p>
+          <p class="reading"><span class="lang lang-en">"Repent, and believe in the good news." — Mark 1:14–15</span><span class="lang lang-fr">« Repentez-vous, et croyez à la bonne nouvelle. » — Marc 1, 14-15</span></p>
           <p class="meaning"><span class="lang lang-en">Jesus travels through Galilee proclaiming the coming of the Kingdom of God and calling all to conversion. He preaches the Beatitudes, heals the sick, and forgives sinners, revealing the Father's boundless mercy. "Repent, and believe in the gospel," he urges each heart. Fruit of the mystery: trust in God and conversion.</span><span class="lang lang-fr">Jésus parcourt la Galilée en annonçant la venue du Royaume de Dieu et en appelant tous à la conversion. Il proclame les Béatitudes, guérit les malades et pardonne aux pécheurs, révélant la miséricorde sans limite du Père. « Convertissez-vous et croyez à l'Évangile », exhorte-t-il chaque cœur. Fruit du mystère : la conversion et la confiance en Dieu.</span></p>
         </div>
       </div>
@@ -312,7 +342,7 @@
         <span class="num">5</span>
         <div class="mystery-body">
           <h3 class="name"><span class="lang lang-en">The Institution of the Eucharist</span><span class="lang lang-fr">L'Institution de l'Eucharistie</span><span class="latin-name">Institutio Eucharistiae</span></h3>
-          <p class="reading"><span class="lang lang-en">"This is my body, which is given for you." — Luke 22:14–20</span><span class="lang lang-fr">« Ceci est mon corps, donné pour vous. » — Luc 22, 14-20</span></p>
+          <p class="reading"><span class="lang lang-en">"This is my body, which is given for you." — Luke 22:14–20</span><span class="lang lang-fr">« Ceci est mon corps, qui est donné pour vous. » — Luc 22, 14-20</span></p>
           <p class="meaning"><span class="lang lang-en">At the Last Supper, on the night before he dies, Jesus takes bread and wine and gives them as his own Body and Blood. "Do this in memory of me," he commands, leaving the Church the gift of the Eucharist and the priesthood. In this sacrament he remains truly present with us, the food of eternal life. Fruit of the mystery: adoration and love.</span><span class="lang lang-fr">À la dernière Cène, la nuit avant sa mort, Jésus prend le pain et le vin et les donne comme son propre Corps et son propre Sang. « Faites ceci en mémoire de moi », ordonne-t-il, laissant à l'Église le don de l'Eucharistie et du sacerdoce. Dans ce sacrement, il demeure vraiment présent avec nous, nourriture de la vie éternelle. Fruit du mystère : l'adoration et l'amour.</span></p>
         </div>
       </div>

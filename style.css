@@ -20,6 +20,7 @@
   --border:    #e7e0d3;  /* subtle card borders */
   --radius:    16px;     /* how rounded the corners are */
   --hero-top:  #f3ede0;  /* top of the hero's gentle gradient */
+  --text-scale: 1;       /* changed by the A− / A+ text controls */
 }
 
 /* -----------------------------------------------------------
@@ -57,6 +58,11 @@ html[data-theme="dark"][data-palette="cardinal"] { --primary: #e3a6b1; }
 html[data-theme="dark"][data-palette="blue"]     { --primary: #9fb8e6; }
 html[data-theme="dark"][data-palette="green"]    { --primary: #8fc2a6; }
 
+html[data-text-size="-1"] { --text-scale: 0.94; }
+html[data-text-size="0"]  { --text-scale: 1; }
+html[data-text-size="1"]  { --text-scale: 1.08; }
+html[data-text-size="2"]  { --text-scale: 1.16; }
+
 /* Make color changes fade smoothly when toggling themes. */
 body, .navbar, .card, .footer, .day-btn, .mystery {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
@@ -71,9 +77,15 @@ body, .navbar, .card, .footer, .day-btn, .mystery {
 
 body {
   font-family: 'Inter', sans-serif;
+  font-size: calc(16px * var(--text-scale));
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
 }
 
 h1, h2, h3 {
@@ -104,6 +116,20 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   gap: 28px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
 }
 
 .nav-links a {
@@ -253,10 +279,10 @@ html[data-latin="on"] .mystery-set-name .latin-name { display: inline; }
 /* On the Prayers page the Latin toggle covers BOTH the prayer
    title (.saint-name) and the full prayer text (.saint-bio),
    so a whole prayer can be read in Latin. */
-html[data-latin="on"] .saint-name .lang,
-html[data-latin="on"] .saint-bio .lang { display: none; }
-html[data-latin="on"] .saint-name .latin-name,
-html[data-latin="on"] .saint-bio .latin-name { display: inline; }
+html[data-latin="on"] #prayersGrid .saint-name .lang,
+html[data-latin="on"] #prayersGrid .saint-bio .lang { display: none; }
+html[data-latin="on"] #prayersGrid .saint-name .latin-name,
+html[data-latin="on"] #prayersGrid .saint-bio .latin-name { display: inline; }
 
 /* The EN / FR buttons in the nav. */
 .lang-switch {
@@ -283,6 +309,35 @@ html[data-latin="on"] .saint-bio .latin-name { display: inline; }
   background-color: var(--primary);
   border-color: var(--primary);
   color: #fff;
+}
+
+.text-size-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.text-size-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.text-size-btn {
+  min-width: 34px;
+  height: 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.text-size-btn:hover {
+  border-color: var(--gold);
 }
 
 /* The "Latin" toggle on the rosary page. */
@@ -312,7 +367,10 @@ html[data-latin="on"] .saint-bio .latin-name { display: inline; }
    buttons to keep them readable. */
 html[data-theme="dark"] .day-btn.active,
 html[data-theme="dark"] .lang-btn.active,
-html[data-theme="dark"] .latin-toggle.active {
+html[data-theme="dark"] .latin-toggle.active,
+html[data-theme="dark"] .filter-btn.active,
+html[data-theme="dark"] .guide-start,
+html[data-theme="dark"] .guide-btn.primary {
   color: #14120f;
 }
 
@@ -333,6 +391,7 @@ html[data-theme="dark"] .latin-toggle.active {
 }
 
 .saint-card {
+  position: relative;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -668,6 +727,27 @@ html[data-theme="dark"] .latin-toggle.active {
   line-height: 1.7;
 }
 
+.daily-saint {
+  margin-top: 28px;
+}
+
+.daily-saint-avatar {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+}
+
+.daily-saint-text {
+  font-size: 19px;
+}
+
 /* ---------------- HOME PAGE: WELCOME & DAILY ELEMENTS ----------------
    The home page reads like a small daily devotional: a welcome,
    today's date & season, the Prayer of the Day, a Verse of the Day,
@@ -755,6 +835,125 @@ html[data-theme="dark"] .latin-toggle.active {
   background-color: var(--primary);
   color: #fff;
 }
+
+/* ---------------- PRAYERS: FAVORITES, EXAMEN, LITANIES ---------------- */
+.prayer-action-row {
+  max-width: 760px;
+  margin: -10px auto 34px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.prayer-action-row .guide-start,
+.prayer-action-row .filter-btn {
+  margin: 0;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.favorite-btn:hover,
+.favorite-btn.active {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.litany-section {
+  max-width: 1000px;
+  margin: 70px auto 0;
+}
+
+.litany-heading {
+  margin-bottom: 8px;
+}
+
+.litany-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.litany-card {
+  text-align: left;
+}
+
+.litany-name {
+  text-align: center;
+  font-size: 26px;
+  color: var(--primary);
+  margin-bottom: 18px;
+}
+
+.litany-text {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.litany-text p + p {
+  margin-top: 12px;
+}
+
+/* ---------------- NOVENAS ---------------- */
+.novena-progress {
+  max-width: 760px;
+  margin: 0 auto 34px;
+}
+
+.novena-active-card {
+  margin: 0;
+}
+
+.novena-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.novena-start-btn {
+  margin-top: 18px;
+}
+
+/* ---------------- 404 PAGE ---------------- */
+.not-found-page {
+  text-align: center;
+}
+
+.not-found-page .cross {
+  font-size: 42px;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+/* Text-size controls nudge the most text-heavy areas too. */
+html[data-text-size="-1"] .saint-bio,
+html[data-text-size="-1"] .mystery .meaning,
+html[data-text-size="-1"] .guide-content,
+html[data-text-size="-1"] .litany-text { font-size: 14px; }
+
+html[data-text-size="1"] .saint-bio,
+html[data-text-size="1"] .mystery .meaning,
+html[data-text-size="1"] .guide-content,
+html[data-text-size="1"] .litany-text { font-size: 17px; }
+
+html[data-text-size="2"] .saint-bio,
+html[data-text-size="2"] .mystery .meaning,
+html[data-text-size="2"] .guide-content,
+html[data-text-size="2"] .litany-text { font-size: 18px; }
 
 /* ============================================================
    ROSARY PAGE
@@ -1097,25 +1296,50 @@ body.guide-open {
     gap: 12px;
   }
   .navbar .logo {
-    width: 100%;
-    text-align: center;
+    flex: 1;
+    text-align: left;
     font-size: 22px;
   }
+  .mobile-menu-toggle {
+    display: flex;
+  }
   .nav-links {
+    display: none;
     width: 100%;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding-top: 10px;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+  .nav-links a,
+  .dropdown-toggle {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+  }
+  .dropdown {
+    width: 100%;
+    text-align: center;
+  }
+  .lang-switch,
+  .palette-picker,
+  .text-size-control {
     justify-content: center;
-    gap: 12px 18px;
   }
   /* Dropdown menus open centered under their button and never
      spill off the edge of a narrow screen. */
   .dropdown-menu {
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 0;
-    width: max-content;
-    max-width: 86vw;
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    margin-top: 8px;
+    box-shadow: none;
   }
+  .dropdown-menu::before { display: none; }
 
   /* ----- Hero ----- */
   .hero { padding: 56px 18px 44px; }
@@ -1127,6 +1351,7 @@ body.guide-open {
   /* ----- Home daily sections ----- */
   .today-line { margin-top: 22px; }
   .daily-prayer { margin: 10px 16px 0; padding: 30px 22px; }
+  .daily-saint { margin-top: 24px; }
   .daily-prayer-name { font-size: 24px; }
   .daily-prayer-text { font-size: 18px; }
   .daily-verse { margin-top: 40px; }
@@ -1142,6 +1367,16 @@ body.guide-open {
   /* ----- Grids: one full-width column (no sideways scrolling) ----- */
   .cards { grid-template-columns: 1fr; padding: 40px 18px; }
   .saints-grid { grid-template-columns: 1fr; }
+  .prayer-action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .prayer-action-row .guide-start,
+  .prayer-action-row .filter-btn {
+    width: 100%;
+  }
+  .litany-section { margin-top: 52px; }
+  .novena-buttons { flex-direction: column; }
 
   /* ----- Guided prayer mode ----- */
   .prayer-guide { padding: 10px; }
@@ -1164,4 +1399,15 @@ body.guide-open {
 
   /* ----- Footer ----- */
   .footer { padding: 32px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

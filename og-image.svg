@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Catholic Faith share image</title>
+  <desc id="desc">A branded Catholic Faith share card with a gold cross.</desc>
+  <rect width="1200" height="630" fill="#faf7f0"/>
+  <circle cx="260" cy="315" r="150" fill="none" stroke="#e7e0d3" stroke-width="16"/>
+  <path d="M238 160h44v112h104v44H282v154h-44V316H134v-44h104z" fill="#b8893b"/>
+  <text x="450" y="285" fill="#4a2c6f" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="700">Catholic Faith</text>
+  <text x="454" y="360" fill="#6b6358" font-family="Arial, sans-serif" font-size="34">Prayer • Saints • Sacraments • Rosary</text>
+  <line x1="454" y1="405" x2="980" y2="405" stroke="#b8893b" stroke-width="5" stroke-linecap="round"/>
+</svg>
