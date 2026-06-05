@@ -883,6 +883,206 @@ html[data-theme="dark"] .latin-toggle.active {
 }
 
 /* ============================================================
+   GUIDED PRAYER MODE
+   Full-screen stepper shared by the Rosary and Stations pages.
+   ============================================================ */
+.guide-start {
+  display: block;
+  margin: -8px auto 34px;
+  min-height: 48px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  color: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.guide-start:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+body.guide-open {
+  overflow: hidden;
+}
+
+.prayer-guide {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.prayer-guide-card {
+  width: min(760px, 100%);
+  min-height: min(680px, calc(100vh - 48px));
+  margin: auto;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.guide-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-progress {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.guide-close {
+  min-height: 42px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.guide-close:hover {
+  border-color: var(--gold);
+}
+
+.guide-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 34px 0;
+}
+
+.guide-subtitle {
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.guide-title {
+  max-width: 620px;
+  margin: 0 auto 20px;
+  text-align: center;
+  font-size: 38px;
+  color: var(--primary);
+}
+
+.guide-content {
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.guide-reading {
+  margin-bottom: 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--text);
+}
+
+.guide-body-text {
+  color: var(--muted);
+}
+
+.guide-prayer-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.guide-prayer-list {
+  max-width: 420px;
+  margin: 22px auto 0;
+  padding-left: 24px;
+  color: var(--muted);
+}
+
+.guide-prayer-list li {
+  margin-bottom: 8px;
+}
+
+.guide-versicle {
+  margin-bottom: 22px;
+  padding: 18px 20px;
+  background-color: var(--bg);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+
+.guide-versicle p + p {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.guide-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.guide-btn {
+  flex: 1;
+  min-height: 54px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.guide-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+}
+
+.guide-btn.primary {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--surface);
+}
+
+.guide-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* ============================================================
    MOBILE / RESPONSIVE  (phones & small screens)
    Below 720px the whole site becomes one comfortable column.
    The big navbar wraps and centers instead of running off the
@@ -937,10 +1137,30 @@ html[data-theme="dark"] .latin-toggle.active {
   .page,
   .saints-main { padding: 34px 16px 60px; }
   .page-title { font-size: 34px; }
+  .guide-start { width: 100%; max-width: 320px; }
 
   /* ----- Grids: one full-width column (no sideways scrolling) ----- */
   .cards { grid-template-columns: 1fr; padding: 40px 18px; }
   .saints-grid { grid-template-columns: 1fr; }
+
+  /* ----- Guided prayer mode ----- */
+  .prayer-guide { padding: 10px; }
+  .prayer-guide-card {
+    min-height: calc(100vh - 20px);
+    padding: 20px;
+  }
+  .guide-header {
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .guide-title { font-size: 30px; }
+  .guide-content { font-size: 16px; }
+  .guide-reading,
+  .guide-prayer-text { font-size: 20px; }
+  .guide-controls {
+    flex-direction: column;
+  }
+  .guide-btn { width: 100%; }
 
   /* ----- Footer ----- */
   .footer { padding: 32px 18px; }

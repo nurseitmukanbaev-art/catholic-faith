@@ -224,6 +224,11 @@ const saintCategories = [
   { key: "disciples",   en: "Disciples",            fr: "Disciples" },
   { key: "doctors",     en: "Doctors of the Church", fr: "Docteurs de l'Église" },
   { key: "religious",   en: "Religious & Founders",  fr: "Religieux et fondateurs" },
+  { key: "bishops",     en: "Bishops",               fr: "Évêques" },
+  { key: "martyrs",     en: "Martyrs",               fr: "Martyrs" },
+  { key: "mystics",     en: "Mystics",               fr: "Mystiques" },
+  { key: "lay-saints",  en: "Lay Saints",            fr: "Saints laïcs" },
+  { key: "modern",      en: "Modern Saints",         fr: "Saints modernes" },
 ];
 
 const monthNamesEn = ["January", "February", "March", "April", "May", "June",
@@ -301,6 +306,146 @@ const saints = [
     tags_en: ["Missions", "Florists"], tags_fr: ["Missions", "Fleuristes"],
     bio_en: "A Carmelite nun who died at just twenty-four, known as the \"Little Flower.\" Her \"little way\" of trusting, childlike love made her a Doctor of the Church and one of the most beloved modern saints.",
     bio_fr: "Une carmélite morte à seulement vingt-quatre ans, connue comme la « Petite Fleur ». Sa « petite voie » d'amour confiant et enfantin fit d'elle une Docteur de l'Église et l'une des saintes modernes les plus aimées.",
+  },
+  {
+    emoji: "🍞", name_en: "St. Anthony of Padua", name_fr: "Saint Antoine de Padoue",
+    month: 6, day: 13, category: "doctors",
+    tags_en: ["Lost Items", "The Poor", "Preachers"], tags_fr: ["Objets perdus", "Pauvres", "Prédicateurs"],
+    bio_en: "Anthony was a Franciscan friar whose preaching drew crowds because it joined learning with deep love for Christ. He is remembered for his care for the poor, his clear teaching, and the many people who ask his help in finding what is lost.",
+    bio_fr: "Antoine fut un frère franciscain dont la prédication attirait les foules, car elle unissait la science à un profond amour du Christ. On se souvient de sa sollicitude pour les pauvres, de son enseignement limpide et de l'aide qu'on lui demande pour retrouver ce qui est perdu.",
+  },
+  {
+    emoji: "🏰", name_en: "St. Teresa of Ávila", name_fr: "Sainte Thérèse d'Avila",
+    month: 10, day: 15, category: "doctors",
+    tags_en: ["Prayer", "Carmelites", "Spiritual Writers"], tags_fr: ["Prière", "Carmélites", "Auteurs spirituels"],
+    bio_en: "Teresa renewed the Carmelite order with courage, humor, and a burning desire for God. Her writings on prayer and the interior life still guide Christians toward friendship with Christ.",
+    bio_fr: "Thérèse renouvela l'ordre du Carmel avec courage, humour et un ardent désir de Dieu. Ses écrits sur la prière et la vie intérieure guident encore les chrétiens vers l'amitié avec le Christ.",
+  },
+  {
+    emoji: "🕊️", name_en: "St. John Paul II", name_fr: "Saint Jean-Paul II",
+    month: 10, day: 22, category: "modern",
+    tags_en: ["Youth", "Families", "Popes"], tags_fr: ["Jeunes", "Familles", "Papes"],
+    bio_en: "Karol Wojtyła became Pope John Paul II after years of faithful ministry in Poland under oppression. He preached the dignity of every person, strengthened families and young people, and reminded the world to be not afraid.",
+    bio_fr: "Karol Wojtyła devint le pape Jean-Paul II après des années de ministère fidèle en Pologne sous l'oppression. Il proclama la dignité de toute personne, fortifia les familles et les jeunes, et rappela au monde de ne pas avoir peur.",
+  },
+  {
+    emoji: "✋", name_en: "St. Padre Pio", name_fr: "Saint Padre Pio",
+    month: 9, day: 23, category: "religious",
+    tags_en: ["Confessors", "Suffering", "Prayer"], tags_fr: ["Confesseurs", "Souffrance", "Prière"],
+    bio_en: "Known as Padre Pio, this Capuchin priest spent long hours hearing confessions and carrying the wounds of Christ in his body. He taught people to pray, hope, and trust God's mercy even in suffering.",
+    bio_fr: "Connu sous le nom de Padre Pio, ce prêtre capucin passait de longues heures au confessionnal et porta dans son corps les plaies du Christ. Il enseigna aux fidèles à prier, à espérer et à faire confiance à la miséricorde de Dieu même dans la souffrance.",
+  },
+  {
+    emoji: "🖋️", name_en: "St. Catherine of Siena", name_fr: "Sainte Catherine de Sienne",
+    month: 4, day: 29, category: "doctors",
+    tags_en: ["Europe", "Peacemakers", "Nurses"], tags_fr: ["Europe", "Artisans de paix", "Infirmiers"],
+    bio_en: "Catherine was a Dominican tertiary whose holiness gave her influence far beyond her young age. She served the sick, worked for peace, and urged the Pope to return to Rome with fearless love for the Church.",
+    bio_fr: "Catherine fut une tertiaire dominicaine dont la sainteté lui donna une influence bien au-delà de son jeune âge. Elle servit les malades, travailla pour la paix et exhorta le pape à revenir à Rome avec un amour intrépide pour l'Église.",
+  },
+  {
+    emoji: "🕯️", name_en: "St. Maximilian Kolbe", name_fr: "Saint Maximilien Kolbe",
+    month: 8, day: 14, category: "martyrs",
+    tags_en: ["Prisoners", "Families", "Media"], tags_fr: ["Prisonniers", "Familles", "Médias"],
+    bio_en: "Maximilian was a Franciscan priest devoted to Mary and bold in using print media for evangelization. In Auschwitz he offered his life in place of another prisoner, showing the victory of charity in the darkest place.",
+    bio_fr: "Maximilien fut un prêtre franciscain dévoué à Marie et audacieux dans l'usage de la presse pour l'évangélisation. À Auschwitz, il offrit sa vie à la place d'un autre prisonnier, manifestant la victoire de la charité dans le lieu le plus sombre.",
+  },
+  {
+    emoji: "💧", name_en: "St. Faustina Kowalska", name_fr: "Sainte Faustine Kowalska",
+    month: 10, day: 5, category: "mystics",
+    tags_en: ["Divine Mercy", "Mercy", "Diary Writers"], tags_fr: ["Miséricorde divine", "Miséricorde", "Journaux spirituels"],
+    bio_en: "Faustina was a humble Polish sister entrusted with a message of Divine Mercy. Her diary helped spread devotion to Jesus' mercy and the simple prayer, \"Jesus, I trust in you.\"",
+    bio_fr: "Faustine fut une humble religieuse polonaise à qui fut confié un message de Miséricorde divine. Son journal contribua à répandre la dévotion à la miséricorde de Jésus et la simple prière : « Jésus, j'ai confiance en vous. »",
+  },
+  {
+    emoji: "⛲", name_en: "St. Bernadette Soubirous", name_fr: "Sainte Bernadette Soubirous",
+    month: 4, day: 16, category: "mystics",
+    tags_en: ["Lourdes", "The Sick", "Humility"], tags_fr: ["Lourdes", "Malades", "Humilité"],
+    bio_en: "Bernadette was a poor young girl from Lourdes who saw the Blessed Virgin Mary at the grotto of Massabielle. She remained humble under attention and later lived quietly as a religious sister.",
+    bio_fr: "Bernadette fut une pauvre jeune fille de Lourdes qui vit la Bienheureuse Vierge Marie à la grotte de Massabielle. Elle demeura humble malgré l'attention qu'elle reçut et vécut ensuite discrètement comme religieuse.",
+  },
+  {
+    emoji: "🙏", name_en: "St. Monica", name_fr: "Sainte Monique",
+    month: 8, day: 27, category: "lay-saints",
+    tags_en: ["Mothers", "Difficult Marriages", "Conversions"], tags_fr: ["Mères", "Mariages difficiles", "Conversions"],
+    bio_en: "Monica prayed for years for the conversion of her son Augustine and never stopped hoping in God's mercy. Her patient tears and faithful love helped prepare one of the Church's greatest teachers.",
+    bio_fr: "Monique pria pendant des années pour la conversion de son fils Augustin et ne cessa jamais d'espérer en la miséricorde de Dieu. Ses larmes patientes et son amour fidèle préparèrent l'un des plus grands maîtres de l'Église.",
+  },
+  {
+    emoji: "📘", name_en: "St. Benedict", name_fr: "Saint Benoît",
+    month: 7, day: 11, category: "religious",
+    tags_en: ["Europe", "Monks", "Students"], tags_fr: ["Europe", "Moines", "Étudiants"],
+    bio_en: "Benedict founded monasteries and wrote a Rule that balanced prayer, work, silence, and charity. His wisdom shaped Western monastic life and helped preserve faith and learning through troubled centuries.",
+    bio_fr: "Benoît fonda des monastères et écrivit une Règle qui équilibre la prière, le travail, le silence et la charité. Sa sagesse façonna la vie monastique occidentale et aida à préserver la foi et le savoir durant des siècles difficiles.",
+  },
+  {
+    emoji: "☘️", name_en: "St. Patrick", name_fr: "Saint Patrick",
+    month: 3, day: 17, category: "bishops",
+    tags_en: ["Ireland", "Missionaries", "Captives"], tags_fr: ["Irlande", "Missionnaires", "Captifs"],
+    bio_en: "Patrick was taken to Ireland as a slave, escaped, and later returned as a bishop to preach the Gospel. His forgiving heart and missionary courage helped bring a whole people to Christ.",
+    bio_fr: "Patrick fut emmené en Irlande comme esclave, s'échappa, puis y retourna comme évêque pour annoncer l'Évangile. Son cœur plein de pardon et son courage missionnaire aidèrent tout un peuple à venir au Christ.",
+  },
+  {
+    emoji: "🎁", name_en: "St. Nicholas", name_fr: "Saint Nicolas",
+    month: 12, day: 6, category: "bishops",
+    tags_en: ["Children", "Sailors", "Generosity"], tags_fr: ["Enfants", "Marins", "Générosité"],
+    bio_en: "Nicholas was a bishop of Myra remembered for his defense of the faith and his secret generosity to people in need. Stories of his kindness made him one of the most beloved saints in Christian tradition.",
+    bio_fr: "Nicolas fut évêque de Myre, connu pour sa défense de la foi et sa générosité discrète envers les personnes dans le besoin. Les récits de sa bonté ont fait de lui l'un des saints les plus aimés de la tradition chrétienne.",
+  },
+  {
+    emoji: "🎶", name_en: "St. Cecilia", name_fr: "Sainte Cécile",
+    month: 11, day: 22, category: "martyrs",
+    tags_en: ["Music", "Singers", "Poets"], tags_fr: ["Musique", "Chanteurs", "Poètes"],
+    bio_en: "Cecilia is honored as a Roman martyr whose heart belonged wholly to Christ. Tradition remembers her singing to God even amid suffering, making her the patroness of sacred music.",
+    bio_fr: "Cécile est honorée comme une martyre romaine dont le cœur appartenait entièrement au Christ. La tradition se souvient qu'elle chantait pour Dieu même au milieu de la souffrance, ce qui fait d'elle la patronne de la musique sacrée.",
+  },
+  {
+    emoji: "👁️", name_en: "St. Lucy", name_fr: "Sainte Lucie",
+    month: 12, day: 13, category: "martyrs",
+    tags_en: ["Sight", "Purity", "Martyrs"], tags_fr: ["Vue", "Pureté", "Martyrs"],
+    bio_en: "Lucy was a young Christian of Sicily who chose fidelity to Christ over comfort and safety. Her name means light, and her witness continues to shine as a sign of purity and courage.",
+    bio_fr: "Lucie fut une jeune chrétienne de Sicile qui choisit la fidélité au Christ plutôt que le confort et la sécurité. Son nom signifie lumière, et son témoignage continue de briller comme signe de pureté et de courage.",
+  },
+  {
+    emoji: "🏜️", name_en: "St. Anthony the Great", name_fr: "Saint Antoine le Grand",
+    month: 1, day: 17, category: "religious",
+    tags_en: ["Monks", "Hermits", "Spiritual Warfare"], tags_fr: ["Moines", "Ermites", "Combat spirituel"],
+    bio_en: "Anthony left his wealth behind to seek God in the desert, becoming a father of monastic life. His discipline, wisdom, and perseverance inspired countless Christians to follow Christ more completely.",
+    bio_fr: "Antoine quitta ses richesses pour chercher Dieu au désert, devenant un père de la vie monastique. Sa discipline, sa sagesse et sa persévérance inspirèrent d'innombrables chrétiens à suivre le Christ plus pleinement.",
+  },
+  {
+    emoji: "📿", name_en: "St. Dominic", name_fr: "Saint Dominique",
+    month: 8, day: 8, category: "religious",
+    tags_en: ["Preachers", "Rosary", "Theologians"], tags_fr: ["Prédicateurs", "Rosaire", "Théologiens"],
+    bio_en: "Dominic founded the Order of Preachers to teach the faith with clarity, poverty, and zeal. He loved truth deeply and sent his friars to bring the Gospel wherever confusion and doubt had taken root.",
+    bio_fr: "Dominique fonda l'Ordre des Prêcheurs pour enseigner la foi avec clarté, pauvreté et zèle. Il aimait profondément la vérité et envoya ses frères porter l'Évangile là où la confusion et le doute s'étaient enracinés.",
+  },
+  {
+    emoji: "🌿", name_en: "St. Clare of Assisi", name_fr: "Sainte Claire d'Assise",
+    month: 8, day: 11, category: "religious",
+    tags_en: ["Poor Clares", "Poverty", "Television"], tags_fr: ["Clarisses", "Pauvreté", "Télévision"],
+    bio_en: "Clare followed the example of Francis of Assisi and founded the Poor Clares, embracing radical poverty for love of Christ. Her quiet strength and Eucharistic faith made her a light for the whole Church.",
+    bio_fr: "Claire suivit l'exemple de François d'Assise et fonda les Clarisses, embrassant une pauvreté radicale par amour du Christ. Sa force paisible et sa foi eucharistique firent d'elle une lumière pour toute l'Église.",
+  },
+  {
+    emoji: "🌸", name_en: "St. Rita of Cascia", name_fr: "Sainte Rita de Cascia",
+    month: 5, day: 22, category: "religious",
+    tags_en: ["Impossible Causes", "Marriage", "Peace"], tags_fr: ["Causes impossibles", "Mariage", "Paix"],
+    bio_en: "Rita knew the sorrows of family conflict, widowhood, and religious life, yet she answered each trial with forgiveness. She is loved as a patroness of impossible causes because her life shows how grace can heal deep wounds.",
+    bio_fr: "Rita connut les douleurs des conflits familiaux, du veuvage et de la vie religieuse, mais répondit à chaque épreuve par le pardon. Elle est aimée comme patronne des causes impossibles, car sa vie montre comment la grâce peut guérir les blessures profondes.",
+  },
+  {
+    emoji: "👵", name_en: "St. Anne", name_fr: "Sainte Anne",
+    month: 7, day: 26, category: "holy-family",
+    tags_en: ["Grandparents", "Mothers", "Families"], tags_fr: ["Grands-parents", "Mères", "Familles"],
+    bio_en: "Anne is honored by tradition as the mother of the Blessed Virgin Mary and the grandmother of Jesus. She reminds families that holiness is often formed quietly through faithful love across generations.",
+    bio_fr: "Anne est honorée par la tradition comme la mère de la Bienheureuse Vierge Marie et la grand-mère de Jésus. Elle rappelle aux familles que la sainteté se forme souvent discrètement par un amour fidèle à travers les générations.",
+  },
+  {
+    emoji: "🧭", name_en: "St. Jude", name_fr: "Saint Jude",
+    month: 10, day: 28, category: "apostles",
+    tags_en: ["Hope", "Difficult Causes", "Apostles"], tags_fr: ["Espérance", "Causes difficiles", "Apôtres"],
+    bio_en: "Jude was one of the Twelve Apostles and is traditionally invoked when situations seem desperate. His short New Testament letter urges believers to remain faithful, pray in the Holy Spirit, and trust God's mercy.",
+    bio_fr: "Jude fut l'un des Douze Apôtres et il est traditionnellement invoqué lorsque les situations semblent désespérées. Sa brève lettre du Nouveau Testament exhorte les croyants à demeurer fidèles, à prier dans l'Esprit Saint et à faire confiance à la miséricorde de Dieu.",
   },
 ];
 
@@ -619,3 +764,215 @@ function showTodayRosary() {
 showDailyVerse();
 showTodayLine();
 showTodayRosary();
+
+// ============================================================
+// GUIDED PRAYER MODE (rosary + stations pages)
+// A shared full-screen stepper. Each page passes in the steps it
+// needs, and this code handles the overlay, progress, and buttons.
+// ============================================================
+function langHtml(en, fr) {
+  return '<span class="lang lang-en">' + en + "</span>" +
+    '<span class="lang lang-fr">' + fr + "</span>";
+}
+
+function openPrayerGuide(steps) {
+  if (!steps || steps.length === 0) return;
+
+  const oldGuide = document.querySelector(".prayer-guide");
+  if (oldGuide) oldGuide.remove();
+
+  const guideReturnFocus = document.activeElement;
+  let index = 0;
+
+  const guide = document.createElement("div");
+  guide.className = "prayer-guide";
+  guide.setAttribute("role", "dialog");
+  guide.setAttribute("aria-modal", "true");
+  guide.innerHTML =
+    '<div class="prayer-guide-card">' +
+      '<div class="guide-header">' +
+        '<p class="guide-progress" id="guideProgress"></p>' +
+        '<button class="guide-close" id="guideClose" type="button">' +
+          langHtml("Close", "Fermer") +
+        "</button>" +
+      "</div>" +
+      '<div class="guide-step">' +
+        '<p class="guide-subtitle" id="guideSubtitle"></p>' +
+        '<h2 class="guide-title" id="guideTitle"></h2>' +
+        '<div class="guide-content" id="guideContent"></div>' +
+      "</div>" +
+      '<div class="guide-controls">' +
+        '<button class="guide-btn" id="guidePrev" type="button">' +
+          langHtml("Previous", "Précédent") +
+        "</button>" +
+        '<button class="guide-btn primary" id="guideNext" type="button"></button>' +
+      "</div>" +
+    "</div>";
+
+  document.body.appendChild(guide);
+  document.body.classList.add("guide-open");
+
+  const progressEl = document.getElementById("guideProgress");
+  const subtitleEl = document.getElementById("guideSubtitle");
+  const titleEl = document.getElementById("guideTitle");
+  const contentEl = document.getElementById("guideContent");
+  const closeBtn = document.getElementById("guideClose");
+  const prevBtn = document.getElementById("guidePrev");
+  const nextBtn = document.getElementById("guideNext");
+
+  function closeGuide() {
+    document.removeEventListener("keydown", guideKeydown);
+    guide.remove();
+    document.body.classList.remove("guide-open");
+    if (guideReturnFocus && guideReturnFocus.focus) {
+      guideReturnFocus.focus();
+    }
+  }
+
+  function renderGuideStep() {
+    const step = steps[index];
+    progressEl.innerHTML = step.progress;
+    subtitleEl.innerHTML = step.subtitle || "";
+    subtitleEl.hidden = !step.subtitle;
+    titleEl.innerHTML = step.title;
+    contentEl.innerHTML = step.content;
+    prevBtn.disabled = index === 0;
+    nextBtn.innerHTML = index === steps.length - 1
+      ? langHtml("Finish", "Terminer")
+      : langHtml("Next", "Suivant");
+  }
+
+  function guideKeydown(event) {
+    if (event.key === "Escape") closeGuide();
+    if (event.key === "ArrowLeft" && index > 0) {
+      index -= 1;
+      renderGuideStep();
+    }
+    if (event.key === "ArrowRight") {
+      if (index === steps.length - 1) {
+        closeGuide();
+      } else {
+        index += 1;
+        renderGuideStep();
+      }
+    }
+  }
+
+  closeBtn.addEventListener("click", closeGuide);
+  prevBtn.addEventListener("click", function () {
+    if (index === 0) return;
+    index -= 1;
+    renderGuideStep();
+  });
+  nextBtn.addEventListener("click", function () {
+    if (index === steps.length - 1) {
+      closeGuide();
+      return;
+    }
+    index += 1;
+    renderGuideStep();
+  });
+  document.addEventListener("keydown", guideKeydown);
+
+  renderGuideStep();
+  nextBtn.focus();
+}
+
+function rosaryOpeningStep(setNameHtml) {
+  return {
+    progress: langHtml("Opening", "Ouverture"),
+    subtitle: setNameHtml,
+    title: langHtml("Begin the Rosary", "Commencer le Rosaire"),
+    content:
+      '<p class="guide-body-text">' +
+        langHtml(
+          "Make the Sign of the Cross, then pray the opening prayers before the first mystery.",
+          "Faites le signe de la Croix, puis priez les prières d'ouverture avant le premier mystère."
+        ) +
+      "</p>" +
+      '<ul class="guide-prayer-list">' +
+        "<li>" + langHtml("Sign of the Cross", "Signe de la Croix") + "</li>" +
+        "<li>" + langHtml("Apostles' Creed", "Symbole des Apôtres") + "</li>" +
+        "<li>" + langHtml("Our Father", "Notre Père") + "</li>" +
+        "<li>" + langHtml("Three Hail Marys", "Trois Je vous salue Marie") + "</li>" +
+        "<li>" + langHtml("Glory Be", "Gloire au Père") + "</li>" +
+      "</ul>",
+  };
+}
+
+function rosaryClosingStep(setNameHtml) {
+  return {
+    progress: langHtml("Closing", "Conclusion"),
+    subtitle: setNameHtml,
+    title: langHtml("Hail Holy Queen", "Salve Regina"),
+    content:
+      '<p class="guide-prayer-text">' +
+        langHtml(
+          "Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Amen.",
+          "Salut, ô Reine, Mère de miséricorde, notre vie, notre douceur et notre espérance, salut ! Enfants d'Ève, exilés, nous crions vers vous ; vers vous nous soupirons, gémissant et pleurant dans cette vallée de larmes. Ô vous, notre avocate, tournez vers nous vos regards miséricordieux. Et, après cet exil, montrez-nous Jésus, le fruit béni de vos entrailles. Ô clémente, ô miséricordieuse, ô douce Vierge Marie. Amen."
+        ) +
+      "</p>",
+  };
+}
+
+function openRosaryGuide() {
+  const panel = document.querySelector(".mystery-panel.active") ||
+    document.querySelector(".mystery-panel");
+  if (!panel) return;
+
+  const setName = panel.querySelector(".mystery-set-name");
+  const setNameHtml = setName ? setName.innerHTML : "";
+  const mysteries = Array.from(panel.querySelectorAll(".mystery"));
+  const steps = [rosaryOpeningStep(setNameHtml)];
+
+  mysteries.forEach(function (mystery, i) {
+    const name = mystery.querySelector(".name");
+    const reading = mystery.querySelector(".reading");
+    const meaning = mystery.querySelector(".meaning");
+    steps.push({
+      progress: langHtml(
+        "Mystery " + (i + 1) + " of " + mysteries.length,
+        "Mystère " + (i + 1) + " sur " + mysteries.length
+      ),
+      subtitle: setNameHtml,
+      title: name ? name.innerHTML : "",
+      content:
+        '<p class="guide-reading">' + (reading ? reading.innerHTML : "") + "</p>" +
+        '<p class="guide-body-text">' + (meaning ? meaning.innerHTML : "") + "</p>",
+    });
+  });
+
+  steps.push(rosaryClosingStep(setNameHtml));
+  openPrayerGuide(steps);
+}
+
+function stationVersicleHtml() {
+  return (
+    '<div class="guide-versicle">' +
+      "<p>" + langHtml("We adore you, O Christ, and we praise you.", "Nous vous adorons, ô Christ, et nous vous bénissons.") + "</p>" +
+      "<p>" + langHtml("Because by your holy Cross you have redeemed the world.", "Parce que vous avez racheté le monde par votre sainte Croix.") + "</p>" +
+    "</div>"
+  );
+}
+
+function openStationsGuide() {
+  const stations = Array.from(document.querySelectorAll(".saints-grid .saint-card"));
+  if (stations.length === 0) return;
+
+  const steps = stations.map(function (station, i) {
+    const name = station.querySelector(".saint-name");
+    const reflection = station.querySelector(".saint-bio");
+    return {
+      progress: langHtml(
+        "Station " + (i + 1) + " of " + stations.length,
+        "Station " + (i + 1) + " sur " + stations.length
+      ),
+      title: name ? name.innerHTML : "",
+      content:
+        stationVersicleHtml() +
+        '<p class="guide-body-text">' + (reflection ? reflection.innerHTML : "") + "</p>",
+    };
+  });
+
+  openPrayerGuide(steps);
+}
