@@ -91,21 +91,6 @@ function toggleMenu() {
   menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
 }
 
-let textSizeLevel = Number(localStorage.getItem("textSize") || "0");
-
-function applyTextSize() {
-  textSizeLevel = Math.max(-1, Math.min(2, textSizeLevel));
-  html.setAttribute("data-text-size", String(textSizeLevel));
-  localStorage.setItem("textSize", String(textSizeLevel));
-}
-
-function changeTextSize(step) {
-  textSizeLevel += step;
-  applyTextSize();
-}
-
-applyTextSize();
-
 // ============================================================
 // LATIN TITLES (rosary page only)
 // A simple on/off toggle. The button only exists on the rosary
