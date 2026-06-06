@@ -277,6 +277,16 @@ html[data-latin="on"] #prayersGrid .saint-bio .lang { display: none; }
 html[data-latin="on"] #prayersGrid .saint-name .latin-name,
 html[data-latin="on"] #prayersGrid .saint-bio .latin-name { display: inline; }
 
+/* The Rosary page's "Prayers of the Rosary" reference cards, and the
+   prayer blocks inside the guided-Rosary modal (.guide-latin), follow
+   the same Latin toggle. Scoped so Scripture readings stay EN/FR. */
+html[data-latin="on"] .rosary-prayers .saint-name .lang,
+html[data-latin="on"] .rosary-prayers .saint-bio .lang,
+html[data-latin="on"] .guide-latin .lang { display: none; }
+html[data-latin="on"] .rosary-prayers .saint-name .latin-name,
+html[data-latin="on"] .rosary-prayers .saint-bio .latin-name,
+html[data-latin="on"] .guide-latin .latin-name { display: inline; }
+
 /* The EN / FR buttons in the nav. */
 .lang-switch {
   display: flex;
@@ -855,6 +865,11 @@ html[data-theme="dark"] .guide-btn.primary {
   margin: 70px auto 0;
 }
 
+/* "The Prayers of the Rosary" reference section on the Rosary page. */
+.rosary-prayers {
+  margin-top: 70px;
+}
+
 .litany-heading {
   margin-bottom: 8px;
 }
@@ -1199,6 +1214,27 @@ body.guide-open {
 
 .guide-prayer-list li {
   margin-bottom: 8px;
+}
+
+/* Stacked prayer blocks in the guided-Rosary opening step. */
+.guide-prayer-block {
+  max-width: 560px;
+  margin: 0 auto 22px;
+}
+.guide-prayer-block:last-child { margin-bottom: 0; }
+
+.guide-prayer-label {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.guide-prayer-block .guide-prayer-text {
+  margin-top: 0;
+  font-size: 19px;
 }
 
 .guide-versicle {

@@ -815,6 +815,23 @@ function langHtml(en, fr) {
     '<span class="lang lang-fr">' + fr + "</span>";
 }
 
+// Like langHtml, but with a third Latin span. The Latin shows only when
+// the Latin toggle is on AND the text sits inside a .guide-latin wrapper,
+// so it never hides Scripture readings (which have no Latin) or nav chrome.
+function triLangHtml(en, fr, la) {
+  return '<span class="lang lang-en">' + en + "</span>" +
+    '<span class="lang lang-fr">' + fr + "</span>" +
+    '<span class="latin-name">' + la + "</span>";
+}
+
+// One titled prayer block for the guided Rosary's opening/closing steps.
+function guidePrayerBlock(nameEn, nameFr, nameLa, textEn, textFr, textLa) {
+  return '<div class="guide-latin guide-prayer-block">' +
+    '<p class="guide-prayer-label">' + triLangHtml(nameEn, nameFr, nameLa) + "</p>" +
+    '<p class="guide-prayer-text">' + triLangHtml(textEn, textFr, textLa) + "</p>" +
+    "</div>";
+}
+
 function openPrayerGuide(steps) {
   if (!steps || steps.length === 0) return;
 
@@ -930,13 +947,36 @@ function rosaryOpeningStep(setNameHtml) {
           "Faites le signe de la Croix, puis priez les prières d'ouverture avant le premier mystère."
         ) +
       "</p>" +
-      '<ul class="guide-prayer-list">' +
-        "<li>" + langHtml("Sign of the Cross", "Signe de la Croix") + "</li>" +
-        "<li>" + langHtml("Apostles' Creed", "Symbole des Apôtres") + "</li>" +
-        "<li>" + langHtml("Our Father", "Notre Père") + "</li>" +
-        "<li>" + langHtml("Three Hail Marys", "Trois Je vous salue Marie") + "</li>" +
-        "<li>" + langHtml("Glory Be", "Gloire au Père") + "</li>" +
-      "</ul>",
+      guidePrayerBlock(
+        "Sign of the Cross", "Signe de la Croix", "Signum Crucis",
+        "In the name of the Father, and of the Son, and of the Holy Spirit. Amen.",
+        "Au nom du Père, et du Fils, et du Saint-Esprit. Amen.",
+        "In nómine Patris, et Fílii, et Spíritus Sancti. Amen."
+      ) +
+      guidePrayerBlock(
+        "Apostles' Creed", "Symbole des Apôtres", "Symbolum Apostolorum",
+        "I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from there he will come to judge the living and the dead. I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.",
+        "Je crois en Dieu, le Père tout-puissant, Créateur du ciel et de la terre. Et en Jésus-Christ, son Fils unique, notre Seigneur, qui a été conçu du Saint-Esprit, est né de la Vierge Marie, a souffert sous Ponce Pilate, a été crucifié, est mort et a été enseveli, est descendu aux enfers, le troisième jour est ressuscité des morts, est monté aux cieux, est assis à la droite de Dieu le Père tout-puissant, d'où il viendra juger les vivants et les morts. Je crois en l'Esprit-Saint, à la sainte Église catholique, à la communion des saints, à la rémission des péchés, à la résurrection de la chair, à la vie éternelle. Amen.",
+        "Credo in Deum, Patrem omnipoténtem, Creatórem cæli et terræ. Et in Iesum Christum, Fílium eius únicum, Dóminum nostrum, qui concéptus est de Spíritu Sancto, natus ex María Vírgine, passus sub Póntio Piláto, crucifíxus, mórtuus, et sepúltus, descéndit ad ínferos, tértia die resurréxit a mórtuis, ascéndit ad cælos, sedet ad déxteram Dei Patris omnipoténtis, inde ventúrus est iudicáre vivos et mórtuos. Credo in Spíritum Sanctum, sanctam Ecclésiam cathólicam, sanctórum communiónem, remissiónem peccatórum, carnis resurrectiónem, vitam ætérnam. Amen."
+      ) +
+      guidePrayerBlock(
+        "Our Father", "Notre Père", "Pater Noster",
+        "Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.",
+        "Notre Père, qui es aux cieux, que ton nom soit sanctifié, que ton règne vienne, que ta volonté soit faite sur la terre comme au ciel. Donne-nous aujourd'hui notre pain de ce jour. Pardonne-nous nos offenses, comme nous pardonnons aussi à ceux qui nous ont offensés. Et ne nous laisse pas entrer en tentation, mais délivre-nous du Mal. Amen.",
+        "Pater noster, qui es in cælis, sanctificétur nomen tuum. Advéniat regnum tuum. Fiat volúntas tua, sicut in cælo et in terra. Panem nostrum quotidiánum da nobis hódie, et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris. Et ne nos indúcas in tentatiónem, sed líbera nos a malo. Amen."
+      ) +
+      guidePrayerBlock(
+        "Hail Mary (×3)", "Je vous salue Marie (×3)", "Ave María (×3)",
+        "Hail Mary, full of grace, the Lord is with thee. Blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.",
+        "Je vous salue, Marie, pleine de grâce ; le Seigneur est avec vous. Vous êtes bénie entre toutes les femmes, et Jésus, le fruit de vos entrailles, est béni. Sainte Marie, Mère de Dieu, priez pour nous, pauvres pécheurs, maintenant et à l'heure de notre mort. Amen.",
+        "Ave María, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc et in hora mortis nostræ. Amen."
+      ) +
+      guidePrayerBlock(
+        "Glory Be", "Gloire au Père", "Glória Patri",
+        "Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.",
+        "Gloire au Père, et au Fils, et au Saint-Esprit. Comme il était au commencement, maintenant et toujours, et dans les siècles des siècles. Amen.",
+        "Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen."
+      ),
   };
 }
 
@@ -946,12 +986,15 @@ function rosaryClosingStep(setNameHtml) {
     subtitle: setNameHtml,
     title: langHtml("Hail Holy Queen", "Salve Regina"),
     content:
-      '<p class="guide-prayer-text">' +
-        langHtml(
-          "Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Amen.",
-          "Salut, ô Reine, Mère de miséricorde, notre vie, notre douceur et notre espérance, salut ! Enfants d'Ève, exilés, nous crions vers vous ; vers vous nous soupirons, gémissant et pleurant dans cette vallée de larmes. Ô vous, notre avocate, tournez vers nous vos regards miséricordieux. Et, après cet exil, montrez-nous Jésus, le fruit béni de vos entrailles. Ô clémente, ô miséricordieuse, ô douce Vierge Marie. Amen."
-        ) +
-      "</p>",
+      '<div class="guide-latin">' +
+        '<p class="guide-prayer-text">' +
+          triLangHtml(
+            "Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Amen.",
+            "Salut, ô Reine, Mère de miséricorde, notre vie, notre douceur et notre espérance, salut ! Enfants d'Ève, exilés, nous crions vers vous ; vers vous nous soupirons, gémissant et pleurant dans cette vallée de larmes. Ô vous, notre avocate, tournez vers nous vos regards miséricordieux. Et, après cet exil, montrez-nous Jésus, le fruit béni de vos entrailles. Ô clémente, ô miséricordieuse, ô douce Vierge Marie. Amen.",
+            "Salve, Regína, Mater misericórdiæ, vita, dulcédo, et spes nostra, salve. Ad te clamámus, éxsules fílii Hevæ. Ad te suspirámus, geméntes et flentes in hac lacrimárum valle. Eia ergo, advocáta nostra, illos tuos misericórdes óculos ad nos convérte. Et Iesum, benedíctum fructum ventris tui, nobis post hoc exsílium osténde. O clemens, o pia, o dulcis Virgo María. Amen."
+          ) +
+        "</p>" +
+      "</div>",
   };
 }
 
