@@ -259,15 +259,17 @@ html[data-lang="fr"] .lang-fr {
   display: inline;                        /* ...then reveal the active one */
 }
 
-/* Latin titles on the rosary, toggled by the Latin button.
-   When data-latin="on", the EN/FR title spans hide and the
-   Latin one shows — but only inside titles, so the readings
-   and meanings keep your chosen EN/FR. */
+/* Latin on the rosary, toggled by the Latin button. When
+   data-latin="on", the EN/FR spans hide and the Latin one shows
+   for the mystery titles AND the Scripture readings (Vulgate).
+   The meditations keep your chosen EN/FR (they are commentary). */
 .latin-name { display: none; }
 html[data-latin="on"] .name .lang,
-html[data-latin="on"] .mystery-set-name .lang { display: none; }
+html[data-latin="on"] .mystery-set-name .lang,
+html[data-latin="on"] .reading .lang { display: none; }
 html[data-latin="on"] .name .latin-name,
-html[data-latin="on"] .mystery-set-name .latin-name { display: inline; }
+html[data-latin="on"] .mystery-set-name .latin-name,
+html[data-latin="on"] .reading .latin-name { display: inline; }
 
 /* On the Prayers page the Latin toggle covers BOTH the prayer
    title (.saint-name) and the full prayer text (.saint-bio),
@@ -276,11 +278,6 @@ html[data-latin="on"] #prayersGrid .saint-name .lang,
 html[data-latin="on"] #prayersGrid .saint-bio .lang { display: none; }
 html[data-latin="on"] #prayersGrid .saint-name .latin-name,
 html[data-latin="on"] #prayersGrid .saint-bio .latin-name { display: inline; }
-
-/* Prayer blocks inside the guided-Rosary modal follow the same Latin
-   toggle, scoped to .guide-latin so Scripture readings stay EN/FR. */
-html[data-latin="on"] .guide-latin .lang { display: none; }
-html[data-latin="on"] .guide-latin .latin-name { display: inline; }
 
 /* The EN / FR buttons in the nav. */
 .lang-switch {
@@ -1204,27 +1201,6 @@ body.guide-open {
 
 .guide-prayer-list li {
   margin-bottom: 8px;
-}
-
-/* Stacked prayer blocks in the guided-Rosary opening step. */
-.guide-prayer-block {
-  max-width: 560px;
-  margin: 0 auto 22px;
-}
-.guide-prayer-block:last-child { margin-bottom: 0; }
-
-.guide-prayer-label {
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--gold);
-  margin-bottom: 4px;
-}
-
-.guide-prayer-block .guide-prayer-text {
-  margin-top: 0;
-  font-size: 19px;
 }
 
 .guide-versicle {
