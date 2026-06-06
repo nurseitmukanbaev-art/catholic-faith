@@ -277,14 +277,9 @@ html[data-latin="on"] #prayersGrid .saint-bio .lang { display: none; }
 html[data-latin="on"] #prayersGrid .saint-name .latin-name,
 html[data-latin="on"] #prayersGrid .saint-bio .latin-name { display: inline; }
 
-/* The Rosary page's "Prayers of the Rosary" reference cards, and the
-   prayer blocks inside the guided-Rosary modal (.guide-latin), follow
-   the same Latin toggle. Scoped so Scripture readings stay EN/FR. */
-html[data-latin="on"] .rosary-prayers .saint-name .lang,
-html[data-latin="on"] .rosary-prayers .saint-bio .lang,
+/* Prayer blocks inside the guided-Rosary modal follow the same Latin
+   toggle, scoped to .guide-latin so Scripture readings stay EN/FR. */
 html[data-latin="on"] .guide-latin .lang { display: none; }
-html[data-latin="on"] .rosary-prayers .saint-name .latin-name,
-html[data-latin="on"] .rosary-prayers .saint-bio .latin-name,
 html[data-latin="on"] .guide-latin .latin-name { display: inline; }
 
 /* The EN / FR buttons in the nav. */
@@ -863,11 +858,6 @@ html[data-theme="dark"] .guide-btn.primary {
 .litany-section {
   max-width: 1000px;
   margin: 70px auto 0;
-}
-
-/* "The Prayers of the Rosary" reference section on the Rosary page. */
-.rosary-prayers {
-  margin-top: 70px;
 }
 
 .litany-heading {
