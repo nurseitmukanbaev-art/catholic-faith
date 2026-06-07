@@ -1077,6 +1077,95 @@ function openNightPrayerGuide() {
 }
 
 // ============================================================
+// DIVINE MERCY CHAPLET (chaplet.html)
+// Prayed on ordinary Rosary beads. Reuses the same guided prayer
+// engine as the Rosary, Stations, and Night Prayer.
+// ============================================================
+function chapletDecadeStep(i, total) {
+  return {
+    progress: langHtml("Decade " + i + " of " + total, "Dizaine " + i + " sur " + total),
+    title: langHtml("Decade " + i, "Dizaine " + i),
+    content:
+      '<p class="guide-body-text">' +
+        langHtml("On the large bead, pray once:", "Sur le gros grain, priez une fois :") +
+      "</p>" +
+      '<p class="guide-prayer-text">' +
+        langHtml(
+          "Eternal Father, I offer You the Body and Blood, Soul and Divinity of Your dearly beloved Son, Our Lord Jesus Christ, in atonement for our sins and those of the whole world.",
+          "Père Éternel, je T'offre le Corps et le Sang, l'Âme et la Divinité de Ton Fils bien-aimé, Notre Seigneur Jésus-Christ, en réparation de nos péchés et de ceux du monde entier."
+        ) +
+      "</p>" +
+      '<p class="guide-body-text">' +
+        langHtml("On the ten small beads, pray ten times:", "Sur les dix petits grains, priez dix fois :") +
+      "</p>" +
+      '<p class="guide-prayer-text">' +
+        langHtml(
+          "For the sake of His sorrowful Passion, have mercy on us and on the whole world.",
+          "Par Sa douloureuse Passion, sois miséricordieux pour nous et pour le monde entier."
+        ) +
+      "</p>",
+  };
+}
+
+function openChapletGuide() {
+  const steps = [];
+
+  // Opening prayers
+  steps.push({
+    progress: langHtml("Opening", "Ouverture"),
+    title: langHtml("Begin the Chaplet", "Commencer le Chapelet"),
+    content:
+      '<p class="guide-body-text">' +
+        langHtml(
+          "Make the Sign of the Cross. The Chaplet is prayed on ordinary Rosary beads. To begin, pray:",
+          "Faites le signe de la Croix. Le Chapelet se prie sur un chapelet ordinaire. Pour commencer, priez :"
+        ) +
+      "</p>" +
+      '<ul class="guide-prayer-list">' +
+        "<li>" + langHtml("Our Father", "Notre Père") + "</li>" +
+        "<li>" + langHtml("Hail Mary", "Je vous salue Marie") + "</li>" +
+        "<li>" + langHtml("The Apostles' Creed", "Le Symbole des Apôtres") + "</li>" +
+      "</ul>",
+  });
+
+  // Five decades
+  for (let i = 1; i <= 5; i++) {
+    steps.push(chapletDecadeStep(i, 5));
+  }
+
+  // Concluding doxology (three times)
+  steps.push({
+    progress: langHtml("Conclusion", "Conclusion"),
+    title: langHtml("Holy God", "Dieu Saint"),
+    content:
+      '<p class="guide-body-text">' +
+        langHtml("Pray three times:", "Priez trois fois :") +
+      "</p>" +
+      '<p class="guide-prayer-text">' +
+        langHtml(
+          "Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world.",
+          "Dieu Saint, Dieu Fort, Dieu Éternel, prends pitié de nous et du monde entier."
+        ) +
+      "</p>",
+  });
+
+  // Closing prayer
+  steps.push({
+    progress: langHtml("Closing Prayer", "Prière finale"),
+    title: langHtml("Closing Prayer", "Prière finale"),
+    content:
+      '<p class="guide-prayer-text">' +
+        langHtml(
+          "Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, look kindly upon us and increase Your mercy in us, that in difficult moments we might not despair nor become despondent, but with great confidence submit ourselves to Your holy will, which is Love and Mercy itself. Amen.",
+          "Dieu Éternel, dont la miséricorde est insondable et le trésor de compassion inépuisable, regarde-nous avec bonté et augmente en nous Ta miséricorde, afin que, dans les moments difficiles, nous ne désespérions pas et ne nous découragions pas, mais que, avec une grande confiance, nous nous soumettions à Ta sainte volonté, qui est l'Amour et la Miséricorde mêmes. Amen."
+        ) +
+      "</p>",
+  });
+
+  openPrayerGuide(steps);
+}
+
+// ============================================================
 // FAVORITE PRAYERS (prayers.html)
 // Adds a heart to each prayer card and remembers favorites on
 // this device with localStorage.

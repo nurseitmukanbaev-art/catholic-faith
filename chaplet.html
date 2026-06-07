@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pray the Chaplet of Divine Mercy with a step-by-step guide, in English and French." />
+  <meta name="theme-color" content="#4a2c6f" />
+
+  <meta property="og:site_name" content="Catholic Faith" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Divine Mercy Chaplet — Catholic Faith" />
+  <meta property="og:description" content="Pray the Chaplet of Divine Mercy with a step-by-step guide, in English and French." />
+  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/chaplet.html" />
+  <meta property="og:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Divine Mercy Chaplet — Catholic Faith" />
+  <meta name="twitter:description" content="Pray the Chaplet of Divine Mercy with a step-by-step guide, in English and French." />
+  <meta name="twitter:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
+
+  <title>Divine Mercy Chaplet — Catholic Faith</title>
+
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./style.css?v=10" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION BAR  (identical to the other pages)
+       ============================================================ -->
+  <nav class="navbar">
+    <a href="./index.html" class="logo">✝︎ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
+
+    <button class="mobile-menu-toggle" id="menuButton" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="./index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
+      <a href="./saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Prayer</span><span class="lang lang-fr">Prière</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="./prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
+          <a href="./rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
+          <a href="./chaplet.html"><span class="lang lang-en">Divine Mercy Chaplet</span><span class="lang lang-fr">Chapelet de la Miséricorde</span></a>
+          <a href="./novenas.html"><span class="lang lang-en">Novenas</span><span class="lang lang-fr">Neuvaines</span></a>
+          <a href="./stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Faith</span><span class="lang lang-fr">La Foi</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="./mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
+          <a href="./sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
+        </div>
+      </div>
+
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+      </div>
+
+
+      <div class="palette-picker">
+        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet" aria-label="Violet palette"></button>
+        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red" aria-label="Cardinal red palette"></button>
+        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue" aria-label="Marian blue palette"></button>
+        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green" aria-label="Ordinary Time green palette"></button>
+      </div>
+
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       DIVINE MERCY CHAPLET CONTENT
+       The prayers are shown as cards in the order they are prayed.
+       "Begin praying" opens the same guided step-by-step engine as
+       the Rosary and Stations (openChapletGuide in script.js).
+       ============================================================ -->
+  <main class="saints-main">
+    <h1 class="page-title">
+      <span class="lang lang-en">The Divine Mercy Chaplet</span><span class="lang lang-fr">Le Chapelet de la Divine Miséricorde</span>
+    </h1>
+    <p class="page-subtitle">
+      <span class="lang lang-en">A short, powerful prayer for mercy — prayed on ordinary Rosary beads, often at three o'clock, the Hour of Mercy.</span>
+      <span class="lang lang-fr">Une prière courte et puissante pour la miséricorde — priée sur un chapelet ordinaire, souvent à quinze heures, l'Heure de la Miséricorde.</span>
+    </p>
+
+    <button class="guide-start" onclick="openChapletGuide()">
+      <span class="lang lang-en">Begin praying</span><span class="lang lang-fr">Commencer</span>
+    </button>
+
+    <div class="saints-grid">
+
+      <article class="saint-card">
+        <div class="saint-avatar">💧</div>
+        <h2 class="saint-name"><span class="lang lang-en">Opening Prayer (optional)</span><span class="lang lang-fr">Prière d'ouverture (facultative)</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">You expired, Jesus, but the source of life gushed forth for souls, and the ocean of mercy opened up for the whole world. O Blood and Water, which gushed forth from the Heart of Jesus as a fount of mercy for us, I trust in You!</span><span class="lang lang-fr">Tu as expiré, ô Jésus, mais la source de la vie a jailli pour les âmes, et l'océan de la miséricorde s'est ouvert pour le monde entier. Ô Sang et Eau qui avez jailli du Cœur de Jésus comme source de miséricorde pour nous, j'ai confiance en Toi !</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🙏</div>
+        <h2 class="saint-name"><span class="lang lang-en">Our Father</span><span class="lang lang-fr">Notre Père</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.</span><span class="lang lang-fr">Notre Père, qui es aux cieux, que ton nom soit sanctifié, que ton règne vienne, que ta volonté soit faite sur la terre comme au ciel. Donne-nous aujourd'hui notre pain de ce jour. Pardonne-nous nos offenses, comme nous pardonnons aussi à ceux qui nous ont offensés. Et ne nous laisse pas entrer en tentation, mais délivre-nous du Mal. Amen.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🌹</div>
+        <h2 class="saint-name"><span class="lang lang-en">Hail Mary</span><span class="lang lang-fr">Je vous salue Marie</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Hail Mary, full of grace, the Lord is with thee. Blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</span><span class="lang lang-fr">Je vous salue, Marie, pleine de grâce ; le Seigneur est avec vous. Vous êtes bénie entre toutes les femmes, et Jésus, le fruit de vos entrailles, est béni. Sainte Marie, Mère de Dieu, priez pour nous, pauvres pécheurs, maintenant et à l'heure de notre mort. Amen.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">📜</div>
+        <h2 class="saint-name"><span class="lang lang-en">The Apostles' Creed</span><span class="lang lang-fr">Le Symbole des Apôtres</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from there he will come to judge the living and the dead. I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.</span><span class="lang lang-fr">Je crois en Dieu, le Père tout-puissant, Créateur du ciel et de la terre. Et en Jésus-Christ, son Fils unique, notre Seigneur, qui a été conçu du Saint-Esprit, est né de la Vierge Marie, a souffert sous Ponce Pilate, a été crucifié, est mort et a été enseveli, est descendu aux enfers, le troisième jour est ressuscité des morts, est monté aux cieux, est assis à la droite de Dieu le Père tout-puissant, d'où il viendra juger les vivants et les morts. Je crois en l'Esprit-Saint, à la sainte Église catholique, à la communion des saints, à la rémission des péchés, à la résurrection de la chair, à la vie éternelle. Amen.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">✝︎</div>
+        <h2 class="saint-name"><span class="lang lang-en">On the Our Father Beads</span><span class="lang lang-fr">Sur les gros grains</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Before each decade, pray once: "Eternal Father, I offer You the Body and Blood, Soul and Divinity of Your dearly beloved Son, Our Lord Jesus Christ, in atonement for our sins and those of the whole world."</span><span class="lang lang-fr">Avant chaque dizaine, priez une fois : « Père Éternel, je T'offre le Corps et le Sang, l'Âme et la Divinité de Ton Fils bien-aimé, Notre Seigneur Jésus-Christ, en réparation de nos péchés et de ceux du monde entier. »</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">📿</div>
+        <h2 class="saint-name"><span class="lang lang-en">On the Hail Mary Beads</span><span class="lang lang-fr">Sur les petits grains</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">On each of the ten small beads, pray: "For the sake of His sorrowful Passion, have mercy on us and on the whole world." Repeat for all five decades.</span><span class="lang lang-fr">Sur chacun des dix petits grains, priez : « Par Sa douloureuse Passion, sois miséricordieux pour nous et pour le monde entier. » Répétez pour les cinq dizaines.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">☀️</div>
+        <h2 class="saint-name"><span class="lang lang-en">Concluding Prayer</span><span class="lang lang-fr">Prière de conclusion</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">After the five decades, pray three times: "Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world."</span><span class="lang lang-fr">Après les cinq dizaines, priez trois fois : « Dieu Saint, Dieu Fort, Dieu Éternel, prends pitié de nous et du monde entier. »</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🕊️</div>
+        <h2 class="saint-name"><span class="lang lang-en">Closing Prayer (optional)</span><span class="lang lang-fr">Prière finale (facultative)</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, look kindly upon us and increase Your mercy in us, that in difficult moments we might not despair nor become despondent, but with great confidence submit ourselves to Your holy will, which is Love and Mercy itself. Amen.</span><span class="lang lang-fr">Dieu Éternel, dont la miséricorde est insondable et le trésor de compassion inépuisable, regarde-nous avec bonté et augmente en nous Ta miséricorde, afin que, dans les moments difficiles, nous ne désespérions pas et ne nous découragions pas, mais que, avec une grande confiance, nous nous soumettions à Ta sainte volonté, qui est l'Amour et la Miséricorde mêmes. Amen.</span></p>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p class="footer-credit">
+      <span class="lang lang-en">English Scripture quotations are from the New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. French Scripture: Bible Louis Segond (1910), public domain. Traditional prayers are in the public domain.</span>
+      <span class="lang lang-fr">Citations bibliques anglaises : New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. Citations bibliques françaises : Bible Louis Segond (1910), domaine public. Les prières traditionnelles sont dans le domaine public.</span>
+    </p>
+    <p>© 2026 Nurseit Mukanbaev (Catholic Faith). All rights reserved.</p>
+  </footer>
+
+  <script src="script.js?v=11"></script>
+
+</body>
+</html>
