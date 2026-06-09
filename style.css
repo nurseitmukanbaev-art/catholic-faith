@@ -821,6 +821,14 @@ html[data-theme="dark"] .guide-btn.primary {
    neatly in the top-right corner. */
 #prayersGrid .saint-card {
   position: relative;
+  scroll-margin-top: 24px;      /* breathing room on anchor jumps */
+}
+
+/* When a guide link jumps here (e.g. prayers.html#our-father),
+   ring the card in gold so the eye lands on the right prayer. */
+#prayersGrid .saint-card:target {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold);
 }
 
 /* The "favorite" heart in the corner of each prayer card.
@@ -1201,6 +1209,25 @@ body.guide-open {
 
 .guide-prayer-list li {
   margin-bottom: 8px;
+}
+
+/* Prayer names inside the guide link to their full text on the
+   Prayers page. They open in a new tab so the guide stays put. */
+.guide-prayer-link {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.guide-prayer-link:hover {
+  color: var(--gold);
+}
+
+/* The "Pray: Our Father · Ten Hail Marys · ..." line that closes
+   each decade step of the guided Rosary. */
+.guide-decade-prayers {
+  margin-top: 20px;
+  color: var(--muted);
 }
 
 .guide-versicle {

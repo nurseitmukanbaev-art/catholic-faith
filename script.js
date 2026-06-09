@@ -815,6 +815,14 @@ function langHtml(en, fr) {
     '<span class="lang lang-fr">' + fr + "</span>";
 }
 
+// A prayer name that links to its full text on the Prayers page.
+// The anchor is the card's id in prayers.html (e.g. "our-father").
+// Opens in a new tab so you don't lose your place in the guide.
+function prayerLinkHtml(anchor, en, fr) {
+  return '<a class="guide-prayer-link" href="./prayers.html#' + anchor +
+    '" target="_blank" rel="noopener">' + langHtml(en, fr) + "</a>";
+}
+
 function openPrayerGuide(steps) {
   if (!steps || steps.length === 0) return;
 
@@ -931,11 +939,11 @@ function rosaryOpeningStep(setNameHtml) {
         ) +
       "</p>" +
       '<ul class="guide-prayer-list">' +
-        "<li>" + langHtml("Sign of the Cross", "Signe de la Croix") + "</li>" +
-        "<li>" + langHtml("Apostles' Creed", "Symbole des Apôtres") + "</li>" +
-        "<li>" + langHtml("Our Father", "Notre Père") + "</li>" +
-        "<li>" + langHtml("Three Hail Marys", "Trois Je vous salue Marie") + "</li>" +
-        "<li>" + langHtml("Glory Be", "Gloire au Père") + "</li>" +
+        "<li>" + prayerLinkHtml("sign-of-the-cross", "Sign of the Cross", "Signe de la Croix") + "</li>" +
+        "<li>" + prayerLinkHtml("apostles-creed", "Apostles' Creed", "Symbole des Apôtres") + "</li>" +
+        "<li>" + prayerLinkHtml("our-father", "Our Father", "Notre Père") + "</li>" +
+        "<li>" + prayerLinkHtml("hail-mary", "Three Hail Marys", "Trois Je vous salue Marie") + "</li>" +
+        "<li>" + prayerLinkHtml("glory-be", "Glory Be", "Gloire au Père") + "</li>" +
       "</ul>",
   };
 }
@@ -978,7 +986,14 @@ function openRosaryGuide() {
       title: name ? name.innerHTML : "",
       content:
         '<p class="guide-reading">' + (reading ? reading.innerHTML : "") + "</p>" +
-        '<p class="guide-body-text">' + (meaning ? meaning.innerHTML : "") + "</p>",
+        '<p class="guide-body-text">' + (meaning ? meaning.innerHTML : "") + "</p>" +
+        '<p class="guide-decade-prayers">' +
+          langHtml("Pray:", "Priez :") + " " +
+          prayerLinkHtml("our-father", "Our Father", "Notre Père") + " · " +
+          prayerLinkHtml("hail-mary", "Ten Hail Marys", "Dix Je vous salue Marie") + " · " +
+          prayerLinkHtml("glory-be", "Glory Be", "Gloire au Père") + " · " +
+          prayerLinkHtml("fatima-prayer", "Fatima Prayer", "Prière de Fatima") +
+        "</p>",
     });
   });
 

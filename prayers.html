@@ -31,7 +31,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="./style.css?v=10" />
+  <link rel="stylesheet" href="./style.css?v=11" />
 </head>
 
 <body>
@@ -91,7 +91,9 @@
        Reuses the saints-grid / saint-card styles so it matches
        the Saints page. To ADD a prayer, copy one whole
        <article class="saint-card">...</article> block and change
-       the emoji, the name spans, and the prayer text spans.
+       the id, the emoji, the name spans, and the prayer text spans.
+       The id lets other pages link straight to a prayer, e.g.
+       prayers.html#our-father (the guided Rosary uses these).
        ============================================================ -->
   <main class="saints-main">
     <h1 class="page-title">
@@ -122,79 +124,79 @@
 
     <div class="saints-grid" id="prayersGrid">
 
-      <article class="saint-card">
+      <article class="saint-card" id="sign-of-the-cross">
         <div class="saint-avatar">✝︎</div>
         <h2 class="saint-name"><span class="lang lang-en">The Sign of the Cross</span><span class="lang lang-fr">Le Signe de Croix</span><span class="latin-name">Signum Crucis</span></h2>
         <p class="saint-bio"><span class="lang lang-en">In the name of the Father, and of the Son, and of the Holy Spirit. Amen.</span><span class="lang lang-fr">Au nom du Père, et du Fils, et du Saint-Esprit. Amen.</span><span class="latin-name">In nómine Patris, et Fílii, et Spíritus Sancti. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="our-father">
         <div class="saint-avatar">🙏</div>
         <h2 class="saint-name"><span class="lang lang-en">The Our Father</span><span class="lang lang-fr">Le Notre Père</span><span class="latin-name">Pater Noster</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.</span><span class="lang lang-fr">Notre Père, qui es aux cieux, que ton nom soit sanctifié, que ton règne vienne, que ta volonté soit faite sur la terre comme au ciel. Donne-nous aujourd'hui notre pain de ce jour. Pardonne-nous nos offenses, comme nous pardonnons aussi à ceux qui nous ont offensés. Et ne nous laisse pas entrer en tentation, mais délivre-nous du Mal. Amen.</span><span class="latin-name">Pater noster, qui es in cælis, sanctificétur nomen tuum. Advéniat regnum tuum. Fiat volúntas tua, sicut in cælo et in terra. Panem nostrum quotidiánum da nobis hódie, et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris. Et ne nos indúcas in tentatiónem, sed líbera nos a malo. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="hail-mary">
         <div class="saint-avatar">🌹</div>
         <h2 class="saint-name"><span class="lang lang-en">The Hail Mary</span><span class="lang lang-fr">Le Je vous salue Marie</span><span class="latin-name">Ave María</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Hail Mary, full of grace, the Lord is with thee. Blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</span><span class="lang lang-fr">Je vous salue, Marie, pleine de grâce ; le Seigneur est avec vous. Vous êtes bénie entre toutes les femmes, et Jésus, le fruit de vos entrailles, est béni. Sainte Marie, Mère de Dieu, priez pour nous, pauvres pécheurs, maintenant et à l'heure de notre mort. Amen.</span><span class="latin-name">Ave María, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc et in hora mortis nostræ. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="glory-be">
         <div class="saint-avatar">✨</div>
         <h2 class="saint-name"><span class="lang lang-en">The Glory Be</span><span class="lang lang-fr">Le Gloire au Père</span><span class="latin-name">Glória Patri</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.</span><span class="lang lang-fr">Gloire au Père, et au Fils, et au Saint-Esprit. Comme il était au commencement, maintenant et toujours, et dans les siècles des siècles. Amen.</span><span class="latin-name">Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="apostles-creed">
         <div class="saint-avatar">📜</div>
         <h2 class="saint-name"><span class="lang lang-en">The Apostles' Creed</span><span class="lang lang-fr">Le Symbole des Apôtres</span><span class="latin-name">Sýmbolum Apostolórum</span></h2>
         <p class="saint-bio"><span class="lang lang-en">I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from there he will come to judge the living and the dead. I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.</span><span class="lang lang-fr">Je crois en Dieu, le Père tout-puissant, Créateur du ciel et de la terre. Et en Jésus-Christ, son Fils unique, notre Seigneur, qui a été conçu du Saint-Esprit, est né de la Vierge Marie, a souffert sous Ponce Pilate, a été crucifié, est mort et a été enseveli, est descendu aux enfers, le troisième jour est ressuscité des morts, est monté aux cieux, est assis à la droite de Dieu le Père tout-puissant, d'où il viendra juger les vivants et les morts. Je crois en l'Esprit-Saint, à la sainte Église catholique, à la communion des saints, à la rémission des péchés, à la résurrection de la chair, à la vie éternelle. Amen.</span><span class="latin-name">Credo in Deum, Patrem omnipoténtem, Creatórem cæli et terræ. Et in Iesum Christum, Fílium eius únicum, Dóminum nostrum, qui concéptus est de Spíritu Sancto, natus ex María Vírgine, passus sub Póntio Piláto, crucifíxus, mórtuus, et sepúltus, descéndit ad ínferos, tértia die resurréxit a mórtuis, ascéndit ad cælos, sedet ad déxteram Dei Patris omnipoténtis, inde ventúrus est iudicáre vivos et mórtuos. Credo in Spíritum Sanctum, sanctam Ecclésiam cathólicam, sanctórum communiónem, remissiónem peccatórum, carnis resurrectiónem, vitam ætérnam. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="hail-holy-queen">
         <div class="saint-avatar">👑</div>
         <h2 class="saint-name"><span class="lang lang-en">The Hail Holy Queen</span><span class="lang lang-fr">Le Salve Regina</span><span class="latin-name">Salve Regína</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Amen.</span><span class="lang lang-fr">Salut, ô Reine, Mère de miséricorde, notre vie, notre douceur et notre espérance, salut ! Enfants d'Ève, exilés, nous crions vers vous ; vers vous nous soupirons, gémissant et pleurant dans cette vallée de larmes. Ô vous, notre avocate, tournez vers nous vos regards miséricordieux. Et, après cet exil, montrez-nous Jésus, le fruit béni de vos entrailles. Ô clémente, ô miséricordieuse, ô douce Vierge Marie. Amen.</span><span class="latin-name">Salve, Regína, Mater misericórdiæ, vita, dulcédo, et spes nostra, salve. Ad te clamámus, éxsules fílii Hevæ. Ad te suspirámus, geméntes et flentes in hac lacrimárum valle. Eia ergo, advocáta nostra, illos tuos misericórdes óculos ad nos convérte. Et Iesum, benedíctum fructum ventris tui, nobis post hoc exsílium osténde. O clemens, o pia, o dulcis Virgo María. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="fatima-prayer">
         <div class="saint-avatar">🔥</div>
         <h2 class="saint-name"><span class="lang lang-en">The Fatima Prayer</span><span class="lang lang-fr">La Prière de Fatima</span><span class="latin-name">Oratio Fatimæ</span></h2>
         <p class="saint-bio"><span class="lang lang-en">O my Jesus, forgive us our sins, save us from the fires of hell, and lead all souls to Heaven, especially those most in need of thy mercy. Amen.</span><span class="lang lang-fr">Ô mon Jésus, pardonnez-nous nos péchés, préservez-nous du feu de l'enfer, et conduisez au ciel toutes les âmes, surtout celles qui ont le plus besoin de votre miséricorde. Amen.</span><span class="latin-name">O mi Iesu, dimítte nobis débita nostra, salva nos ab igne inferióri, perduc in cælum omnes ánimas, præsértim illas quæ misericórdiæ tuæ máxime indígent. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="guardian-angel">
         <div class="saint-avatar">😇</div>
         <h2 class="saint-name"><span class="lang lang-en">Prayer to Your Guardian Angel</span><span class="lang lang-fr">Prière à l'Ange Gardien</span><span class="latin-name">Ángele Dei</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen.</span><span class="lang lang-fr">Ange de Dieu, qui êtes mon gardien, et à qui l'amour de Dieu me confie ici, éclairez-moi, gardez-moi, dirigez-moi et gouvernez-moi en ce jour. Amen.</span><span class="latin-name">Ángele Dei, qui custos es mei, me tibi commíssum pietáte supérna, illúmina, custódi, rege, et gubérna. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="st-michael">
         <div class="saint-avatar">⚔️</div>
         <h2 class="saint-name"><span class="lang lang-en">Prayer to St. Michael</span><span class="lang lang-fr">Prière à Saint Michel</span><span class="latin-name">Oratio ad Sanctum Michaël</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Saint Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, cast into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.</span><span class="lang lang-fr">Saint Michel Archange, défendez-nous dans le combat ; soyez notre secours contre la malice et les embûches du démon. Que Dieu lui commande, nous vous en supplions ; et vous, Prince de la milice céleste, par la puissance divine, repoussez en enfer Satan et les autres esprits mauvais qui rôdent dans le monde pour la perte des âmes. Amen.</span><span class="latin-name">Sancte Míchaël Archángele, defénde nos in prǽlio; contra nequítiam et insídias diáboli esto præsídium. Ímperet illi Deus, súpplices deprecámur: tuque, Princeps milítiæ cæléstis, Sátanam aliósque spíritus malígnos, qui ad perditiónem animárum pervagántur in mundo, divína virtúte in inférnum detrúde. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="memorare">
         <div class="saint-avatar">💗</div>
         <h2 class="saint-name"><span class="lang lang-en">The Memorare</span><span class="lang lang-fr">Le Memorare (Souvenez-vous)</span><span class="latin-name">Memoráre</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, or sought thy intercession was left unaided. Inspired by this confidence, I fly unto thee, O Virgin of virgins, my Mother; to thee do I come, before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but in thy mercy hear and answer me. Amen.</span><span class="lang lang-fr">Souvenez-vous, ô très miséricordieuse Vierge Marie, qu'on n'a jamais entendu dire qu'aucun de ceux qui ont eu recours à votre protection, imploré votre assistance ou réclamé vos suffrages, ait été abandonné. Animé d'une pareille confiance, ô Vierge des vierges, ô ma Mère, vers vous je cours ; à vous je viens ; et, gémissant sous le poids de mes péchés, je me prosterne à vos pieds. Ô Mère du Verbe incarné, ne méprisez pas mes prières, mais, dans votre clémence, écoutez-moi et exaucez-moi. Amen.</span><span class="latin-name">Memoráre, o piíssima Virgo María, non esse audítum a sǽculo, quemquam ad tua curréntem præsídia, tua implorántem auxília, tua peténtem suffrágia, esse derelíctum. Ego tali animátus confidéntia, ad te, Virgo Vírginum, Mater, curro, ad te vénio, coram te gemens peccátor assísto. Noli, Mater Verbi, verba mea despícere; sed áudi propítia et exáudi. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="act-of-contrition">
         <div class="saint-avatar">🔔</div>
         <h2 class="saint-name"><span class="lang lang-en">An Act of Contrition</span><span class="lang lang-fr">Un Acte de Contrition</span><span class="latin-name">Actus Contritiónis</span></h2>
         <p class="saint-bio"><span class="lang lang-en">O my God, I am heartily sorry for having offended thee, and I detest all my sins, because I dread the loss of heaven and the pains of hell; but most of all because they offend thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of thy grace, to confess my sins, to do penance, and to amend my life. Amen.</span><span class="lang lang-fr">Mon Dieu, j'ai un très grand regret de vous avoir offensé, parce que vous êtes infiniment bon, infiniment aimable, et que le péché vous déplaît. Je prends la ferme résolution, avec le secours de votre sainte grâce, de ne plus vous offenser et de faire pénitence. Amen.</span><span class="latin-name">Deus meus, ex toto corde pǽnitet me ómnium meórum peccatórum, éaque detéstor, quia peccándo, non solum pœnas a te iuste statútas proméritus sum, sed præsértim quia offéndi te, summum bonum, ac dignum qui super ómnia diligáris. Ídeo fírmiter propóno, adiuvánte grátia tua, de cétero me non peccatúrum peccandíque occasiónes próximas fugitúrum. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="grace-before-meals">
         <div class="saint-avatar">🍞</div>
         <h2 class="saint-name"><span class="lang lang-en">Grace Before Meals</span><span class="lang lang-fr">Le Bénédicité (avant le repas)</span><span class="latin-name">Benedíctio Mensæ</span></h2>
         <p class="saint-bio"><span class="lang lang-en">Bless us, O Lord, and these thy gifts, which we are about to receive from thy bounty. Through Christ our Lord. Amen.</span><span class="lang lang-fr">Bénissez-nous, Seigneur, ainsi que la nourriture que nous allons prendre de votre bonté. Par le Christ notre Seigneur. Amen.</span><span class="latin-name">Bénedic, Dómine, nos et hæc tua dóna, quæ de tua largitáte sumus sumptúri. Per Christum Dóminum nostrum. Amen.</span></p>
       </article>
 
-      <article class="saint-card">
+      <article class="saint-card" id="angelus">
         <div class="saint-avatar">🌅</div>
         <h2 class="saint-name"><span class="lang lang-en">The Angelus</span><span class="lang lang-fr">L'Angélus</span><span class="latin-name">Ángelus Dómini</span></h2>
         <p class="saint-bio"><span class="lang lang-en">The Angel of the Lord declared unto Mary, and she conceived of the Holy Spirit. Hail Mary… Behold the handmaid of the Lord; be it done unto me according to thy word. Hail Mary… And the Word was made flesh, and dwelt among us. Hail Mary… Pray for us, O holy Mother of God, that we may be made worthy of the promises of Christ. Amen.</span><span class="lang lang-fr">L'Ange du Seigneur apporta l'annonce à Marie, et elle conçut du Saint-Esprit. Je vous salue, Marie… Voici la servante du Seigneur ; qu'il me soit fait selon votre parole. Je vous salue, Marie… Et le Verbe s'est fait chair, et il a habité parmi nous. Je vous salue, Marie… Priez pour nous, sainte Mère de Dieu, afin que nous soyons rendus dignes des promesses du Christ. Amen.</span><span class="latin-name">Ángelus Dómini nuntiávit Maríæ, et concépit de Spíritu Sancto. Ave María… Ecce ancílla Dómini, fiat mihi secúndum verbum tuum. Ave María… Et Verbum caro factum est, et habitávit in nobis. Ave María… Ora pro nobis, sancta Dei Génitrix, ut digni efficiámur promissiónibus Christi. Amen.</span></p>
@@ -290,7 +292,7 @@
     <p>© 2026 Nurseit Mukanbaev (Catholic Faith). All rights reserved.</p>
   </footer>
 
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 
 </body>
 </html>
