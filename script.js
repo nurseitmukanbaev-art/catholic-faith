@@ -1331,6 +1331,144 @@ function openConfessionGuide() {
 }
 
 // ============================================================
+// LEARN BY HEART (prayers.html)
+// Every prayer card gets a "Learn by heart" button. It opens a
+// quiet overlay with three stages: the full text, the first
+// letter of every word (the old monastic memory trick), and
+// nothing at all — with a Peek button for when memory falters.
+// It works on whichever text is showing: English, French, or
+// Latin when the Latin toggle is on.
+// ============================================================
+
+// "Our Father, who art in heaven" -> "O F, w a i h" — keeps each
+// word's first letter and trailing punctuation, so the rhythm of
+// the prayer survives while the words fade.
+function memorizeStageText(fullText, stage) {
+  if (stage === "full") return fullText;
+  if (stage === "memory") return "✝";
+  return fullText.split(/\s+/).map(function (word) {
+    const letter = word.match(/[A-Za-zÀ-ÖØ-öø-ÿ]/);
+    if (!letter) return word;                  // « or — stay as they are
+    const punct = word.match(/[,.;:!?…»]+$/);
+    return letter[0] + (punct ? punct[0] : "");
+  }).join(" ");
+}
+
+// The title + text of a card in whichever language is showing now.
+function currentPrayerText(card) {
+  const latinOn = html.getAttribute("data-latin") === "on";
+  const lang = html.getAttribute("data-lang") || "en";
+  function pick(parent) {
+    if (!parent) return "";
+    const span = latinOn
+      ? parent.querySelector(".latin-name")
+      : parent.querySelector(".lang-" + lang);
+    return (span || parent).textContent.trim();
+  }
+  return {
+    title: pick(card.querySelector(".saint-name")),
+    text: pick(card.querySelector(".saint-bio")),
+  };
+}
+
+function openMemorize(card) {
+  const prayer = currentPrayerText(card);
+  if (!prayer.text) return;
+
+  const old = document.querySelector(".prayer-guide");
+  if (old) old.remove();
+  const returnFocus = document.activeElement;
+
+  const overlay = document.createElement("div");
+  overlay.className = "prayer-guide memorize";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.innerHTML =
+    '<div class="prayer-guide-card">' +
+      '<div class="guide-header">' +
+        '<p class="guide-progress">' + langHtml("Learn by heart", "Apprendre par cœur") + "</p>" +
+        '<button class="guide-close" id="memorizeClose" type="button">' +
+          langHtml("Close", "Fermer") +
+        "</button>" +
+      "</div>" +
+      '<h2 class="guide-title">' + escapeHtml(prayer.title) + "</h2>" +
+      '<div class="memorize-stages">' +
+        '<button class="filter-btn active" data-stage="full" type="button">' +
+          langHtml("Full text", "Texte entier") + "</button>" +
+        '<button class="filter-btn" data-stage="initials" type="button">' +
+          langHtml("First letters", "Premières lettres") + "</button>" +
+        '<button class="filter-btn" data-stage="memory" type="button">' +
+          langHtml("By heart", "Par cœur") + "</button>" +
+      "</div>" +
+      '<p class="guide-prayer-text memorize-text" id="memorizeText"></p>' +
+      '<button class="filter-btn memorize-peek" id="memorizePeek" type="button" ' +
+        'hidden aria-pressed="false">' + langHtml("Peek 👁", "Regarder 👁") + "</button>" +
+    "</div>";
+
+  document.body.appendChild(overlay);
+  document.body.classList.add("guide-open");
+
+  const textEl = overlay.querySelector("#memorizeText");
+  const peekBtn = overlay.querySelector("#memorizePeek");
+  let stage = "full";
+  let peeking = false;
+
+  function renderMemorize() {
+    textEl.textContent = peeking
+      ? prayer.text
+      : memorizeStageText(prayer.text, stage);
+    peekBtn.hidden = stage !== "memory";
+    peekBtn.setAttribute("aria-pressed", peeking ? "true" : "false");
+    overlay.querySelectorAll(".memorize-stages .filter-btn").forEach(function (btn) {
+      btn.classList.toggle("active", btn.dataset.stage === stage);
+    });
+  }
+
+  overlay.querySelectorAll(".memorize-stages .filter-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      stage = btn.dataset.stage;
+      peeking = false;
+      renderMemorize();
+    });
+  });
+  peekBtn.addEventListener("click", function () {
+    peeking = !peeking;
+    renderMemorize();
+  });
+
+  function closeMemorize() {
+    document.removeEventListener("keydown", memorizeKeydown);
+    overlay.remove();
+    document.body.classList.remove("guide-open");
+    if (returnFocus && returnFocus.focus) returnFocus.focus();
+  }
+  function memorizeKeydown(event) {
+    if (event.key === "Escape") closeMemorize();
+  }
+  overlay.querySelector("#memorizeClose").addEventListener("click", closeMemorize);
+  document.addEventListener("keydown", memorizeKeydown);
+
+  renderMemorize();
+}
+
+function setupPrayerLearnButtons() {
+  const grid = document.getElementById("prayersGrid");
+  if (!grid) return;            // not on the prayers page — do nothing
+
+  grid.querySelectorAll(".saint-card").forEach(function (card) {
+    if (card.querySelector(".learn-btn")) return;
+    const btn = document.createElement("button");
+    btn.className = "learn-btn";
+    btn.type = "button";
+    btn.innerHTML = langHtml("Learn by heart ✎", "Apprendre par cœur ✎");
+    btn.addEventListener("click", function () { openMemorize(card); });
+    card.appendChild(btn);
+  });
+}
+
+setupPrayerLearnButtons();
+
+// ============================================================
 // VOTIVE CANDLES (candle.html)
 // Light a candle with a private intention. Candles live in
 // localStorage only — they never leave this device — and each

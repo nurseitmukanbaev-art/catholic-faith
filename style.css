@@ -1445,6 +1445,44 @@ body.guide-open {
   background: linear-gradient(180deg, #f7eed8 0%, #e9dcba 60%, #d9c9a0 100%);
 }
 
+/* ---------------- LEARN BY HEART (prayers page) ---------------- */
+.learn-btn {
+  margin-top: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.learn-btn:hover {
+  color: var(--primary);
+  border-color: var(--gold);
+}
+
+/* The stage chips (Full text / First letters / By heart). */
+.memorize-stages {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 18px 0;
+}
+
+.memorize-text {
+  text-align: center;
+  min-height: 90px;
+}
+
+.memorize-peek {
+  display: block;
+  margin: 18px auto 0;
+}
+
 /* ---------------- VOTIVE CANDLES (candle.html) ---------------- */
 .candle-form {
   display: flex;
