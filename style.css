@@ -1528,10 +1528,78 @@ body.guide-open {
   fill: var(--muted);
 }
 
+/* The legend under the window: what each colour and mark means. */
+.rose-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 22px;
+  max-width: 640px;
+  margin: 0 auto 26px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.rose-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex: none;
+}
+
+.legend-jewel {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--gold);
+}
+
+.legend-today {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: none;
+  border: 2px solid var(--gold);
+}
+
 /* The detail card under the window (date, season, feasts). */
 .rose-detail {
   max-width: 480px;
   margin: 0 auto;
+}
+
+/* ◀ date ▶ — step a day at a time after a rough click. */
+.rose-detail-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.rose-step {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.rose-step:hover {
+  color: var(--primary);
+  border-color: var(--gold);
 }
 
 .rose-detail-date {

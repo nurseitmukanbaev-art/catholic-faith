@@ -893,6 +893,7 @@ function roseFeastsForYear(year) {
 }
 
 let roseYearFeasts = null;       // cache, filled by buildRoseWindow
+let roseSelectedDay = null;      // the day showing in the detail card
 
 // Day N of the current year (0 = January 1st) as a Date.
 function roseDayDate(dayIndex) {
@@ -970,20 +971,52 @@ function buildRoseWindow() {
     '<text class="rose-center-year" x="' + cx + '" y="' + (cy + 44) +
       '" text-anchor="middle">' + year + "</text>";
 
-  // One listener serves the whole window — panes and jewels both
-  // carry data-day.
+  // Hitting one day-pane by eye is fiddly — each is only about a
+  // degree wide — so the whole window works as a dial: any click
+  // near the ring selects the day at that angle. The feast jewels
+  // stay precise targets of their own.
   svg.addEventListener("click", function (event) {
-    const target = event.target.closest("[data-day]");
-    if (target) showRoseDay(Number(target.dataset.day));
+    const jewel = event.target.closest(".rose-jewel");
+    if (jewel) {
+      showRoseDay(Number(jewel.dataset.day));
+      return;
+    }
+    const rect = svg.getBoundingClientRect();
+    const scale = 600 / rect.width;
+    const x = (event.clientX - rect.left) * scale - cx;
+    const y = (event.clientY - rect.top) * scale - cy;
+    const radius = Math.sqrt(x * x + y * y);
+    if (radius < inner - 40 || radius > 296) return;   // centre & outside stay quiet
+    let turn = Math.atan2(y, x) + Math.PI / 2;         // 0 = twelve o'clock
+    if (turn < 0) turn += 2 * Math.PI;
+    showRoseDay(Math.min(days - 1, Math.floor((turn / (2 * Math.PI)) * days)));
+  });
+
+  // Arrow keys step one day at a time. This listener only exists
+  // on the church-year page (buildRoseWindow returns early on
+  // every other page).
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") stepRoseDay(-1);
+    if (event.key === "ArrowRight") stepRoseDay(1);
   });
 
   showRoseDay(todayIndex);
+}
+
+// The ◀ ▶ buttons on the detail card (and the arrow keys) step
+// one day at a time, wrapping around New Year.
+function stepRoseDay(delta) {
+  if (roseSelectedDay === null) return;
+  const year = new Date().getFullYear();
+  const days = Math.round((new Date(year + 1, 0, 1) - new Date(year, 0, 1)) / 86400000);
+  showRoseDay((roseSelectedDay + delta + days) % days);
 }
 
 function showRoseDay(dayIndex) {
   const detail = document.getElementById("roseDetail");
   const svg = document.getElementById("roseWindow");
   if (!detail || !svg) return;
+  roseSelectedDay = dayIndex;
 
   // Move the selection ring to the chosen pane.
   svg.querySelectorAll(".rose-pane.rose-selected").forEach(function (pane) {
@@ -1001,7 +1034,13 @@ function showRoseDay(dayIndex) {
     monthNamesFr[date.getMonth()];
 
   let lines =
-    '<p class="rose-detail-date">' + langHtml(enDate, frDate) + "</p>" +
+    '<div class="rose-detail-nav">' +
+      '<button class="rose-step" type="button" onclick="stepRoseDay(-1)" ' +
+        'aria-label="Previous day / Jour précédent">◀</button>' +
+      '<p class="rose-detail-date">' + langHtml(enDate, frDate) + "</p>" +
+      '<button class="rose-step" type="button" onclick="stepRoseDay(1)" ' +
+        'aria-label="Next day / Jour suivant">▶</button>' +
+    "</div>" +
     '<h2 class="rose-detail-season">' +
       '<span class="season-dot" style="background:' + season.color + '"></span>' +
       langHtml(season.en, season.fr) +

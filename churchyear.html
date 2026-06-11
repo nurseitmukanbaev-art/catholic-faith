@@ -31,7 +31,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="./style.css?v=20" />
+  <link rel="stylesheet" href="./style.css?v=21" />
 </head>
 
 <body>
@@ -111,6 +111,17 @@
         aria-label="The liturgical year drawn as a rose window / L'année liturgique dessinée comme une rosace"></svg>
     </div>
 
+    <!-- What the colours mean. The hex values match the season
+         colours used by liturgicalSeason() in script.js. -->
+    <ul class="rose-legend">
+      <li><span class="legend-swatch" style="background:#6b4ca3"></span><span class="lang lang-en">Advent &amp; Lent</span><span class="lang lang-fr">Avent et Carême</span></li>
+      <li><span class="legend-swatch" style="background:#c9a227"></span><span class="lang lang-en">Christmas &amp; Easter</span><span class="lang lang-fr">Noël et Temps pascal</span></li>
+      <li><span class="legend-swatch" style="background:#1f7a4d"></span><span class="lang lang-en">Ordinary Time</span><span class="lang lang-fr">Temps ordinaire</span></li>
+      <li><span class="legend-swatch" style="background:#c86f93"></span><span class="lang lang-en">Gaudete &amp; Laetare — the two rose Sundays</span><span class="lang lang-fr">Gaudete et Lætare — les deux dimanches roses</span></li>
+      <li><span class="legend-swatch legend-jewel"></span><span class="lang lang-en">A great feast</span><span class="lang lang-fr">Une grande fête</span></li>
+      <li><span class="legend-swatch legend-today"></span><span class="lang lang-en">Today</span><span class="lang lang-fr">Aujourd'hui</span></li>
+    </ul>
+
     <!-- Filled by showRoseDay() with the chosen day's details. -->
     <section class="saint-card rose-detail" id="roseDetail" aria-live="polite"></section>
   </main>
@@ -130,7 +141,7 @@
     <p>© 2026 Nurseit Mukanbaev (Catholic Faith). All rights reserved.</p>
   </footer>
 
-  <script src="script.js?v=21"></script>
+  <script src="script.js?v=22"></script>
 
 </body>
 </html>
