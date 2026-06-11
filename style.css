@@ -40,91 +40,124 @@ html[data-theme="dark"] {
 
 /* -----------------------------------------------------------
    COLOR PALETTES (the visitor chooses one)
-   Manual palettes only swap --primary, the main accent. Gold
-   stays constant so every palette keeps a liturgical thread.
-   The liturgical option also adds a faint seasonal wash to the
-   page background and card surfaces.
-   JS sets data-palette on <html>, just like data-theme.
-   ----------------------------------------------------------- */
-/* Light mode versions */
-html[data-palette="violet"]   { --primary: #4a2c6f; }  /* deep violet */
-html[data-palette="cardinal"] { --primary: #6e1423; }  /* cardinal red */
-html[data-palette="blue"]     { --primary: #1f3a6e; }  /* Marian blue */
-html[data-palette="green"]    { --primary: #1f5c3a; }  /* Ordinary Time green */
+   EVERY palette now tints the WHOLE page — the background, the
+   card surfaces, the borders, and the hero — not just the accent.
+   The idea is "stained glass": the page becomes a softly coloured
+   room while the cards stay bright enough to read comfortably.
+   Gold (--gold) stays constant so every palette keeps a thread of
+   liturgical gold running through it.
 
-/* Liturgical light mode: enough color to feel seasonal, but
-   still close to the normal ivory/white surfaces for readability. */
+   "violet" and "green" are shared: picking them by hand looks the
+   same as the Church year landing on Lent/Advent or Ordinary Time.
+   "gold" and "rose" only appear through the liturgical option
+   (Christmas/Easter, and the rose Sundays).
+
+   JS sets data-palette on <html> (and data-liturgical-palette when
+   following the Church year), exactly like data-theme.
+   ----------------------------------------------------------- */
+/* ---- Light mode ---- */
+html[data-palette="violet"],
 html[data-palette="liturgical"][data-liturgical-palette="violet"] {
-  --primary: #4a2c6f;
-  --bg: #fbf7fb;
-  --surface: #fffafd;
-  --border: #eadfea;
-  --hero-top: #f4edf5;
+  --primary: #4a2c6f;   /* deep violet */
+  --bg: #e8ddf2;
+  --surface: #fdfbff;
+  --border: #dccfeb;
+  --hero-top: #ddceec;
+}
+
+html[data-palette="cardinal"] {
+  --primary: #6e1423;   /* cardinal red */
+  --bg: #f5e2e2;
+  --surface: #fffafa;
+  --border: #ebcfcf;
+  --hero-top: #efd4d4;
+}
+
+html[data-palette="blue"] {
+  --primary: #1f3a6e;   /* Marian blue */
+  --bg: #e0e8f4;
+  --surface: #f9fbff;
+  --border: #cdd9ec;
+  --hero-top: #d4e1f2;
+}
+
+html[data-palette="green"],
+html[data-palette="liturgical"][data-liturgical-palette="green"] {
+  --primary: #1f5c3a;   /* Ordinary Time green */
+  --bg: #e2eee6;
+  --surface: #f9fdfb;
+  --border: #cee0d4;
+  --hero-top: #d6e8db;
 }
 
 html[data-palette="liturgical"][data-liturgical-palette="gold"] {
-  --primary: #8f6722;
-  --bg: #fbf8ef;
-  --surface: #fffdf7;
-  --border: #eadfc9;
-  --hero-top: #f6efd9;
-}
-
-html[data-palette="liturgical"][data-liturgical-palette="green"] {
-  --primary: #1f5c3a;
-  --bg: #f6faf7;
-  --surface: #fbfffc;
-  --border: #dce8df;
-  --hero-top: #eaf4ee;
+  --primary: #8f6722;   /* Christmas & Easter gold */
+  --bg: #f6eccf;
+  --surface: #fffdf4;
+  --border: #ead9ad;
+  --hero-top: #f1e2ba;
 }
 
 html[data-palette="liturgical"][data-liturgical-palette="rose"] {
-  --primary: #8f3f60;
-  --bg: #fbf7f9;
-  --surface: #fffafd;
-  --border: #eddce5;
-  --hero-top: #f6ebf0;
+  --primary: #8f3f60;   /* Gaudete & Laetare rose */
+  --bg: #f4dfe9;
+  --surface: #fffafc;
+  --border: #eaccd9;
+  --hero-top: #efd3df;
 }
 
-/* Dark mode versions (lighter, so they stay readable on black).
-   These have higher specificity, so in dark mode they win. */
-html[data-theme="dark"][data-palette="violet"]   { --primary: #c9a9e6; }
-html[data-theme="dark"][data-palette="cardinal"] { --primary: #e3a6b1; }
-html[data-theme="dark"][data-palette="blue"]     { --primary: #9fb8e6; }
-html[data-theme="dark"][data-palette="green"]    { --primary: #8fc2a6; }
-
-/* Liturgical dark mode: tinted near-black backgrounds, with
-   brighter accents so links and buttons still stand out clearly. */
+/* ---- Dark mode ----
+   Tinted near-blacks so the colour is still felt against black,
+   with brighter accents so links and buttons stay legible.
+   Higher specificity than the light rules, so these win in dark. */
+html[data-theme="dark"][data-palette="violet"],
 html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="violet"] {
   --primary: #c9a9e6;
-  --bg: #100d13;
-  --surface: #1a161d;
-  --border: #2d2633;
-  --hero-top: #130f16;
+  --bg: #130d1a;
+  --surface: #201a2a;
+  --border: #332a40;
+  --hero-top: #160f1e;
+}
+
+html[data-theme="dark"][data-palette="cardinal"] {
+  --primary: #e3a6b1;
+  --bg: #190d10;
+  --surface: #281a1d;
+  --border: #3c2a2d;
+  --hero-top: #1c0f12;
+}
+
+html[data-theme="dark"][data-palette="blue"] {
+  --primary: #9fb8e6;
+  --bg: #0c1019;
+  --surface: #181d29;
+  --border: #2a3140;
+  --hero-top: #0f131d;
+}
+
+html[data-theme="dark"][data-palette="green"],
+html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="green"] {
+  --primary: #8fc2a6;
+  --bg: #0c130e;
+  --surface: #161f18;
+  --border: #253229;
+  --hero-top: #0f1611;
 }
 
 html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="gold"] {
   --primary: #e0c36d;
-  --bg: #11100b;
-  --surface: #1b1911;
-  --border: #302b1b;
-  --hero-top: #151309;
-}
-
-html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="green"] {
-  --primary: #8fc2a6;
-  --bg: #0c120e;
-  --surface: #151d17;
-  --border: #243126;
-  --hero-top: #0e1510;
+  --bg: #15110a;
+  --surface: #221d12;
+  --border: #342d1c;
+  --hero-top: #18130b;
 }
 
 html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="rose"] {
   --primary: #e5a6bc;
-  --bg: #130d10;
-  --surface: #1d1619;
-  --border: #33252b;
-  --hero-top: #170f13;
+  --bg: #170d12;
+  --surface: #261822;
+  --border: #392732;
+  --hero-top: #1a0f15;
 }
 
 /* Make color changes fade smoothly when toggling themes. */
