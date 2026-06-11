@@ -1789,9 +1789,10 @@ function chapelKeydown(event) {
   if (event.key === "Escape") closeChapel();
 }
 
+// Safe to call even when no chapel is open — it always stops the
+// timer, so a stray interval can never keep ticking behind a new
+// chapel.
 function closeChapel() {
-  const chapel = document.querySelector(".chapel");
-  if (!chapel) return;
   clearInterval(chapelTimerId);
   chapelTimerId = null;
   document.removeEventListener("keydown", chapelKeydown);
@@ -1799,7 +1800,8 @@ function closeChapel() {
     chapelWakeLock.release().catch(function () {});
     chapelWakeLock = null;
   }
-  chapel.remove();
+  const chapel = document.querySelector(".chapel");
+  if (chapel) chapel.remove();
   document.body.classList.remove("guide-open");
 }
 
@@ -1808,6 +1810,11 @@ function startChapelTimer(minutes) {
   const timerEl = document.getElementById("chapelTimer");
   const inviteEl = document.getElementById("chapelInvite");
   if (!timerEl || !inviteEl || !times) return;
+
+  // Only one silence at a time: starting a new timer always
+  // replaces the old one instead of running beside it.
+  clearInterval(chapelTimerId);
+  chapelTimerId = null;
 
   // The button click is a user gesture, so the browser lets us
   // create the audio context now and ring the bell later.
@@ -1853,8 +1860,7 @@ function startChapelTimer(minutes) {
 }
 
 function openChapel() {
-  const old = document.querySelector(".chapel");
-  if (old) old.remove();
+  closeChapel();     // clear any leftover chapel AND its timer
 
   const chapel = document.createElement("div");
   chapel.className = "chapel";

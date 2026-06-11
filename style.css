@@ -172,6 +172,13 @@ body, .navbar, .card, .footer, .day-btn, .mystery {
   box-sizing: border-box;
 }
 
+/* The hidden attribute must always hide — even when an element
+   also has its own display rule (flex, block, ...), which would
+   otherwise quietly override it. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg);
