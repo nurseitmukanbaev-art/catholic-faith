@@ -40,8 +40,10 @@ html[data-theme="dark"] {
 
 /* -----------------------------------------------------------
    COLOR PALETTES (the visitor chooses one)
-   Each palette only swaps --primary, the main accent. Gold
+   Manual palettes only swap --primary, the main accent. Gold
    stays constant so every palette keeps a liturgical thread.
+   The liturgical option also adds a faint seasonal wash to the
+   page background and card surfaces.
    JS sets data-palette on <html>, just like data-theme.
    ----------------------------------------------------------- */
 /* Light mode versions */
@@ -50,12 +52,80 @@ html[data-palette="cardinal"] { --primary: #6e1423; }  /* cardinal red */
 html[data-palette="blue"]     { --primary: #1f3a6e; }  /* Marian blue */
 html[data-palette="green"]    { --primary: #1f5c3a; }  /* Ordinary Time green */
 
+/* Liturgical light mode: enough color to feel seasonal, but
+   still close to the normal ivory/white surfaces for readability. */
+html[data-palette="liturgical"][data-liturgical-palette="violet"] {
+  --primary: #4a2c6f;
+  --bg: #fbf7fb;
+  --surface: #fffafd;
+  --border: #eadfea;
+  --hero-top: #f4edf5;
+}
+
+html[data-palette="liturgical"][data-liturgical-palette="gold"] {
+  --primary: #8f6722;
+  --bg: #fbf8ef;
+  --surface: #fffdf7;
+  --border: #eadfc9;
+  --hero-top: #f6efd9;
+}
+
+html[data-palette="liturgical"][data-liturgical-palette="green"] {
+  --primary: #1f5c3a;
+  --bg: #f6faf7;
+  --surface: #fbfffc;
+  --border: #dce8df;
+  --hero-top: #eaf4ee;
+}
+
+html[data-palette="liturgical"][data-liturgical-palette="rose"] {
+  --primary: #8f3f60;
+  --bg: #fbf7f9;
+  --surface: #fffafd;
+  --border: #eddce5;
+  --hero-top: #f6ebf0;
+}
+
 /* Dark mode versions (lighter, so they stay readable on black).
    These have higher specificity, so in dark mode they win. */
 html[data-theme="dark"][data-palette="violet"]   { --primary: #c9a9e6; }
 html[data-theme="dark"][data-palette="cardinal"] { --primary: #e3a6b1; }
 html[data-theme="dark"][data-palette="blue"]     { --primary: #9fb8e6; }
 html[data-theme="dark"][data-palette="green"]    { --primary: #8fc2a6; }
+
+/* Liturgical dark mode: tinted near-black backgrounds, with
+   brighter accents so links and buttons still stand out clearly. */
+html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="violet"] {
+  --primary: #c9a9e6;
+  --bg: #100d13;
+  --surface: #1a161d;
+  --border: #2d2633;
+  --hero-top: #130f16;
+}
+
+html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="gold"] {
+  --primary: #e0c36d;
+  --bg: #11100b;
+  --surface: #1b1911;
+  --border: #302b1b;
+  --hero-top: #151309;
+}
+
+html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="green"] {
+  --primary: #8fc2a6;
+  --bg: #0c120e;
+  --surface: #151d17;
+  --border: #243126;
+  --hero-top: #0e1510;
+}
+
+html[data-theme="dark"][data-palette="liturgical"][data-liturgical-palette="rose"] {
+  --primary: #e5a6bc;
+  --bg: #130d10;
+  --surface: #1d1619;
+  --border: #33252b;
+  --hero-top: #170f13;
+}
 
 /* Make color changes fade smoothly when toggling themes. */
 body, .navbar, .card, .footer, .day-btn, .mystery {
@@ -221,7 +291,7 @@ h1, h2, h3 {
   transform: rotate(20deg);
 }
 
-/* The palette picker: three little color dots in the nav. */
+/* The palette picker: little color dots in the nav. */
 .palette-picker {
   display: flex;
   gap: 8px;
@@ -237,6 +307,22 @@ h1, h2, h3 {
   transition: transform 0.15s;
 }
 
+.swatch-liturgical {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(
+    #4a2c6f 0 25%,
+    #8f6722 0 50%,
+    #1f5c3a 0 75%,
+    #8f3f60 0 100%
+  );
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .swatch:hover {
   transform: scale(1.15);
 }
@@ -244,6 +330,18 @@ h1, h2, h3 {
 /* The currently-chosen palette gets a ring around it. */
 .swatch.active {
   border-color: var(--text);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ============================================================

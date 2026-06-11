@@ -32,15 +32,31 @@ if (localStorage.getItem("theme") === "dark") {
 }
 
 // ============================================================
-// COLOR PALETTE (visitor-selectable: violet / cardinal / blue)
+// COLOR PALETTE (visitor-selectable: violet / cardinal / blue / green,
+// plus "liturgical" which follows the Church year automatically).
 // Same idea as the theme: set a label on <html>, remember it.
 // ============================================================
 
+// Applies a palette without changing storage. The liturgical option
+// keeps data-palette="liturgical" for the active dot, then adds the
+// season's real color in data-liturgical-palette.
+function applyPalette(name) {
+  html.setAttribute("data-palette", name);     // e.g. data-palette="blue"
+
+  if (name === "liturgical") {
+    const season = liturgicalSeason(new Date());
+    html.setAttribute("data-liturgical-palette", season.palette || "green");
+  } else {
+    html.removeAttribute("data-liturgical-palette");
+  }
+
+  updateSwatches(name);                         // show the ring on the active dot
+}
+
 // Runs when the visitor clicks one of the color dots.
 function setPalette(name) {
-  html.setAttribute("data-palette", name);     // e.g. data-palette="blue"
   localStorage.setItem("palette", name);       // remember the choice
-  updateSwatches(name);                         // show the ring on the active dot
+  applyPalette(name);
 }
 
 // Puts the "active" ring on whichever dot matches the current palette.
@@ -53,8 +69,7 @@ function updateSwatches(name) {
 
 // On page load, restore the saved palette (default to violet).
 const savedPalette = localStorage.getItem("palette") || "violet";
-html.setAttribute("data-palette", savedPalette);
-updateSwatches(savedPalette);
+applyPalette(savedPalette);
 
 // ============================================================
 // LANGUAGE (EN / FR site-wide)
@@ -737,6 +752,12 @@ function addDays(date, n) {
   return d;
 }
 
+function sameDate(a, b) {
+  return a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+}
+
 // The liturgical season for a date: an EN/FR label and its color.
 // (A close approximation of the Church calendar.)
 function liturgicalSeason(now) {
@@ -757,13 +778,31 @@ function liturgicalSeason(now) {
   let baptism = addDays(epiphany, (7 - epiphany.getDay()) % 7);
   if (baptism.getTime() === epiphany.getTime()) baptism = addDays(baptism, 7);
 
-  const violet = "#6b4ca3", gold = "#c9a227", green = "#1f7a4d";
+  const gaudeteSunday = addDays(adventStart, 14); // 3rd Sunday of Advent
+  const laetareSunday = addDays(easter, -21);     // 4th Sunday of Lent
 
-  if (today >= adventStart && today < christmas) return { en: "Advent", fr: "Avent", color: violet };
-  if (today >= christmas || today <= baptism)     return { en: "Christmas", fr: "Temps de Noël", color: gold };
-  if (today >= ashWednesday && today < easter)    return { en: "Lent", fr: "Carême", color: violet };
-  if (today >= easter && today <= pentecost)      return { en: "Easter", fr: "Temps pascal", color: gold };
-  return { en: "Ordinary Time", fr: "Temps ordinaire", color: green };
+  const colors = {
+    violet: "#6b4ca3",
+    gold: "#c9a227",
+    green: "#1f7a4d",
+    rose: "#c86f93",
+  };
+
+  if (today >= adventStart && today < christmas) {
+    const palette = sameDate(today, gaudeteSunday) ? "rose" : "violet";
+    return { en: "Advent", fr: "Avent", palette: palette, color: colors[palette] };
+  }
+  if (today >= christmas || today <= baptism) {
+    return { en: "Christmas", fr: "Temps de Noël", palette: "gold", color: colors.gold };
+  }
+  if (today >= ashWednesday && today < easter) {
+    const palette = sameDate(today, laetareSunday) ? "rose" : "violet";
+    return { en: "Lent", fr: "Carême", palette: palette, color: colors[palette] };
+  }
+  if (today >= easter && today <= pentecost) {
+    return { en: "Easter", fr: "Temps pascal", palette: "gold", color: colors.gold };
+  }
+  return { en: "Ordinary Time", fr: "Temps ordinaire", palette: "green", color: colors.green };
 }
 
 function showTodayLine() {
