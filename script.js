@@ -1765,12 +1765,61 @@ let chapelTimerId = null;
 let chapelAudioCtx = null;
 let chapelWakeLock = null;
 
+// ----- Chapel sound (optional, OFF by default) -----
+// A synthesized "empty stone church": a low organ fifth and a
+// faint hush of air, both washed in a generated cathedral echo.
+// No audio files — everything is built with WebAudio, and it is
+// deliberately whisper-quiet: the building humming, not music.
+let chapelSoundOn = localStorage.getItem("chapelSound") === "on";
+let chapelReverb = null;          // the shared cathedral echo
+let chapelAmbienceGain = null;    // master volume of the ambience
+let chapelAmbienceNodes = [];     // sources to stop on fade-out
+
+// A fake cathedral: five seconds of softly decaying noise used
+// as the reverb's impulse response (a standard WebAudio trick —
+// it convincingly sounds like a large stone space).
+function chapelReverbImpulse(ctx) {
+  const seconds = 5;
+  const length = Math.floor(seconds * ctx.sampleRate);
+  const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+  for (let channel = 0; channel < 2; channel++) {
+    const data = impulse.getChannelData(channel);
+    for (let i = 0; i < length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 3.5);
+    }
+  }
+  return impulse;
+}
+
+// Creates (or wakes) the audio context and the cathedral echo.
+// Must first be called from a click, per browser autoplay rules.
+function chapelEnsureAudio() {
+  try {
+    chapelAudioCtx = chapelAudioCtx ||
+      new (window.AudioContext || window.webkitAudioContext)();
+  } catch (e) {
+    chapelAudioCtx = null;
+  }
+  if (!chapelAudioCtx) return null;
+  if (chapelAudioCtx.state === "suspended") chapelAudioCtx.resume();
+
+  if (!chapelReverb) {
+    chapelReverb = chapelAudioCtx.createConvolver();
+    chapelReverb.buffer = chapelReverbImpulse(chapelAudioCtx);
+    const reverbOut = chapelAudioCtx.createGain();
+    reverbOut.gain.value = 0.7;
+    chapelReverb.connect(reverbOut);
+    reverbOut.connect(chapelAudioCtx.destination);
+  }
+  return chapelAudioCtx;
+}
+
 // One soft, slowly-fading bell tone built from three sine
-// overtones. Quiet on purpose — a sacristy bell, not an alarm.
+// overtones, rung through the cathedral echo — a sacristy bell
+// at the far end of the nave, not an alarm.
 function chapelBell() {
-  if (!chapelAudioCtx) return;
-  const ctx = chapelAudioCtx;
-  if (ctx.state === "suspended") ctx.resume();
+  const ctx = chapelEnsureAudio();
+  if (!ctx) return;
   const now = ctx.currentTime;
   [[523.25, 0.08], [1046.5, 0.04], [1567.98, 0.015]].forEach(function (tone) {
     const osc = ctx.createOscillator();
@@ -1779,10 +1828,92 @@ function chapelBell() {
     gain.gain.setValueAtTime(tone[1], now);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 6);
     osc.connect(gain);
-    gain.connect(ctx.destination);
+    gain.connect(chapelReverb);
     osc.start(now);
     osc.stop(now + 6);
   });
+}
+
+function startChapelAmbience() {
+  const ctx = chapelEnsureAudio();
+  if (!ctx || chapelAmbienceGain) return;   // no audio, or already humming
+
+  const now = ctx.currentTime;
+  const master = ctx.createGain();
+  master.gain.setValueAtTime(0.0001, now);
+  master.gain.linearRampToValueAtTime(0.05, now + 5);   // a slow breath in
+  master.connect(chapelReverb);
+
+  // The organ holds a soft open fifth (C2 + G2), each note as two
+  // slightly detuned voices behind a heavy lowpass — more felt
+  // than heard.
+  const lowpass = ctx.createBiquadFilter();
+  lowpass.type = "lowpass";
+  lowpass.frequency.value = 220;
+  lowpass.connect(master);
+
+  [[65.41, 0.5], [65.67, 0.4], [98.0, 0.3], [98.3, 0.25]].forEach(function (voice) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "triangle";
+    osc.frequency.value = voice[0];
+    gain.gain.value = voice[1];
+    osc.connect(gain);
+    gain.connect(lowpass);
+    osc.start(now);
+    chapelAmbienceNodes.push(osc);
+  });
+
+  // A faint hush of air — looped noise, heavily filtered, barely
+  // above silence.
+  const buffer = ctx.createBuffer(1, 2 * ctx.sampleRate, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  const noise = ctx.createBufferSource();
+  noise.buffer = buffer;
+  noise.loop = true;
+  const noiseFilter = ctx.createBiquadFilter();
+  noiseFilter.type = "lowpass";
+  noiseFilter.frequency.value = 500;
+  const noiseGain = ctx.createGain();
+  noiseGain.gain.value = 0.06;
+  noise.connect(noiseFilter);
+  noiseFilter.connect(noiseGain);
+  noiseGain.connect(master);
+  noise.start(now);
+  chapelAmbienceNodes.push(noise);
+
+  chapelAmbienceGain = master;
+}
+
+function stopChapelAmbience() {
+  if (!chapelAmbienceGain || !chapelAudioCtx) return;
+  const now = chapelAudioCtx.currentTime;
+  chapelAmbienceGain.gain.cancelScheduledValues(now);
+  chapelAmbienceGain.gain.setValueAtTime(chapelAmbienceGain.gain.value, now);
+  chapelAmbienceGain.gain.linearRampToValueAtTime(0.0001, now + 1.5);
+  chapelAmbienceNodes.forEach(function (node) {
+    try { node.stop(now + 1.6); } catch (e) {}
+  });
+  chapelAmbienceNodes = [];
+  chapelAmbienceGain = null;
+}
+
+function updateChapelSoundButton() {
+  const btn = document.getElementById("chapelSound");
+  if (!btn) return;
+  btn.setAttribute("aria-pressed", chapelSoundOn ? "true" : "false");
+  btn.innerHTML = chapelSoundOn
+    ? "🔊 " + langHtml("Ambience", "Ambiance")
+    : "🔇 " + langHtml("Silence", "Silence");
+}
+
+function toggleChapelSound() {
+  chapelSoundOn = !chapelSoundOn;
+  localStorage.setItem("chapelSound", chapelSoundOn ? "on" : "off");
+  if (chapelSoundOn) startChapelAmbience();
+  else stopChapelAmbience();
+  updateChapelSoundButton();
 }
 
 function chapelKeydown(event) {
@@ -1795,6 +1926,7 @@ function chapelKeydown(event) {
 function closeChapel() {
   clearInterval(chapelTimerId);
   chapelTimerId = null;
+  stopChapelAmbience();
   document.removeEventListener("keydown", chapelKeydown);
   if (chapelWakeLock) {
     chapelWakeLock.release().catch(function () {});
@@ -1818,11 +1950,17 @@ function startChapelTimer(minutes) {
 
   // The button click is a user gesture, so the browser lets us
   // create the audio context now and ring the bell later.
-  try {
-    chapelAudioCtx = chapelAudioCtx ||
-      new (window.AudioContext || window.webkitAudioContext)();
-  } catch (e) {
-    chapelAudioCtx = null;
+  chapelEnsureAudio();
+
+  // With sound on, three soft strikes open the silence — but only
+  // while the chapel is still open by the time each one lands.
+  if (chapelSoundOn) {
+    chapelBell();
+    [2500, 5000].forEach(function (delay) {
+      setTimeout(function () {
+        if (document.querySelector(".chapel")) chapelBell();
+      }, delay);
+    });
   }
 
   // Keep the screen awake during the silence, where supported.
@@ -1870,6 +2008,8 @@ function openChapel() {
     '<button class="chapel-leave" type="button" onclick="closeChapel()">' +
       langHtml("Leave", "Sortir") +
     "</button>" +
+    '<button class="chapel-sound" id="chapelSound" type="button" ' +
+      'onclick="toggleChapelSound()" aria-pressed="false"></button>' +
     '<div class="chapel-cross" aria-hidden="true">✝</div>' +
     '<div class="votive" aria-hidden="true">' +
       '<div class="votive-flame"></div>' +
@@ -1892,6 +2032,12 @@ function openChapel() {
   document.body.appendChild(chapel);
   document.body.classList.add("guide-open");
   document.addEventListener("keydown", chapelKeydown);
+  updateChapelSoundButton();
+
+  // If the visitor chose ambience last time, let the building hum
+  // as soon as they step in. (Opening the chapel is a click, so
+  // the browser allows the audio to start.)
+  if (chapelSoundOn) startChapelAmbience();
 }
 
 // ============================================================
