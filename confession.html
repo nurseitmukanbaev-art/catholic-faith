@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="How to go to Confession, with a gentle bilingual examination of conscience based on the Ten Commandments." />
+  <meta name="theme-color" content="#4a2c6f" />
+
+  <meta property="og:site_name" content="Catholic Faith" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Preparing for Confession — Catholic Faith" />
+  <meta property="og:description" content="How to go to Confession, with a gentle bilingual examination of conscience based on the Ten Commandments." />
+  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/confession.html" />
+  <meta property="og:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Preparing for Confession — Catholic Faith" />
+  <meta name="twitter:description" content="How to go to Confession, with a gentle bilingual examination of conscience based on the Ten Commandments." />
+  <meta name="twitter:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
+
+  <title>Preparing for Confession — Catholic Faith</title>
+
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./style.css?v=14" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION BAR  (identical to the other pages)
+       ============================================================ -->
+  <nav class="navbar">
+    <a href="./index.html" class="logo">✝︎ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
+
+    <button class="mobile-menu-toggle" id="menuButton" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">
+      ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="./index.html"><span class="lang lang-en">Home</span><span class="lang lang-fr">Accueil</span></a>
+      <a href="./saints.html"><span class="lang lang-en">Saints</span><span class="lang lang-fr">Saints</span></a>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Prayer</span><span class="lang lang-fr">Prière</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="./prayers.html"><span class="lang lang-en">Prayers</span><span class="lang lang-fr">Prières</span></a>
+          <a href="./rosaries.html"><span class="lang lang-en">Rosaries</span><span class="lang lang-fr">Rosaire</span></a>
+          <a href="./chaplet.html"><span class="lang lang-en">Divine Mercy Chaplet</span><span class="lang lang-fr">Chapelet de la Miséricorde</span></a>
+          <a href="./novenas.html"><span class="lang lang-en">Novenas</span><span class="lang lang-fr">Neuvaines</span></a>
+          <a href="./stations.html"><span class="lang lang-en">Stations of the Cross</span><span class="lang lang-fr">Chemin de Croix</span></a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle"><span class="lang lang-en">Faith</span><span class="lang lang-fr">La Foi</span> ▾</button>
+        <div class="dropdown-menu">
+          <a href="./mass.html"><span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span></a>
+          <a href="./sacraments.html"><span class="lang lang-en">The Sacraments</span><span class="lang lang-fr">Les Sacrements</span></a>
+          <a href="./confession.html"><span class="lang lang-en">Preparing for Confession</span><span class="lang lang-fr">Se préparer à la confession</span></a>
+        </div>
+      </div>
+
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+      </div>
+
+
+      <div class="palette-picker">
+        <button class="swatch" data-palette="violet" style="background:#4a2c6f" onclick="setPalette('violet')" title="Violet" aria-label="Violet palette"></button>
+        <button class="swatch" data-palette="cardinal" style="background:#6e1423" onclick="setPalette('cardinal')" title="Cardinal Red" aria-label="Cardinal red palette"></button>
+        <button class="swatch" data-palette="blue" style="background:#1f3a6e" onclick="setPalette('blue')" title="Marian Blue" aria-label="Marian blue palette"></button>
+        <button class="swatch" data-palette="green" style="background:#1f5c3a" onclick="setPalette('green')" title="Ordinary Time Green" aria-label="Ordinary Time green palette"></button>
+        <button class="swatch swatch-liturgical" data-palette="liturgical" onclick="setPalette('liturgical')" title="Follow the Church year / Suivre l'année liturgique" aria-label="Follow the Church year / Suivre l'année liturgique"><span class="lang lang-en" aria-hidden="true">✝</span><span class="lang lang-fr" aria-hidden="true">✝</span><span class="sr-only"><span class="lang lang-en">Follow the Church year</span><span class="lang lang-fr">Suivre l'année liturgique</span></span></button>
+      </div>
+
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeButton" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       PREPARING FOR CONFESSION
+       Two parts: "How to go to Confession" as step cards, then an
+       examination of conscience by the Ten Commandments. The
+       "Begin the Examination" button walks through the commandment
+       cards with the same guided engine as the Rosary
+       (openConfessionGuide in script.js reads #examenList).
+       ============================================================ -->
+  <main class="saints-main">
+    <h1 class="page-title">
+      <span class="lang lang-en">Preparing for Confession</span><span class="lang lang-fr">Se préparer à la confession</span>
+    </h1>
+    <p class="page-subtitle">
+      <span class="lang lang-en">God is not waiting to scold you — he is waiting to welcome you home. A little preparation helps you receive his mercy with a quiet heart.</span>
+      <span class="lang lang-fr">Dieu n'attend pas pour vous gronder — il attend pour vous accueillir. Un peu de préparation aide à recevoir sa miséricorde avec un cœur paisible.</span>
+    </p>
+
+    <!-- ----- HOW TO GO TO CONFESSION (step cards) ----- -->
+    <div class="saints-grid">
+
+      <article class="saint-card">
+        <div class="saint-avatar">🕯️</div>
+        <h2 class="saint-name"><span class="lang lang-en">1. Examine Your Conscience</span><span class="lang lang-fr">1. Examinez votre conscience</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Before going, set aside a few quiet minutes to review your life since your last confession. The guided examination below will walk you through it, commandment by commandment.</span><span class="lang lang-fr">Avant d'y aller, prenez quelques minutes de calme pour relire votre vie depuis votre dernière confession. L'examen guidé ci-dessous vous y conduit, commandement par commandement.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🚪</div>
+        <h2 class="saint-name"><span class="lang lang-en">2. Greet the Priest</span><span class="lang lang-fr">2. Saluez le prêtre</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Make the Sign of the Cross and say: "Bless me, Father, for I have sinned. It has been (some time) since my last confession." If you have forgotten how it goes, just say so — the priest will gladly help you.</span><span class="lang lang-fr">Faites le signe de la Croix et dites : « Bénissez-moi, mon père, parce que j'ai péché. Je ne me suis pas confessé depuis (un certain temps). » Si vous avez oublié comment faire, dites-le simplement — le prêtre vous aidera volontiers.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🗣️</div>
+        <h2 class="saint-name"><span class="lang lang-en">3. Confess Your Sins</span><span class="lang lang-fr">3. Confessez vos péchés</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">Confess simply and honestly, without excuses and without long stories. Serious sins should be named in kind and, as best you can, in number. Nothing you say will surprise God — or, after years of confessions, the priest.</span><span class="lang lang-fr">Confessez-vous simplement et honnêtement, sans excuses et sans longs récits. Les péchés graves doivent être nommés en espèce et, autant que possible, en nombre. Rien de ce que vous direz ne surprendra Dieu — ni, après des années de confessions, le prêtre.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">📿</div>
+        <h2 class="saint-name"><span class="lang lang-en">4. Receive Your Penance</span><span class="lang lang-fr">4. Recevez votre pénitence</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">The priest may offer a word of counsel, then give you a penance — usually a prayer or a small act of love. Receive it gratefully; it is medicine, not punishment.</span><span class="lang lang-fr">Le prêtre peut offrir un conseil, puis vous donner une pénitence — généralement une prière ou un petit acte d'amour. Recevez-la avec gratitude ; c'est un remède, non une punition.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🔔</div>
+        <h2 class="saint-name"><span class="lang lang-en">5. Pray the Act of Contrition</span><span class="lang lang-fr">5. Priez l'Acte de Contrition</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">The priest will invite you to express your sorrow. You may use the traditional <a class="guide-prayer-link" href="./prayers.html#act-of-contrition">Act of Contrition</a> or your own sincere words.</span><span class="lang lang-fr">Le prêtre vous invitera à exprimer votre repentir. Vous pouvez utiliser l'<a class="guide-prayer-link" href="./prayers.html#act-of-contrition">Acte de Contrition</a> traditionnel ou vos propres mots sincères.</span></p>
+      </article>
+
+      <article class="saint-card">
+        <div class="saint-avatar">🕊️</div>
+        <h2 class="saint-name"><span class="lang lang-en">6. Absolution &amp; Thanksgiving</span><span class="lang lang-fr">6. L'absolution et l'action de grâce</span></h2>
+        <p class="saint-bio"><span class="lang lang-en">The priest prays the words of absolution — through them, Christ himself forgives you. Answer "Amen," go in peace, do your penance soon, and thank God: heaven is rejoicing over you.</span><span class="lang lang-fr">Le prêtre prononce les paroles de l'absolution — par elles, le Christ lui-même vous pardonne. Répondez « Amen », allez en paix, accomplissez votre pénitence sans tarder et remerciez Dieu : le ciel se réjouit pour vous.</span></p>
+      </article>
+
+    </div>
+
+    <!-- ============================================================
+         EXAMINATION OF CONSCIENCE (by the Ten Commandments)
+         The guided flow reads these cards, so to edit a question
+         you only change it here.
+         ============================================================ -->
+    <section class="litany-section">
+      <h2 class="page-title litany-heading">
+        <span class="lang lang-en">Examination of Conscience</span><span class="lang lang-fr">Examen de conscience</span>
+      </h2>
+      <p class="page-subtitle">
+        <span class="lang lang-en">Walk slowly through the Ten Commandments. These questions are a lantern, not a courtroom.</span>
+        <span class="lang lang-fr">Parcourez lentement les Dix Commandements. Ces questions sont une lanterne, non un tribunal.</span>
+      </p>
+
+      <button class="guide-start" onclick="openConfessionGuide()">
+        <span class="lang lang-en">Begin the Examination</span><span class="lang lang-fr">Commencer l'examen</span>
+      </button>
+
+      <div class="litany-grid" id="examenList">
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅰ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"I am the Lord your God; you shall have no other gods before me."</span><span class="lang lang-fr">« Je suis le Seigneur ton Dieu. Tu n'auras pas d'autres dieux que moi. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I made time for God in daily prayer, or pushed him to the margins of my life?</span><span class="lang lang-fr">Ai-je donné du temps à Dieu dans la prière quotidienne, ou l'ai-je repoussé aux marges de ma vie ?</span></p>
+            <p><span class="lang lang-en">Have I let money, success, comfort, or my own image take God's place?</span><span class="lang lang-fr">Ai-je laissé l'argent, la réussite, le confort ou ma propre image prendre la place de Dieu ?</span></p>
+            <p><span class="lang lang-en">Have I dabbled in superstition, horoscopes, or the occult instead of trusting him?</span><span class="lang lang-fr">Me suis-je adonné à la superstition, aux horoscopes ou à l'occultisme au lieu de lui faire confiance ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅱ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"You shall not take the name of the Lord your God in vain."</span><span class="lang lang-fr">« Tu ne prononceras pas en vain le nom du Seigneur ton Dieu. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I used God's name carelessly, in anger, or as a joke?</span><span class="lang lang-fr">Ai-je employé le nom de Dieu avec légèreté, par colère ou par moquerie ?</span></p>
+            <p><span class="lang lang-en">Have I broken promises or oaths, or spoken of holy things with contempt?</span><span class="lang lang-fr">Ai-je manqué à mes promesses ou serments, ou parlé des choses saintes avec mépris ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅲ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"Remember to keep holy the Lord's Day."</span><span class="lang lang-fr">« Souviens-toi de sanctifier le jour du Seigneur. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I missed Mass on Sundays or holy days through my own fault?</span><span class="lang lang-fr">Ai-je manqué la messe le dimanche ou les jours de fête par ma propre faute ?</span></p>
+            <p><span class="lang lang-en">Do I let the Lord's Day be a day of worship and rest, or fill it like any other day?</span><span class="lang lang-fr">Est-ce que je laisse le jour du Seigneur être un jour de culte et de repos, ou le remplis-je comme n'importe quel autre jour ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅳ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"Honor your father and your mother."</span><span class="lang lang-fr">« Honore ton père et ta mère. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I treated my parents and family with respect, patience, and care?</span><span class="lang lang-fr">Ai-je traité mes parents et ma famille avec respect, patience et attention ?</span></p>
+            <p><span class="lang lang-en">Have I neglected my duties at home, or those who depend on me?</span><span class="lang lang-fr">Ai-je négligé mes devoirs à la maison, ou ceux qui dépendent de moi ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅴ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"You shall not kill."</span><span class="lang lang-fr">« Tu ne tueras pas. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I harmed anyone by violence, cruelty, or words spoken in anger?</span><span class="lang lang-fr">Ai-je blessé quelqu'un par la violence, la cruauté ou des paroles dites sous la colère ?</span></p>
+            <p><span class="lang lang-en">Have I nursed hatred or grudges, or refused to forgive?</span><span class="lang lang-fr">Ai-je entretenu la haine ou la rancune, ou refusé de pardonner ?</span></p>
+            <p><span class="lang lang-en">Have I neglected or abused my own health and life, or led others into harm?</span><span class="lang lang-fr">Ai-je négligé ou maltraité ma propre santé et ma vie, ou entraîné les autres vers le mal ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅵ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"You shall not commit adultery."</span><span class="lang lang-fr">« Tu ne commettras pas d'adultère. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I been faithful and pure in thought, word, and deed?</span><span class="lang lang-fr">Ai-je été fidèle et pur en pensées, en paroles et en actes ?</span></p>
+            <p><span class="lang lang-en">Have I respected the dignity of others and my own, or used people for my pleasure?</span><span class="lang lang-fr">Ai-je respecté la dignité des autres et la mienne, ou me suis-je servi des personnes pour mon plaisir ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅶ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"You shall not steal."</span><span class="lang lang-fr">« Tu ne voleras pas. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I taken or kept what is not mine, or been dishonest in work, school, or business?</span><span class="lang lang-fr">Ai-je pris ou gardé ce qui ne m'appartient pas, ou été malhonnête au travail, à l'école ou dans les affaires ?</span></p>
+            <p><span class="lang lang-en">Have I been stingy with the poor, or wasteful with what God has entrusted to me?</span><span class="lang lang-fr">Ai-je été avare envers les pauvres, ou gaspilleur de ce que Dieu m'a confié ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅷ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"You shall not bear false witness against your neighbor."</span><span class="lang lang-fr">« Tu ne porteras pas de faux témoignage contre ton prochain. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I lied, exaggerated, or been two-faced?</span><span class="lang lang-fr">Ai-je menti, exagéré, ou été hypocrite ?</span></p>
+            <p><span class="lang lang-en">Have I gossiped, judged rashly, or damaged another person's good name?</span><span class="lang lang-fr">Ai-je colporté des ragots, jugé témérairement, ou nui à la réputation de quelqu'un ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅸ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"You shall not covet your neighbor's wife."</span><span class="lang lang-fr">« Tu ne convoiteras pas la femme de ton prochain. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I guarded my heart, my eyes, and my imagination?</span><span class="lang lang-fr">Ai-je gardé mon cœur, mes yeux et mon imagination ?</span></p>
+            <p><span class="lang lang-en">Have I entertained impure thoughts or desires instead of turning them over to God?</span><span class="lang lang-fr">Ai-je entretenu des pensées ou des désirs impurs au lieu de les remettre à Dieu ?</span></p>
+          </div>
+        </article>
+
+        <article class="saint-card litany-card">
+          <div class="saint-avatar">Ⅹ</div>
+          <h3 class="litany-name">
+            <span class="lang lang-en">"You shall not covet your neighbor's goods."</span><span class="lang lang-fr">« Tu ne convoiteras pas les biens de ton prochain. »</span>
+          </h3>
+          <div class="litany-text">
+            <p><span class="lang lang-en">Have I been envious of what others have or who they are?</span><span class="lang lang-fr">Ai-je envié ce que les autres possèdent ou ce qu'ils sont ?</span></p>
+            <p><span class="lang lang-en">Have I been grateful for what God has given me, or always restless for more?</span><span class="lang lang-fr">Ai-je été reconnaissant pour ce que Dieu m'a donné, ou toujours avide d'en avoir plus ?</span></p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <p class="verse">
+      <span class="lang lang-en">"There will be more joy in heaven over one sinner who repents than over ninety-nine righteous persons who need no repentance." — Luke 15:7</span>
+      <span class="lang lang-fr">« Il y aura plus de joie dans le ciel pour un seul pécheur qui se repent, que pour quatre-vingt-dix-neuf justes qui n'ont pas besoin de repentance. » — Luc 15, 7</span>
+    </p>
+    <p class="footer-credit">
+      <span class="lang lang-en">English Scripture quotations are from the New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. French Scripture: Bible Louis Segond (1910), public domain. Traditional prayers are in the public domain.</span>
+      <span class="lang lang-fr">Citations bibliques anglaises : New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. Citations bibliques françaises : Bible Louis Segond (1910), domaine public. Les prières traditionnelles sont dans le domaine public.</span>
+    </p>
+    <p>© 2026 Nurseit Mukanbaev (Catholic Faith). All rights reserved.</p>
+  </footer>
+
+  <script src="script.js?v=15"></script>
+
+</body>
+</html>

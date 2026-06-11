@@ -1266,6 +1266,71 @@ function openChapletGuide() {
 }
 
 // ============================================================
+// PREPARING FOR CONFESSION (confession.html)
+// "Begin the Examination" walks through the Ten Commandments
+// cards on the page (#examenList) with the same guided engine as
+// the Rosary — so editing a question on the page also updates
+// the guided flow.
+// ============================================================
+function openConfessionGuide() {
+  const cards = Array.from(document.querySelectorAll("#examenList .litany-card"));
+  if (cards.length === 0) return;
+
+  const steps = [{
+    progress: langHtml("Before you begin", "Avant de commencer"),
+    title: langHtml("Ask for Light", "Demander la lumière"),
+    content:
+      '<p class="guide-body-text">' +
+        langHtml(
+          "Come, Holy Spirit: help me to see my life as you see it — truthfully, and in the light of God's mercy rather than my fear. Nothing honestly confessed is beyond his forgiveness.",
+          "Viens, Esprit Saint : aide-moi à voir ma vie comme tu la vois — en vérité, et à la lumière de la miséricorde de Dieu plutôt que de ma peur. Rien de ce qui est confessé honnêtement n'est au-delà de son pardon."
+        ) +
+      "</p>",
+  }];
+
+  cards.forEach(function (card, i) {
+    const name = card.querySelector(".litany-name");
+    const text = card.querySelector(".litany-text");
+    steps.push({
+      progress: langHtml(
+        "Commandment " + (i + 1) + " of " + cards.length,
+        "Commandement " + (i + 1) + " sur " + cards.length
+      ),
+      title: name ? name.innerHTML : "",
+      content:
+        '<div class="guide-body-text">' + (text ? text.innerHTML : "") + "</div>",
+    });
+  });
+
+  steps.push({
+    progress: langHtml("Closing", "Conclusion"),
+    title: langHtml("An Act of Contrition", "Un Acte de Contrition"),
+    content:
+      '<p class="guide-prayer-text">' +
+        langHtml(
+          "O my God, I am heartily sorry for having offended thee, and I detest all my sins, because I dread the loss of heaven and the pains of hell; but most of all because they offend thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of thy grace, to confess my sins, to do penance, and to amend my life. Amen.",
+          "Mon Dieu, j'ai un très grand regret de vous avoir offensé, parce que vous êtes infiniment bon, infiniment aimable, et que le péché vous déplaît. Je prends la ferme résolution, avec le secours de votre sainte grâce, de ne plus vous offenser et de faire pénitence. Amen."
+        ) +
+      "</p>" +
+      '<p class="guide-body-text">' +
+        prayerLinkHtml(
+          "act-of-contrition",
+          "Act of Contrition — full text on the Prayers page",
+          "Acte de Contrition — texte complet sur la page Prières"
+        ) +
+      "</p>" +
+      '<p class="guide-body-text">' +
+        langHtml(
+          "Now bring it to the Lord in the sacrament — he is waiting for you with joy.",
+          "Apportez maintenant tout cela au Seigneur dans le sacrement — il vous attend avec joie."
+        ) +
+      "</p>",
+  });
+
+  openPrayerGuide(steps);
+}
+
+// ============================================================
 // FAVORITE PRAYERS (prayers.html)
 // Adds a heart to each prayer card and remembers favorites on
 // this device with localStorage.
