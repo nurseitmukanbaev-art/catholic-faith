@@ -1331,6 +1331,140 @@ function openConfessionGuide() {
 }
 
 // ============================================================
+// CHAPEL MODE (home page)
+// A full-screen place of silence: a cross, a candle, and a timer
+// for 5/15/30/60 minutes of still prayer or adoration. A soft
+// bell — synthesized with WebAudio, no sound file — rings when
+// the time is up. Esc or "Leave" closes it at any moment.
+// ============================================================
+let chapelTimerId = null;
+let chapelAudioCtx = null;
+let chapelWakeLock = null;
+
+// One soft, slowly-fading bell tone built from three sine
+// overtones. Quiet on purpose — a sacristy bell, not an alarm.
+function chapelBell() {
+  if (!chapelAudioCtx) return;
+  const ctx = chapelAudioCtx;
+  if (ctx.state === "suspended") ctx.resume();
+  const now = ctx.currentTime;
+  [[523.25, 0.08], [1046.5, 0.04], [1567.98, 0.015]].forEach(function (tone) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.frequency.value = tone[0];
+    gain.gain.setValueAtTime(tone[1], now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 6);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 6);
+  });
+}
+
+function chapelKeydown(event) {
+  if (event.key === "Escape") closeChapel();
+}
+
+function closeChapel() {
+  const chapel = document.querySelector(".chapel");
+  if (!chapel) return;
+  clearInterval(chapelTimerId);
+  chapelTimerId = null;
+  document.removeEventListener("keydown", chapelKeydown);
+  if (chapelWakeLock) {
+    chapelWakeLock.release().catch(function () {});
+    chapelWakeLock = null;
+  }
+  chapel.remove();
+  document.body.classList.remove("guide-open");
+}
+
+function startChapelTimer(minutes) {
+  const times = document.getElementById("chapelTimes");
+  const timerEl = document.getElementById("chapelTimer");
+  const inviteEl = document.getElementById("chapelInvite");
+  if (!timerEl || !inviteEl || !times) return;
+
+  // The button click is a user gesture, so the browser lets us
+  // create the audio context now and ring the bell later.
+  try {
+    chapelAudioCtx = chapelAudioCtx ||
+      new (window.AudioContext || window.webkitAudioContext)();
+  } catch (e) {
+    chapelAudioCtx = null;
+  }
+
+  // Keep the screen awake during the silence, where supported.
+  if (navigator.wakeLock && navigator.wakeLock.request) {
+    navigator.wakeLock.request("screen")
+      .then(function (lock) { chapelWakeLock = lock; })
+      .catch(function () {});
+  }
+
+  times.hidden = true;
+  timerEl.hidden = false;
+  inviteEl.innerHTML = langHtml(
+    "“Be still, and know that I am God.” — Psalm 46:10",
+    "« Arrêtez, et sachez que je suis Dieu. » — Psaume 46:10"
+  );
+
+  // Count from the real clock, so the timer stays honest even if
+  // the browser throttles background tabs.
+  const endTime = Date.now() + minutes * 60000;
+  function tick() {
+    const remaining = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    timerEl.textContent = m + ":" + String(s).padStart(2, "0");
+    if (remaining === 0) {
+      clearInterval(chapelTimerId);
+      chapelTimerId = null;
+      chapelBell();
+      timerEl.hidden = true;
+      inviteEl.innerHTML = langHtml("Go in peace. ✝", "Allez en paix. ✝");
+    }
+  }
+  tick();
+  chapelTimerId = setInterval(tick, 1000);
+}
+
+function openChapel() {
+  const old = document.querySelector(".chapel");
+  if (old) old.remove();
+
+  const chapel = document.createElement("div");
+  chapel.className = "chapel";
+  chapel.setAttribute("role", "dialog");
+  chapel.setAttribute("aria-modal", "true");
+  chapel.innerHTML =
+    '<button class="chapel-leave" type="button" onclick="closeChapel()">' +
+      langHtml("Leave", "Sortir") +
+    "</button>" +
+    '<div class="chapel-cross" aria-hidden="true">✝</div>' +
+    '<div class="votive" aria-hidden="true">' +
+      '<div class="votive-flame"></div>' +
+      '<div class="votive-wax"></div>' +
+    "</div>" +
+    '<p class="chapel-invite" id="chapelInvite">' +
+      langHtml(
+        "Choose a length of silence, then set the phone down and rest in His presence.",
+        "Choisissez une durée de silence, puis posez le téléphone et reposez-vous en sa présence."
+      ) +
+    "</p>" +
+    '<div class="chapel-times" id="chapelTimes">' +
+      [5, 15, 30, 60].map(function (m) {
+        return '<button class="filter-btn" type="button" ' +
+          'onclick="startChapelTimer(' + m + ')">' + m + " min</button>";
+      }).join("") +
+    "</div>" +
+    '<p class="chapel-timer" id="chapelTimer" hidden></p>';
+
+  document.body.appendChild(chapel);
+  document.body.classList.add("guide-open");
+  document.addEventListener("keydown", chapelKeydown);
+}
+
+// ============================================================
 // FAVORITE PRAYERS (prayers.html)
 // Adds a heart to each prayer card and remembers favorites on
 // this device with localStorage.
