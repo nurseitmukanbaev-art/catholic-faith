@@ -1361,6 +1361,51 @@ body.guide-open {
   color: var(--muted);
 }
 
+/* ----- Bead counter (guided Rosary decades) -----
+   Ten tappable beads under each decade so you can count Hail
+   Marys on screen. Unfilled beads are quiet outlines; filled
+   beads take the palette's main color. */
+.bead-counter {
+  margin-top: 18px;
+}
+
+.bead-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.bead {
+  width: 40px;                  /* comfortable touch target */
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background-color: var(--surface);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.bead:hover {
+  border-color: var(--gold);
+}
+
+.bead:active {
+  transform: scale(0.92);
+}
+
+.bead.filled {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Quiet note once all ten beads are filled. */
+.bead-complete {
+  margin-top: 12px;
+  color: var(--gold);
+  font-weight: 500;
+}
+
 .guide-versicle {
   margin-bottom: 22px;
   padding: 18px 20px;

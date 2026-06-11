@@ -1002,6 +1002,51 @@ function rosaryClosingStep(setNameHtml) {
   };
 }
 
+// ----- Bead counter (guided Rosary decades) -----
+// Ten tappable beads so you can count Hail Marys on screen.
+// Tap the next bead as you pray; tap the last filled bead to step
+// back one (for mis-taps). The beads reset on every new mystery
+// because the guide rebuilds its content at each step.
+function beadCounterHtml() {
+  let beads = "";
+  for (let i = 1; i <= 10; i++) {
+    beads +=
+      '<button type="button" class="bead" aria-pressed="false" onclick="toggleRosaryBead(this)">' +
+        '<span class="sr-only">' +
+          langHtml("Hail Mary " + i + " of 10", "Je vous salue Marie " + i + " sur 10") +
+        "</span>" +
+      "</button>";
+  }
+  return (
+    '<div class="bead-counter">' +
+      '<div class="bead-row">' + beads + "</div>" +
+      '<p class="bead-complete" hidden>' +
+        langHtml("Decade complete ✝", "Dizaine terminée ✝") +
+      "</p>" +
+    "</div>"
+  );
+}
+
+// Beads always fill in order, like a real chaplet: tapping a bead
+// counts up to it, tapping the last filled bead un-counts it.
+function toggleRosaryBead(btn) {
+  const counter = btn.closest(".bead-counter");
+  const beads = Array.from(counter.querySelectorAll(".bead"));
+  const index = beads.indexOf(btn);
+  const filled = beads.filter(function (b) {
+    return b.classList.contains("filled");
+  }).length;
+
+  const count = (index + 1 === filled) ? index : index + 1;
+  beads.forEach(function (b, i) {
+    b.classList.toggle("filled", i < count);
+    b.setAttribute("aria-pressed", i < count ? "true" : "false");
+  });
+
+  // A quiet word of encouragement once all ten are prayed.
+  counter.querySelector(".bead-complete").hidden = count < beads.length;
+}
+
 function openRosaryGuide() {
   const panel = document.querySelector(".mystery-panel.active") ||
     document.querySelector(".mystery-panel");
@@ -1032,7 +1077,8 @@ function openRosaryGuide() {
           prayerLinkHtml("hail-mary", "Ten Hail Marys", "Dix Je vous salue Marie") + " · " +
           prayerLinkHtml("glory-be", "Glory Be", "Gloire au Père") + " · " +
           prayerLinkHtml("fatima-prayer", "Fatima Prayer", "Prière de Fatima") +
-        "</p>",
+        "</p>" +
+        beadCounterHtml(),
     });
   });
 
