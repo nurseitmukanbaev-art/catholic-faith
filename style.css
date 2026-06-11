@@ -1445,6 +1445,107 @@ body.guide-open {
   background: linear-gradient(180deg, #f7eed8 0%, #e9dcba 60%, #d9c9a0 100%);
 }
 
+/* ---------------- THE CHURCH YEAR ROSE WINDOW ----------------
+   Drawn by buildRoseWindow() in script.js. The panes carry their
+   season colour as a fill attribute; everything structural (lead
+   cames, rings, labels) follows the theme via variables. */
+.rose-window-wrap {
+  max-width: 620px;
+  margin: 6px auto 30px;
+}
+
+.rose-window-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.rose-pane {
+  cursor: pointer;
+  stroke: var(--surface);
+  stroke-width: 0.6;
+  opacity: 0.95;
+}
+
+.rose-pane:hover {
+  opacity: 1;
+  stroke: var(--gold);
+  stroke-width: 1.4;
+}
+
+.rose-pane.rose-today {
+  stroke: var(--gold);
+  stroke-width: 2;
+}
+
+.rose-pane.rose-selected {
+  stroke: var(--text);
+  stroke-width: 2;
+  opacity: 1;
+}
+
+.rose-jewel {
+  fill: var(--gold);
+  cursor: pointer;
+}
+
+.rose-jewel:hover {
+  fill: var(--primary);
+}
+
+.rose-spoke {
+  stroke: var(--border);
+  stroke-width: 1.2;
+}
+
+.rose-ring {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 2.5;
+}
+
+.rose-month {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  fill: var(--muted);
+}
+
+.rose-center-cross {
+  font-size: 64px;
+  fill: var(--primary);
+}
+
+.rose-center-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  fill: var(--muted);
+}
+
+/* The detail card under the window (date, season, feasts). */
+.rose-detail {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.rose-detail-date {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.rose-detail-season {
+  font-size: 28px;
+  margin: 6px 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.rose-detail-line {
+  color: var(--muted);
+  margin-top: 6px;
+}
+
 /* ---------------- LEARN BY HEART (prayers page) ---------------- */
 .learn-btn {
   margin-top: 14px;

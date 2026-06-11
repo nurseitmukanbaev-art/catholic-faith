@@ -822,19 +822,21 @@ function showTodayLine() {
 // ----- Today's Rosary shortcut -----
 // Weekday → mystery set, matching the schedule on rosaries.html
 // (which also opens to today on its own when the link is followed).
+// Also used by the Church-year rose window for any chosen day.
+const mysteriesByWeekday = [
+  { en: "Glorious Mysteries", fr: "Mystères Glorieux" },   // Sunday
+  { en: "Joyful Mysteries", fr: "Mystères Joyeux" },       // Monday
+  { en: "Sorrowful Mysteries", fr: "Mystères Douloureux" },// Tuesday
+  { en: "Glorious Mysteries", fr: "Mystères Glorieux" },   // Wednesday
+  { en: "Luminous Mysteries", fr: "Mystères Lumineux" },   // Thursday
+  { en: "Sorrowful Mysteries", fr: "Mystères Douloureux" },// Friday
+  { en: "Joyful Mysteries", fr: "Mystères Joyeux" },       // Saturday
+];
+
 function showTodayRosary() {
   const el = document.getElementById("todayRosaryLink");
   if (!el) return;
-  const sets = [
-    { en: "Glorious Mysteries", fr: "Mystères Glorieux" },   // Sunday
-    { en: "Joyful Mysteries", fr: "Mystères Joyeux" },       // Monday
-    { en: "Sorrowful Mysteries", fr: "Mystères Douloureux" },// Tuesday
-    { en: "Glorious Mysteries", fr: "Mystères Glorieux" },   // Wednesday
-    { en: "Luminous Mysteries", fr: "Mystères Lumineux" },   // Thursday
-    { en: "Sorrowful Mysteries", fr: "Mystères Douloureux" },// Friday
-    { en: "Joyful Mysteries", fr: "Mystères Joyeux" },       // Saturday
-  ];
-  const set = sets[new Date().getDay()];
+  const set = mysteriesByWeekday[new Date().getDay()];
   el.innerHTML =
     '<span class="lang lang-en">Today the Church prays the ' + set.en + "  →</span>" +
     '<span class="lang lang-fr">Aujourd\'hui, l\'Église prie les ' + set.fr + "  →</span>";
@@ -843,6 +845,187 @@ function showTodayRosary() {
 showDailyVerse();
 showTodayLine();
 showTodayRosary();
+
+// ============================================================
+// THE CHURCH YEAR AS A ROSE WINDOW (churchyear.html)
+// The whole civil year drawn as a circular stained-glass window:
+// one thin pane per day, coloured by its liturgical season, the
+// major feasts as gold jewels on the rim, and today ringed in
+// gold. Click any pane or jewel to read that day's season,
+// mysteries, and feasts in the panel below the window.
+// ============================================================
+
+// The fixed and movable feasts shown as jewels. Movable ones are
+// computed from Easter (easterSunday above). Keyed "month-day".
+function roseFeastsForYear(year) {
+  const feasts = {};
+  function add(date, en, fr) {
+    const key = (date.getMonth() + 1) + "-" + date.getDate();
+    if (!feasts[key]) feasts[key] = [];
+    feasts[key].push({ en: en, fr: fr });
+  }
+
+  add(new Date(year, 0, 1), "Mary, Mother of God", "Sainte Marie, Mère de Dieu");
+  add(new Date(year, 0, 6), "The Epiphany", "L'Épiphanie");
+  add(new Date(year, 2, 19), "St. Joseph", "Saint Joseph");
+  add(new Date(year, 2, 25), "The Annunciation", "L'Annonciation");
+  add(new Date(year, 5, 24), "Nativity of St. John the Baptist", "Nativité de saint Jean-Baptiste");
+  add(new Date(year, 5, 29), "Sts. Peter and Paul", "Saints Pierre et Paul");
+  add(new Date(year, 7, 6), "The Transfiguration", "La Transfiguration");
+  add(new Date(year, 7, 15), "The Assumption", "L'Assomption");
+  add(new Date(year, 8, 14), "Exaltation of the Holy Cross", "La Croix glorieuse");
+  add(new Date(year, 10, 1), "All Saints", "La Toussaint");
+  add(new Date(year, 11, 8), "The Immaculate Conception", "L'Immaculée Conception");
+  add(new Date(year, 11, 25), "Christmas", "Noël");
+
+  const easter = easterSunday(year);
+  add(addDays(easter, -46), "Ash Wednesday", "Mercredi des Cendres");
+  add(addDays(easter, -7), "Palm Sunday", "Dimanche des Rameaux");
+  add(addDays(easter, -3), "Holy Thursday", "Jeudi saint");
+  add(addDays(easter, -2), "Good Friday", "Vendredi saint");
+  add(easter, "Easter Sunday", "Pâques");
+  add(addDays(easter, 7), "Divine Mercy Sunday", "Dimanche de la Miséricorde divine");
+  add(addDays(easter, 39), "The Ascension", "L'Ascension");
+  add(addDays(easter, 49), "Pentecost", "La Pentecôte");
+  add(addDays(easter, 56), "The Holy Trinity", "La Sainte Trinité");
+  add(addDays(easter, 63), "Corpus Christi", "La Fête-Dieu (Corpus Christi)");
+  return feasts;
+}
+
+let roseYearFeasts = null;       // cache, filled by buildRoseWindow
+
+// Day N of the current year (0 = January 1st) as a Date.
+function roseDayDate(dayIndex) {
+  return addDays(new Date(new Date().getFullYear(), 0, 1), dayIndex);
+}
+
+function buildRoseWindow() {
+  const svg = document.getElementById("roseWindow");
+  if (!svg) return;              // not on the church-year page
+
+  const year = new Date().getFullYear();
+  roseYearFeasts = roseFeastsForYear(year);
+
+  const cx = 300, cy = 300;
+  const inner = 196, outer = 258;          // the ring of day panes
+  const yearStart = new Date(year, 0, 1);
+  const days = Math.round((new Date(year + 1, 0, 1) - yearStart) / 86400000);
+  const now = new Date();
+  const todayIndex = Math.floor(
+    (new Date(now.getFullYear(), now.getMonth(), now.getDate()) - yearStart) / 86400000
+  );
+
+  // January 1st sits at twelve o'clock; the year runs clockwise.
+  function angleFor(i) { return -Math.PI / 2 + (i / days) * 2 * Math.PI; }
+  function px(r, a) { return (cx + r * Math.cos(a)).toFixed(2); }
+  function py(r, a) { return (cy + r * Math.sin(a)).toFixed(2); }
+  function wedgePath(r1, r2, a0, a1) {
+    return "M" + px(r2, a0) + " " + py(r2, a0) +
+      " A" + r2 + " " + r2 + " 0 0 1 " + px(r2, a1) + " " + py(r2, a1) +
+      " L" + px(r1, a1) + " " + py(r1, a1) +
+      " A" + r1 + " " + r1 + " 0 0 0 " + px(r1, a0) + " " + py(r1, a0) + " Z";
+  }
+
+  let panes = "", jewels = "", tracery = "", labels = "";
+
+  for (let i = 0; i < days; i++) {
+    const date = roseDayDate(i);
+    const season = liturgicalSeason(date);
+    const a0 = angleFor(i), a1 = angleFor(i + 1);
+    panes += '<path class="rose-pane' + (i === todayIndex ? " rose-today" : "") +
+      '" d="' + wedgePath(inner, outer, a0, a1) +
+      '" fill="' + season.color + '" data-day="' + i + '"></path>';
+
+    const key = (date.getMonth() + 1) + "-" + date.getDate();
+    if (roseYearFeasts[key]) {
+      const mid = (a0 + a1) / 2;
+      jewels += '<circle class="rose-jewel" cx="' + px(272, mid) +
+        '" cy="' + py(272, mid) + '" r="5" data-day="' + i + '"></circle>';
+    }
+  }
+
+  // Month spokes and labels — the lead cames of the window.
+  const monthShortEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthShortFr = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+    "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"];
+  for (let m = 0; m < 12; m++) {
+    const firstIndex = Math.floor((new Date(year, m, 1) - yearStart) / 86400000);
+    const a = angleFor(firstIndex);
+    tracery += '<line class="rose-spoke" x1="' + px(190, a) + '" y1="' + py(190, a) +
+      '" x2="' + px(284, a) + '" y2="' + py(284, a) + '"></line>';
+    const mid = angleFor(firstIndex + 14);
+    labels += '<text class="rose-month" x="' + px(170, mid) + '" y="' + py(170, mid) +
+      '" text-anchor="middle" dominant-baseline="middle">' +
+      '<tspan class="lang lang-en">' + monthShortEn[m] + "</tspan>" +
+      '<tspan class="lang lang-fr">' + monthShortFr[m] + "</tspan></text>";
+  }
+
+  svg.innerHTML =
+    '<circle class="rose-ring" cx="' + cx + '" cy="' + cy + '" r="288"></circle>' +
+    '<circle class="rose-ring" cx="' + cx + '" cy="' + cy + '" r="190"></circle>' +
+    panes + tracery + jewels + labels +
+    '<text class="rose-center-cross" x="' + cx + '" y="' + (cy - 8) +
+      '" text-anchor="middle" dominant-baseline="middle">✝</text>' +
+    '<text class="rose-center-year" x="' + cx + '" y="' + (cy + 44) +
+      '" text-anchor="middle">' + year + "</text>";
+
+  // One listener serves the whole window — panes and jewels both
+  // carry data-day.
+  svg.addEventListener("click", function (event) {
+    const target = event.target.closest("[data-day]");
+    if (target) showRoseDay(Number(target.dataset.day));
+  });
+
+  showRoseDay(todayIndex);
+}
+
+function showRoseDay(dayIndex) {
+  const detail = document.getElementById("roseDetail");
+  const svg = document.getElementById("roseWindow");
+  if (!detail || !svg) return;
+
+  // Move the selection ring to the chosen pane.
+  svg.querySelectorAll(".rose-pane.rose-selected").forEach(function (pane) {
+    pane.classList.remove("rose-selected");
+  });
+  const pane = svg.querySelector('.rose-pane[data-day="' + dayIndex + '"]');
+  if (pane) pane.classList.add("rose-selected");
+
+  const date = roseDayDate(dayIndex);
+  const season = liturgicalSeason(date);
+  const mysteries = mysteriesByWeekday[date.getDay()];
+  const enDate = weekdaysEn[date.getDay()] + ", " +
+    monthNamesEn[date.getMonth()] + " " + date.getDate();
+  const frDate = weekdaysFr[date.getDay()] + " " + date.getDate() + " " +
+    monthNamesFr[date.getMonth()];
+
+  let lines =
+    '<p class="rose-detail-date">' + langHtml(enDate, frDate) + "</p>" +
+    '<h2 class="rose-detail-season">' +
+      '<span class="season-dot" style="background:' + season.color + '"></span>' +
+      langHtml(season.en, season.fr) +
+    "</h2>" +
+    '<p class="rose-detail-line">📿 ' +
+      langHtml("Rosary: the " + mysteries.en, "Rosaire : les " + mysteries.fr) +
+    "</p>";
+
+  const key = (date.getMonth() + 1) + "-" + date.getDate();
+  ((roseYearFeasts && roseYearFeasts[key]) || []).forEach(function (feast) {
+    lines += '<p class="rose-detail-line">✨ ' + langHtml(feast.en, feast.fr) + "</p>";
+  });
+
+  saints.forEach(function (s) {
+    if (s.month === date.getMonth() + 1 && s.day === date.getDate()) {
+      lines += '<p class="rose-detail-line">' + s.emoji + " " +
+        langHtml("Feast of " + s.name_en, "Fête de " + s.name_fr) + "</p>";
+    }
+  });
+
+  detail.innerHTML = lines;
+}
+
+buildRoseWindow();
 
 // ============================================================
 // GUIDED PRAYER MODE (rosary + stations pages)

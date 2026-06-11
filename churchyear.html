@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Learn the four main movements of the Catholic Mass and how the liturgy leads us to the Eucharist." />
+  <meta name="description" content="The whole liturgical year drawn as a rose window — every day a pane of stained glass, coloured by its season, with the great feasts as gold jewels." />
   <meta name="theme-color" content="#4a2c6f" />
 
   <meta property="og:site_name" content="Catholic Faith" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="The Mass — Catholic Faith" />
-  <meta property="og:description" content="Learn the four main movements of the Catholic Mass and how the liturgy leads us to the Eucharist." />
-  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/mass.html" />
+  <meta property="og:title" content="The Church Year — Catholic Faith" />
+  <meta property="og:description" content="The whole liturgical year drawn as a rose window — every day a pane of stained glass, coloured by its season, with the great feasts as gold jewels." />
+  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/churchyear.html" />
   <meta property="og:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Mass — Catholic Faith" />
-  <meta name="twitter:description" content="Learn the four main movements of the Catholic Mass and how the liturgy leads us to the Eucharist." />
+  <meta name="twitter:title" content="The Church Year — Catholic Faith" />
+  <meta name="twitter:description" content="The whole liturgical year drawn as a rose window — every day a pane of stained glass, coloured by its season, with the great feasts as gold jewels." />
   <meta name="twitter:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
 
-  <title>The Mass — Catholic Faith</title>
+  <title>The Church Year — Catholic Faith</title>
 
   <link rel="icon" href="./icon.svg" type="image/svg+xml" />
   <link rel="shortcut icon" href="./icon.svg" />
@@ -91,56 +91,38 @@
   </nav>
 
   <!-- ============================================================
-       THE MASS CONTENT
-       The four parts of the Mass, each as a card. To edit a part,
-       change the name and the description inside its <article>.
+       THE CHURCH YEAR AS A ROSE WINDOW
+       The SVG is drawn by buildRoseWindow() in script.js: one pane
+       per day, coloured by liturgicalSeason(), feasts as gold
+       jewels, today ringed in gold. Clicking a day fills the
+       detail card below.
        ============================================================ -->
   <main class="saints-main">
     <h1 class="page-title">
-      <span class="lang lang-en">The Mass</span><span class="lang lang-fr">La Messe</span>
+      <span class="lang lang-en">The Church Year</span><span class="lang lang-fr">L'Année liturgique</span>
     </h1>
     <p class="page-subtitle">
-      <span class="lang lang-en">The source and summit of the Christian life, unfolding in four movements.</span>
-      <span class="lang lang-fr">La source et le sommet de la vie chrétienne, qui se déploie en quatre temps.</span>
+      <span class="lang lang-en">The whole year of grace as one rose window — every pane a day, coloured by its season; the great feasts set as gold jewels on the rim. Touch a day to read it.</span>
+      <span class="lang lang-fr">Toute l'année de grâce en une seule rosace — chaque vitrail est un jour, coloré selon son temps liturgique ; les grandes fêtes sont serties comme des joyaux d'or sur le pourtour. Touchez un jour pour le lire.</span>
     </p>
 
-    <div class="saints-grid">
-
-      <article class="saint-card">
-        <div class="saint-avatar">🕊️</div>
-        <h2 class="saint-name"><span class="lang lang-en">Introductory Rites</span><span class="lang lang-fr">Rites d'ouverture</span></h2>
-        <p class="saint-feast">📖 <span class="lang lang-en">The Gathering</span><span class="lang lang-fr">Le rassemblement</span></p>
-        <p class="saint-bio"><span class="lang lang-en">The faithful gather and are made one. The priest enters, we make the Sign of the Cross, and in the Penitential Act we ask God's mercy. On Sundays and feasts the Gloria is sung in praise, and the Collect gathers our prayers into one.</span><span class="lang lang-fr">Les fidèles se rassemblent et ne font plus qu'un. Le prêtre entre, nous faisons le signe de la croix, et dans la préparation pénitentielle nous demandons la miséricorde de Dieu. Les dimanches et les fêtes, le Gloria est chanté en louange, et la prière d'ouverture rassemble nos intentions en une seule.</span></p>
-      </article>
-
-      <article class="saint-card">
-        <div class="saint-avatar">📖</div>
-        <h2 class="saint-name"><span class="lang lang-en">Liturgy of the Word</span><span class="lang lang-fr">Liturgie de la Parole</span></h2>
-        <p class="saint-feast">📖 <span class="lang lang-en">God Speaks</span><span class="lang lang-fr">Dieu nous parle</span></p>
-        <p class="saint-bio"><span class="lang lang-en">God speaks to his people through Sacred Scripture. We hear a First Reading, a Psalm, often a Second Reading, and then the Gospel. The priest or deacon preaches the homily, we profess the Creed, and we offer the Prayer of the Faithful.</span><span class="lang lang-fr">Dieu parle à son peuple à travers les Saintes Écritures. Nous écoutons une première lecture, un psaume, souvent une deuxième lecture, puis l'Évangile. Le prêtre ou le diacre prononce l'homélie, nous professons le Credo, et nous présentons la prière universelle.</span></p>
-      </article>
-
-      <article class="saint-card">
-        <div class="saint-avatar">🍷</div>
-        <h2 class="saint-name"><span class="lang lang-en">Liturgy of the Eucharist</span><span class="lang lang-fr">Liturgie de l'Eucharistie</span></h2>
-        <p class="saint-feast">📖 <span class="lang lang-en">The Sacrifice</span><span class="lang lang-fr">Le sacrifice</span></p>
-        <p class="saint-bio"><span class="lang lang-en">Bread and wine are brought to the altar. In the Eucharistic Prayer, through the words of Christ, they become his Body and Blood. We pray the Our Father, share a sign of peace, and receive Holy Communion — the Lord himself, truly present.</span><span class="lang lang-fr">Le pain et le vin sont apportés à l'autel. Dans la prière eucharistique, par les paroles du Christ, ils deviennent son Corps et son Sang. Nous prions le Notre Père, échangeons un geste de paix, et recevons la sainte communion — le Seigneur lui-même, vraiment présent.</span></p>
-      </article>
-
-      <article class="saint-card">
-        <div class="saint-avatar">✝︎</div>
-        <h2 class="saint-name"><span class="lang lang-en">Concluding Rites</span><span class="lang lang-fr">Rites de conclusion</span></h2>
-        <p class="saint-feast">📖 <span class="lang lang-en">The Sending</span><span class="lang lang-fr">L'envoi</span></p>
-        <p class="saint-bio"><span class="lang lang-en">Strengthened by Christ, we are sent out. The priest blesses the people in the name of the Father, the Son, and the Holy Spirit, and dismisses us to "go in peace, glorifying the Lord by your life" — to carry what we have received into the world.</span><span class="lang lang-fr">Fortifiés par le Christ, nous sommes envoyés. Le prêtre bénit le peuple au nom du Père, du Fils et du Saint-Esprit, et nous renvoie pour « aller dans la paix du Christ » — afin de porter dans le monde ce que nous avons reçu.</span></p>
-      </article>
-
+    <div class="rose-window-wrap">
+      <svg id="roseWindow" viewBox="0 0 600 600" role="img"
+        aria-label="The liturgical year drawn as a rose window / L'année liturgique dessinée comme une rosace"></svg>
     </div>
+
+    <!-- Filled by showRoseDay() with the chosen day's details. -->
+    <section class="saint-card rose-detail" id="roseDetail" aria-live="polite"></section>
   </main>
 
   <!-- ============================================================
        FOOTER
        ============================================================ -->
   <footer class="footer">
+    <p class="verse">
+      <span class="lang lang-en">"For everything there is a season, and a time for every matter under heaven." — Ecclesiastes 3:1</span>
+      <span class="lang lang-fr">« Il y a un temps pour tout, un temps pour toute chose sous les cieux. » — Ecclésiaste 3, 1</span>
+    </p>
     <p class="footer-credit">
       <span class="lang lang-en">English Scripture quotations are from the New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. French Scripture: Bible Louis Segond (1910), public domain. Traditional prayers are in the public domain.</span>
       <span class="lang lang-fr">Citations bibliques anglaises : New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. Citations bibliques françaises : Bible Louis Segond (1910), domaine public. Les prières traditionnelles sont dans le domaine public.</span>
