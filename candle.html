@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A bilingual Catholic resource for prayer, saints, sacraments, the Rosary, and daily devotion." />
+  <meta name="description" content="Light a votive candle with a private intention. It burns here for seven days — between you and God." />
   <meta name="theme-color" content="#4a2c6f" />
 
   <meta property="og:site_name" content="Catholic Faith" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Catholic Faith" />
-  <meta property="og:description" content="A bilingual Catholic resource for prayer, saints, sacraments, the Rosary, and daily devotion." />
-  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/" />
+  <meta property="og:title" content="Light a Candle — Catholic Faith" />
+  <meta property="og:description" content="Light a votive candle with a private intention. It burns here for seven days — between you and God." />
+  <meta property="og:url" content="https://nurseitmukanbaev-art.github.io/catholic-faith/candle.html" />
   <meta property="og:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Catholic Faith" />
-  <meta name="twitter:description" content="A bilingual Catholic resource for prayer, saints, sacraments, the Rosary, and daily devotion." />
+  <meta name="twitter:title" content="Light a Candle — Catholic Faith" />
+  <meta name="twitter:description" content="Light a votive candle with a private intention. It burns here for seven days — between you and God." />
   <meta name="twitter:image" content="https://nurseitmukanbaev-art.github.io/catholic-faith/og-image.png" />
 
-  <title>Catholic Faith</title>
+  <title>Light a Candle — Catholic Faith</title>
 
   <link rel="icon" href="./icon.svg" type="image/svg+xml" />
   <link rel="shortcut icon" href="./icon.svg" />
@@ -37,9 +37,7 @@
 <body>
 
   <!-- ============================================================
-       NAVIGATION BAR
-       Each link's text now has an English span and a French span.
-       The language switch (EN/FR) decides which one shows.
+       NAVIGATION BAR  (identical to the other pages)
        ============================================================ -->
   <nav class="navbar">
     <a href="./index.html" class="logo">✝︎ <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span></a>
@@ -92,88 +90,46 @@
   </nav>
 
   <!-- ============================================================
-       HERO
+       VOTIVE CANDLES
+       Lighting a candle stores it in localStorage on THIS device
+       only — intentions are private, between the visitor and God.
+       Each candle burns for seven days (renderCandles in script.js
+       draws the rack and lets old candles go out).
        ============================================================ -->
-  <header class="hero">
-    <div class="cross">✝︎</div>
-    <h1>
-      <span class="lang lang-en">Catholic Faith</span><span class="lang lang-fr">Foi catholique</span>
+  <main class="saints-main">
+    <h1 class="page-title">
+      <span class="lang lang-en">Light a Candle</span><span class="lang lang-fr">Allumer un cierge</span>
     </h1>
-    <p class="hero-welcome">
-      <span class="lang lang-en">Whatever brings you here — to pray, to learn, or simply to rest a while in God's presence — you are welcome.</span>
-      <span class="lang lang-fr">Quelle que soit la raison qui vous amène ici — prier, apprendre, ou simplement vous reposer un moment en la présence de Dieu — soyez le bienvenu.</span>
+    <p class="page-subtitle">
+      <span class="lang lang-en">Light a candle for someone or something you carry in your heart. It will burn here for seven days. Your intentions never leave this device — they are between you and God.</span>
+      <span class="lang lang-fr">Allumez un cierge pour quelqu'un ou quelque chose que vous portez dans votre cœur. Il brûlera ici pendant sept jours. Vos intentions ne quittent jamais cet appareil — elles restent entre vous et Dieu.</span>
     </p>
 
-    <!-- Chapel mode: a full-screen place of silence (openChapel in script.js). -->
-    <button class="guide-start chapel-enter" onclick="openChapel()">
-      <span class="lang lang-en">Enter the Chapel 🕯️</span><span class="lang lang-fr">Entrer dans la chapelle 🕯️</span>
-    </button>
-  </header>
+    <!-- The lighting form. Enter also lights the candle. -->
+    <form class="candle-form" onsubmit="lightCandle(); return false;">
+      <input
+        type="text"
+        id="candleIntention"
+        maxlength="120"
+        placeholder="Your intention (optional) · Votre intention (facultatif)"
+        aria-label="Your intention / Votre intention"
+      />
+      <button class="guide-start" type="submit">
+        <span class="lang lang-en">Light it 🕯️</span><span class="lang lang-fr">L'allumer 🕯️</span>
+      </button>
+    </form>
 
-  <!-- ============================================================
-       TODAY: the date and the liturgical season, filled by script.js.
-       A small colored dot shows the season's liturgical color.
-       ============================================================ -->
-  <p class="today-line" id="todayLine"></p>
-
-  <!-- ============================================================
-       PRAYER OF THE DAY
-       The name + text are filled in by script.js, chosen from a
-       list by today's date — so it stays the same all day and
-       changes at midnight. Edit the list (the dailyPrayers array)
-       in script.js to change which prayers can appear here.
-       ============================================================ -->
-  <section class="daily-prayer">
-    <p class="daily-prayer-label">
-      <span class="lang lang-en">Prayer of the Day</span><span class="lang lang-fr">Prière du jour</span>
-    </p>
-    <h2 class="daily-prayer-name" id="dailyPrayerName"></h2>
-    <p class="daily-prayer-text" id="dailyPrayerText"></p>
-  </section>
-
-  <!-- ============================================================
-       SAINT OF THE DAY
-       Filled by script.js from the saints list, using today's date.
-       ============================================================ -->
-  <section class="daily-prayer daily-saint">
-    <p class="daily-prayer-label">
-      <span class="lang lang-en">Saint of the Day</span><span class="lang lang-fr">Saint du jour</span>
-    </p>
-    <div class="daily-saint-avatar" id="dailySaintAvatar"></div>
-    <h2 class="daily-prayer-name" id="dailySaintName"></h2>
-    <p class="saint-feast" id="dailySaintFeast"></p>
-    <p class="daily-prayer-text daily-saint-text" id="dailySaintBio"></p>
-  </section>
-
-  <!-- ============================================================
-       VERSE OF THE DAY
-       Filled by script.js from the dailyVerses list, chosen by
-       today's date — like the Prayer of the Day above.
-       ============================================================ -->
-  <section class="daily-verse">
-    <p class="daily-verse-label">
-      <span class="lang lang-en">Verse of the Day</span><span class="lang lang-fr">Verset du jour</span>
-    </p>
-    <p class="daily-verse-text" id="verseText"></p>
-  </section>
-
-  <!-- ============================================================
-       TODAY'S ROSARY
-       An inviting shortcut to today's mysteries. script.js fills in
-       the name of today's set; the rosary page opens to today on its
-       own, so this link always lands on the right mysteries.
-       ============================================================ -->
-  <div class="today-rosary">
-    <a href="rosaries.html" class="today-rosary-link" id="todayRosaryLink"></a>
-  </div>
+    <!-- The rack of burning candles, drawn by script.js. -->
+    <div class="candle-rack" id="candleRack"></div>
+  </main>
 
   <!-- ============================================================
        FOOTER
        ============================================================ -->
   <footer class="footer">
     <p class="verse">
-      <span class="lang lang-en">"Be still, and know that I am God." — Psalm 46:10</span>
-      <span class="lang lang-fr">« Arrêtez, et sachez que je suis Dieu. » — Psaume 46:10</span>
+      <span class="lang lang-en">"The light shines in the darkness, and the darkness did not overcome it." — John 1:5</span>
+      <span class="lang lang-fr">« La lumière luit dans les ténèbres, et les ténèbres ne l'ont point reçue. » — Jean 1, 5</span>
     </p>
     <p class="footer-credit">
       <span class="lang lang-en">English Scripture quotations are from the New Revised Standard Version Bible, copyright © 1989 the National Council of the Churches of Christ in the United States of America. Used by permission. All rights reserved. French Scripture: Bible Louis Segond (1910), public domain. Traditional prayers are in the public domain.</span>

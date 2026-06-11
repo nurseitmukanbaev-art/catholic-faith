@@ -1331,6 +1331,109 @@ function openConfessionGuide() {
 }
 
 // ============================================================
+// VOTIVE CANDLES (candle.html)
+// Light a candle with a private intention. Candles live in
+// localStorage only — they never leave this device — and each
+// one burns for seven days, its wax sinking a little each day.
+// ============================================================
+const CANDLE_BURN_DAYS = 7;
+
+// Turns visitor-typed text into safe HTML (it goes in innerHTML).
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function savedCandles() {
+  try {
+    return JSON.parse(localStorage.getItem("votiveCandles") || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveCandles(candles) {
+  localStorage.setItem("votiveCandles", JSON.stringify(candles));
+}
+
+function candleDaysLeft(candle) {
+  const lit = dateFromKey(candle.lit);
+  const today = dateFromKey(todayKey());
+  return CANDLE_BURN_DAYS - Math.floor((today - lit) / 86400000);
+}
+
+function lightCandle() {
+  const input = document.getElementById("candleIntention");
+  if (!input) return;
+  const candles = savedCandles();
+  candles.push({ text: input.value.trim(), lit: todayKey() });
+  saveCandles(candles);
+  input.value = "";
+  renderCandles();
+}
+
+function snuffCandle(index) {
+  const candles = savedCandles();
+  candles.splice(index, 1);
+  saveCandles(candles);
+  renderCandles();
+}
+
+function renderCandles() {
+  const rack = document.getElementById("candleRack");
+  if (!rack) return;          // not on the candle page — do nothing
+
+  // Candles older than seven days have burnt out: quietly let
+  // them go, keeping only the ones still alight.
+  const candles = savedCandles().filter(function (c) {
+    return candleDaysLeft(c) > 0;
+  });
+  saveCandles(candles);
+
+  if (candles.length === 0) {
+    rack.innerHTML =
+      '<p class="candle-empty">' +
+        langHtml(
+          "No candle is burning yet. Light the first one.",
+          "Aucun cierge ne brûle encore. Allumez le premier."
+        ) +
+      "</p>";
+    return;
+  }
+
+  rack.innerHTML = candles.map(function (candle, i) {
+    const left = candleDaysLeft(candle);
+    const waxHeight = 18 + left * 5;     // the wax sinks day by day
+    const intention = candle.text
+      ? '<p class="candle-intention">' + escapeHtml(candle.text) + "</p>"
+      : '<p class="candle-intention candle-intention-empty">' +
+          langHtml("A silent intention", "Une intention silencieuse") + "</p>";
+    return (
+      '<figure class="candle-stand">' +
+        '<button class="candle-snuff" type="button" onclick="snuffCandle(' + i + ')" ' +
+          'aria-label="Let this candle go out / Laisser ce cierge s\'éteindre">✕</button>' +
+        '<div class="votive" aria-hidden="true">' +
+          '<div class="votive-flame"></div>' +
+          '<div class="votive-wax" style="height:' + waxHeight + 'px"></div>' +
+        "</div>" +
+        intention +
+        '<p class="candle-days">' +
+          (left === CANDLE_BURN_DAYS
+            ? langHtml("Lit today · burns 7 days", "Allumé aujourd'hui · brûle 7 jours")
+            : langHtml(
+                "Burns " + left + " more day" + (left === 1 ? "" : "s"),
+                "Brûle encore " + left + " jour" + (left === 1 ? "" : "s")
+              )) +
+        "</p>" +
+      "</figure>"
+    );
+  }).join("");
+}
+
+renderCandles();
+
+// ============================================================
 // CHAPEL MODE (home page)
 // A full-screen place of silence: a cross, a candle, and a timer
 // for 5/15/30/60 minutes of still prayer or adoration. A soft

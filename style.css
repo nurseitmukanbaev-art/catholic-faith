@@ -1445,6 +1445,101 @@ body.guide-open {
   background: linear-gradient(180deg, #f7eed8 0%, #e9dcba 60%, #d9c9a0 100%);
 }
 
+/* ---------------- VOTIVE CANDLES (candle.html) ---------------- */
+.candle-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 520px;
+  margin: 10px auto 44px;
+}
+
+.candle-form input {
+  flex: 1;
+  min-width: 220px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.candle-form .guide-start {
+  margin: 0;
+}
+
+.candle-rack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* One candle on its little stand: flame, wax, intention, days. */
+.candle-stand {
+  position: relative;
+  width: 160px;
+  padding: 22px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.candle-intention {
+  font-size: 13px;
+  color: var(--text);
+  overflow-wrap: break-word;
+  width: 100%;
+}
+
+.candle-intention-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.candle-days {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* The small ✕ to let a candle go out early. */
+.candle-snuff {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.candle-snuff:hover {
+  opacity: 1;
+  background-color: var(--bg);
+}
+
+.candle-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px 0;
+}
+
 /* ---------------- CHAPEL MODE (home page) ----------------
    A full-screen place of silence. Deliberately ignores the
    palette: always night-dark, with one warm flame. */
